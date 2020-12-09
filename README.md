@@ -1,4 +1,8 @@
-# polyphony
+Polyphony
+=========
+
+[![Actions Status](https://github.com/yay4ya/polyphony/workflows/Page%20Build/badge.svg)](https://github.com/yay4ya/polyphony/actions?query=workflow%3A%22Page+Build%22)
+
 
 ## Project setup
 ```
