@@ -1,13 +1,16 @@
 <template>
   <v-container>
 
+  <div class="queue-background">
+  </div>
+
   <draggable
     :list="tracks"
     tag="ul"
     animation="300"
-    :group="{name: 'tracks', put: this.put, pull: this.pull}"
+    :group="{name: 'tracks', pull: false}"
     :clone="cloneTrack"
-    :sort="sort"
+    @change="onChange()"
     class="track-list"
   >
     <li
@@ -19,6 +22,18 @@
       <Track
         :track="trackWithId.track"
       />
+      <div class="btn-delete-track">
+        <v-btn
+          dark
+          right
+          icon
+          width="22"
+          height="22"
+          @click.stop="deleteTrack(trackWithId)"
+        >
+          <v-icon size="15">mdi-close</v-icon>
+        </v-btn>
+      </div>
     </li>
   </draggable>
 
@@ -40,8 +55,7 @@
   }
 
   export default Vue.extend({
-    name: 'TrackList',
-    props: ['list', 'put', 'pull', 'sort', 'queueing'],
+    name: 'Queue',
     components: {
       draggable,
       Track: () => import('@/components/Track.vue'),
@@ -52,12 +66,12 @@
       };
     },
     computed: {
-      ...mapState(['playingTrack']),
+      ...mapState(['playingTrack', 'queue']),
     },
     async created() {
-      await Promise.all(this.list.map(
+      await Promise.all(this.queue.map(
         (track: Track) => track.fetchVideoInfo()
-      )).then(() => this.tracks = this.list.map(
+      )).then(() => this.tracks = this.queue.map(
         (track: Track) => {
           return {
             draggableId: globalDraggableId++,
@@ -77,27 +91,44 @@
           track: track,
         };
       },
-      onClick({draggableId, track}: TrackWithId) {
+      onClick({ draggableId, track }: TrackWithId) {
         if (
-          this.playingTrack !== null
-          && this.playingTrack.id === track.id
+          this.playingTrack === null
+          || this.playingTrack.id !== track.id
         ) {
-          return;
+          this.setPlayingTrack(track);
         }
-
-        this.setPlayingTrack(track)
-
-        // Queue all the following tracks.
-        if (!this.queueing) {
-          return;
-        }
-        const draggableIds = this.tracks.map(t => t.draggableId);
-        const tracks = this.tracks.map(t => t.track);
-        const playingTrackIndex = draggableIds.indexOf(draggableId);
-        const followingTracks = tracks.slice(playingTrackIndex + 1);
-        this.setQueue(followingTracks);
+        this.tracks = this.tracks.filter(
+          (trackWithId: TrackWithId) => trackWithId.draggableId !== draggableId
+        )
+      },
+      onChange() {
+        this.setQueue(this.tracks.map(
+          (trackWithId: TrackWithId) => trackWithId.track
+        ));
+      },
+      deleteTrack({ draggableId }: TrackWithId) {
+        this.tracks = this.tracks.filter(
+          (trackWithId: TrackWithId) => trackWithId.draggableId !== draggableId
+        );
+        this.setQueue(this.tracks.map(
+          (trackWithId: TrackWithId) => trackWithId.track
+        ));
+      },
+    },
+    watch: {
+      queue() {
+        const tracks = this.queue.map(
+          (track: Track) => {
+            return {
+              draggableId: globalDraggableId++,
+              track: track,
+            };
+          }
+        );
+        this.tracks = tracks;
       }
-    }
+    },
   })
 </script>
 
@@ -106,6 +137,7 @@
     min-width: 350px;
     width: 100%;
     height: 100%;
+    position: relative;
   }
 
   .track-list {
@@ -118,5 +150,20 @@
     margin: 0;
     list-style: none;
     border-bottom: solid 2px #f2f2f2;
+    position: relative;
+
+    .btn-delete-track {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: none;
+    }
+
+    &:hover .btn-delete-track {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
   }
+
+
 </style>

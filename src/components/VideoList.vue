@@ -3,7 +3,7 @@
 
   <ul class="list">
     <li
-      v-for="video in vs"
+      v-for="video in videos"
       v-bind:key="video.id"
       class="item"
     >
@@ -20,20 +20,19 @@
 
   export default Vue.extend({
     name: 'VideoList',
-    props: ['videos'],
+    props: ['list'],
     components: {
       Video: () => import ('@/components/Video.vue'),
     },
     data() {
       return {
-        vs: [],
+        videos: [],
       }
     },
     async created() {
-      await Promise.all(this.videos.map(
+      await Promise.all(this.list.map(
        (video: Video) => video.fetchVideoInfo()
-      ));
-      this.vs = this.videos;
+      )).then(() => this.videos = this.list);
     },
   })
 </script>

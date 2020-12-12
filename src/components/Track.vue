@@ -1,11 +1,12 @@
 <template>
   <v-container>
     <v-card
-      v-on:click="setPlayingTrack(track)"
-      :color="nowPlaying ? 'red':'white' "
       flat
       tile
+      @click="onClick()"
     >
+      <div v-if="nowPlaying" class="nowplaying-indicator">
+      </div>
       <div class="d-flex flex-no-wrap justify-space-between">
         <div class="track-info">
           <v-card-title
@@ -15,7 +16,7 @@
 
           <v-card-subtitle
             class="track-info-item track-artist"
-            v-text="track.singers.join(', ')"
+            v-text="track.singer"
           ></v-card-subtitle>
 
           <v-card-text class="track-info-item video-info">
@@ -75,8 +76,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapState, mapMutations} from 'vuex';
-  import * as VuexMutation from '@/store/mutation-types';
+  import {mapState} from 'vuex';
   import {secondsToTime} from '@/util';
 
   export default Vue.extend({
@@ -91,11 +91,11 @@
       ...mapState(['playingTrack']),
     },
     methods: {
-      ...mapMutations({
-        setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
-      }),
       secondsToTime(t: number): string {
         return secondsToTime(t);
+      },
+      onClick() {
+        console.log('')
       },
     },
     watch: {
@@ -113,7 +113,20 @@
   }
 
   .v-card {
+    position: relative;
+
     &:hover:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      background-color: #000000;
+      opacity: 0.1;
+    }
+
+    .nowplaying-indicator {
       content: '';
       position: absolute;
       top: 0;
@@ -182,8 +195,8 @@
       position: absolute;
       margin: 0;
       padding: 0;
-      top: 0;
-      right: 0;
+      top: 2px;
+      right: 2px;
 
       .v-btn {
         float: flex;

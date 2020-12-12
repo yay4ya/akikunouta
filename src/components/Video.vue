@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <v-card
-      v-on:click="console.log(video)"
-      :loading="loading"
+      v-on:click="() => {}"
       class="mx-auto my-12"
       width="220"
       height="190"

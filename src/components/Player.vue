@@ -9,6 +9,7 @@
         :resize="true"
         @playing="playing"
         @paused="paused"
+        @ended="playNext"
       ></youtube>
     </div>
 
@@ -27,24 +28,43 @@
         {{ secondsToTime(trackProgress * trackDuration) }}
       </div>
       <div class="track-duration">
-        {{ secondsToTime(trackDuration) }}
+        {{ secondsToTime(trackDuration - trackProgress * trackDuration) }}
       </div>
     </div>
 
     <div class="player-control-buttons">
+      <div class="btn-skip-previous">
+        <v-btn
+          icon
+          @click="pauseVideo()"
+        >
+          <v-icon size="30">mdi-skip-previous</v-icon>
+        </v-btn>
+      </div>
       <div class="btn-play-pause">
-        <button
+        <v-btn
           v-if="playerState !== 1"
-          v-on:click="playVideo()"
+          @click="playVideo()"
+          icon
         >
           <v-icon size="50">mdi-play</v-icon>
-        </button>
-        <button
+        </v-btn>
+        <v-btn
           v-else
-          v-on:click="pauseVideo()"
+          @click="pauseVideo()"
+          icon
         >
           <v-icon size="50">mdi-pause</v-icon>
-        </button>
+        </v-btn>
+      </div>
+      <div class="btn-skip-next">
+        <v-btn
+          icon
+          rounded
+          @click="playNext()"
+        >
+          <v-icon size="30">mdi-skip-next</v-icon>
+        </v-btn>
       </div>
     </div>
   </v-container>
@@ -52,7 +72,8 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapState} from 'vuex';
+  import {mapActions, mapState} from 'vuex';
+  import * as VuexAction from '@/store/action-types';
   import VueYoutube from 'vue-youtube';
   import {YoutubeIframe,
           YoutubeIframePlayer,
@@ -82,7 +103,7 @@
       }
     },
     computed: {
-      ...mapState(['playingTrack']),
+      ...mapState(['playingTrack', 'queue']),
       player(): YoutubeIframePlayer {
         const youtube = this.$refs.youtube as YoutubeIframe;
         return youtube.player as YoutubeIframePlayer;
@@ -103,6 +124,9 @@
       );
     },
     methods: {
+      ...mapActions({
+        setNextTrack: VuexAction.SET_NEXT_TRACK,
+      }),
       async playing() {
         this.videoDuration = await this.player.getDuration();
 
@@ -122,6 +146,9 @@
         if (this.processId !== null) {
           clearInterval(this.processId);
         }
+      },
+      playNext() {
+        this.setNextTrack();
       },
       existsPlayingTrack(): boolean {
         return this.playingTrack !== null;
@@ -153,6 +180,7 @@
           'startSeconds': this.playingTrack.start,
           'endSeconds': this.playingTrack.end,
         });
+        await this.playVideo();
       },
     }
   });
@@ -184,12 +212,26 @@
     width: 100%;
     position: relative;
     align-content: center;
-    margin-top: 15px;
+    margin-top: 0;
 
-    button {
+    .btn-play-pause {
       position: absolute;
       top: 50%;
       left: 50%;
+      -webkit-transform : translate(-50%,-50%);
+      transform : translate(-50%,-50%);
+    }
+    .btn-skip-next{
+      position: absolute;
+      top: 50%;
+      left: 70%;
+      -webkit-transform : translate(-50%,-50%);
+      transform : translate(-50%,-50%);
+    }
+    .btn-skip-previous {
+      position: absolute;
+      top: 50%;
+      left: 30%;
       -webkit-transform : translate(-50%,-50%);
       transform : translate(-50%,-50%);
     }

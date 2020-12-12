@@ -3,7 +3,7 @@ import {Video} from '@/polyphony/youtube';
 export interface TrackJson {
   id: number;
   title: string;
-  singers: string[];
+  singer: string;
   artist: string;
   videoid: string;
   start: number;
@@ -13,7 +13,7 @@ export interface TrackJson {
 export class Track {
   readonly id: number;
   readonly title: string;
-  readonly singers: string[];
+  readonly singer: string;
   readonly artist: string;
   readonly video: Video;
   readonly start: number;
@@ -22,7 +22,7 @@ export class Track {
   constructor(trackJson: TrackJson) {
     this.id = trackJson.id;
     this.title = trackJson.title;
-    this.singers = trackJson.singers;
+    this.singer = trackJson.singer;
     this.artist = trackJson.artist;
     this.start = trackJson.start;
     this.end = trackJson.end;
