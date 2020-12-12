@@ -26,8 +26,8 @@
                 @click.stop=""
               >
                 <v-icon size="15">mdi-youtube</v-icon>
-                <span>{{ track.video.title }}</span>
               </a>
+              <span>{{ track.video.title }}</span>
             </div>
             <div class="track-info-item">
               <a
@@ -36,8 +36,8 @@
                 @click.stop=""
               >
                 <v-icon size="15">mdi-account</v-icon>
-                <span>{{ track.video.channel.name }}</span>
               </a>
+              <span>{{ track.video.channel.name }}</span>
             </div>
           </v-card-text>
         </div>
@@ -155,6 +155,11 @@
     .video-info {
       padding: 0;
       font-size: 0.7em;
+      color: #5d5d5d;
+
+      a{
+        text-decoration: none;
+      }
     }
   }
 

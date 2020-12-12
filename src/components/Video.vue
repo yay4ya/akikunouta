@@ -4,13 +4,13 @@
       v-on:click="console.log(video)"
       :loading="loading"
       class="mx-auto my-12"
-      height="203"
+      width="220"
+      height="190"
     >
     <div class="video-thumbnail">
       <v-img
         :src="video.getThumbnailURL('hqdefault')"
-        width="240"
-        height="130"
+        height="120"
       ></v-img>
     </div>
 
@@ -46,6 +46,7 @@
   }
 
   .v-card {
+    position: relative;
     margin: 5px !important;
     overflow: hidden;
 
@@ -64,7 +65,6 @@
       text-overflow: ellipsis;
       overflow: hidden;
       padding: 8px;
-      width: 240px;
     }
 
     .video-title {

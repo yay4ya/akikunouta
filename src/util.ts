@@ -10,9 +10,9 @@ export function zeroPadding(num: number, length: number){
 
 
 export function secondsToTime(t: number): string {
-  const hours = (t / 36000 | 0) + (t / 3600 % 10 | 0)
-  const minutes = (t % 3600 / 600 | 0) + (t % 3600 / 60 % 10 | 0)
-  const seconds =  (t % 60 / 10 | 0) + (t % 60 % 10)
+  const hours = t / 3600 | 0;
+  const minutes = (t % 3600 | 0) / 60 | 0;
+  const seconds =  t % 60 | 0;
   if (hours === 0) {
     return [zeroPadding(minutes, 2), zeroPadding(seconds, 2)].join(':');
   }

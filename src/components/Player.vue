@@ -11,20 +11,6 @@
         @paused="paused"
       ></youtube>
     </div>
-    <div class="btn-play-pause">
-      <button
-        v-if="playerState !== 1"
-        v-on:click="playVideo()"
-      >
-        <v-icon>mdi-play</v-icon>
-      </button>
-      <button
-        v-else
-        v-on:click="pauseVideo()"
-      >
-        <v-icon>mdi-pause</v-icon>
-      </button>
-    </div>
 
     <v-slider
       v-model="seekbarValue"
@@ -33,10 +19,33 @@
       @click="seekEnd"
       min="0"
       :max="seekbarMax"
+      class="seekbar"
     ></v-slider>
 
-    <div >
-    {{ trackProgress * trackDuration }} / {{ trackDuration }}
+    <div class="track-time">
+      <div class="track-elapsed-time">
+        {{ secondsToTime(trackProgress * trackDuration) }}
+      </div>
+      <div class="track-duration">
+        {{ secondsToTime(trackDuration) }}
+      </div>
+    </div>
+
+    <div class="player-control-buttons">
+      <div class="btn-play-pause">
+        <button
+          v-if="playerState !== 1"
+          v-on:click="playVideo()"
+        >
+          <v-icon size="50">mdi-play</v-icon>
+        </button>
+        <button
+          v-else
+          v-on:click="pauseVideo()"
+        >
+          <v-icon size="50">mdi-pause</v-icon>
+        </button>
+      </div>
     </div>
   </v-container>
 </template>
@@ -48,6 +57,7 @@
   import {YoutubeIframe,
           YoutubeIframePlayer,
           YoutubePlayerState} from 'youtube-iframe-api';
+  import {secondsToTime} from '@/util';
 
   Vue.use(VueYoutube)
 
@@ -131,7 +141,10 @@
         const elapsedTime= seekbarProgress * this.trackDuration;
         const time = this.playingTrack.start + elapsedTime;
         await this.player.seekTo(time, true);
-      }
+      },
+      secondsToTime(t: number): string {
+        return secondsToTime(t);
+      },
     },
     watch: {
       async playingTrack() {
@@ -146,7 +159,39 @@
 </script>
 
 <style scoped lang="scss">
-  .video-screen {
+  .seekbar {
+    height: 25px;
+  }
 
+  .track-time {
+    position: relative;
+    font-size: 0.7em;
+    height: 1em;
+
+    .track-elapsed-time {
+      position: absolute;
+      left: 0;
+    }
+
+    .track-duration {
+      position: absolute;
+      right: 0;
+    }
+  }
+
+  .player-control-buttons {
+    height: 30px;
+    width: 100%;
+    position: relative;
+    align-content: center;
+    margin-top: 15px;
+
+    button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform : translate(-50%,-50%);
+      transform : translate(-50%,-50%);
+    }
   }
 </style>

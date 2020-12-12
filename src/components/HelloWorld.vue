@@ -2,6 +2,7 @@
   <v-container>
     <div class="left">
       <Player id="video-player" />
+      <v-divider class="player-queue-devider"></v-divider>
       <TrackList
         :trackList="library.getTrackList()"
         id="queue"
@@ -37,28 +38,28 @@
 </script>
 
 <style scoped lang="scss">
-  $player-width: 430px;
-
   .container {
-    max-width: 1400px;
+    padding: 5px;
+    max-width: 1200px;
   }
 
   .left {
     position: fixed;
-    width: $player-width;
+    width: 400px;
     height: 100vh;
 
-    #video-player {
-      height: 350px;
+    .player-queue-devider {
+      margin: 10px 0;
     }
+
     #queue {
-      height: calc(100vh - 400px);
+      height: calc(100% - 400px);
       position: relative;
       overflow: scroll;
     }
   }
 
   .right {
-    margin-left: 470px;
+    margin-left: 420px;
   }
 </style>
