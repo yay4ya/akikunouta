@@ -1,0 +1,56 @@
+<template>
+  <v-container>
+
+  <ul class="list">
+    <li
+      v-for="video in vs"
+      v-bind:key="video.id"
+      class="item"
+    >
+      <Video :video="video"/>
+    </li>
+  </ul>
+
+  </v-container>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import {Video} from '@/polyphony/youtube';
+
+  export default Vue.extend({
+    name: 'VideoList',
+    props: ['videos'],
+    components: {
+      Video: () => import ('@/components/Video.vue'),
+    },
+    data() {
+      return {
+        vs: [],
+      }
+    },
+    async created() {
+      await Promise.all(this.videos.map(
+       (video: Video) => video.fetchVideoInfo()
+      ));
+      this.vs = this.videos;
+    },
+  })
+</script>
+
+<style scoped lang="scss">
+  .list{
+    padding: 0;
+
+    &:after {
+      clear: both;
+      content: '';
+      display: block;
+    }
+  }
+
+  .item {
+    list-style: none;
+    float: left;
+  }
+</style>

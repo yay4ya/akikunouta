@@ -1,19 +1,18 @@
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="5" class="left">
-        <Player />
-        <TrackList
-          :trackList="library.getTrackList()"
-          id="queue"
-        />
-      </v-col>
-      <v-col cols="7" class="right">
-        <TrackList
-          :trackList="library.getTrackList()"
-        />
-      </v-col>
-    </v-row>
+    <div class="left">
+      <Player id="video-player" />
+      <TrackList
+        :trackList="library.getTrackList()"
+        id="queue"
+      />
+    </div>
+    <div class="right">
+      <VideoList :videos="library.getVideos()"/>
+      <TrackList
+        :trackList="library.getTrackList()"
+      />
+    </div>
   </v-container>
 </template>
 
@@ -26,6 +25,7 @@
     name: 'HelloWorld',
     components: {
       TrackList: () => import ('@/components/TrackList.vue'),
+      VideoList: () => import ('@/components/VideoList.vue'),
       Player,
     },
     computed: {
@@ -37,7 +37,28 @@
 </script>
 
 <style scoped lang="scss">
+  $player-width: 430px;
+
   .container {
-    width: 100%;
+    max-width: 1400px;
+  }
+
+  .left {
+    position: fixed;
+    width: $player-width;
+    height: 100vh;
+
+    #video-player {
+      height: 350px;
+    }
+    #queue {
+      height: calc(100vh - 400px);
+      position: relative;
+      overflow: scroll;
+    }
+  }
+
+  .right {
+    margin-left: $player-width;
   }
 </style>

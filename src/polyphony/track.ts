@@ -70,6 +70,12 @@ export class TrackList {
     return track;
   }
 
+  public getTrackListByVideo(videoId: string): TrackList {
+    return new TrackList(this.tracks.filter(
+      track => track.video.id === videoId
+    ));
+  }
+
   public filter(query: string): TrackList {
     const tracks = this.tracks;
     return new TrackList(tracks.filter(track => {

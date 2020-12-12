@@ -22,14 +22,13 @@
 <script lang="ts">
   import Vue from 'vue';
   import draggable from 'vuedraggable';
-  import Track from '@/components/Track.vue';
 
   export default Vue.extend({
     name: 'TrackList',
     props: ['trackList'],
     components: {
       draggable,
-      Track,
+      Track: () => import('@/components/Track.vue'),
     },
     data() {
       return {
@@ -45,7 +44,8 @@
 
 <style scoped lang="scss">
   .container {
-    min-width: 400px;
+    min-width: 350px;
+    width: 100%;
   }
 
   .track-list {

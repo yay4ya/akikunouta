@@ -1,5 +1,6 @@
 import trackJsons from '@/data/tracks.json';
 import {Track, TrackList} from '@/polyphony/track';
+import {Video} from '@/polyphony/youtube';
 
 export default class Library {
   protected trackList: TrackList;
@@ -20,6 +21,14 @@ export default class Library {
 
   public getTrackList(): TrackList {
     return this.trackList;
+  }
+
+  public getVideos(): Video[] {
+    const tracks = this.trackList.getAllTracks();
+    const videoMap = new Map(tracks.map(
+      track => [track.video.id, track.video]
+    ));
+    return [...videoMap.values()]
   }
 
   public searchTrack(query: string): TrackList {
