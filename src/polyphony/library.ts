@@ -8,8 +8,6 @@ export default class Library {
     this.trackList = new TrackList(
       trackJsons.map(trackJson => new Track(trackJson))
     );
-
-    this.trackList.fetchAllVideoInfo()
   }
 
   public getTrackByID(id: number): Track {
@@ -17,7 +15,7 @@ export default class Library {
   }
 
   public getTracksByIDs(ids: number[]): Track[] {
-    return ids.map((id: number) => this.getTrackByID(id));
+    return ids.map(id => this.getTrackByID(id));
   }
 
   public getTrackList(): TrackList {

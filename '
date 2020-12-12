@@ -1,0 +1,110 @@
+<template>
+  <v-container>
+    <div class="video-screen">
+      <youtube
+        ref="youtube"
+        video-id=""
+        :player-vars="playerVars"
+        :nocookie="true"
+        :fitParent="true"
+      ></youtube>
+      <div
+        v-if="!existsPlayingTrack()"
+        class="default-screen"
+      ></div>
+    </div>
+    <div class="btn-play-pause">
+      <button
+        v-on:click="playVideo()"
+      >
+        <v-icon>mdi-play</v-icon>
+      </button>
+      <button
+        v-on:click="pauseVideo()"
+      >
+        <v-icon>mdi-pause</v-icon>
+      </button>
+    </div>
+    {{ playerState }}
+  </v-container>
+</template>
+
+<script lang="ts">
+  import Vue from 'vue';
+  import {mapState} from 'vuex';
+  import VueYoutube from 'vue-youtube';
+  import {YoutubeIframe, YoutubeIframePlayer} from 'youtube-iframe-api';
+
+  Vue.use(VueYoutube)
+
+  export default Vue.extend({
+    name: 'Player',
+    data() {
+      return {
+        playerVars: {
+          start: 120,
+          end: 130,
+          controls: 0,
+          fs: 0,
+          rel: 0,
+          enablejsapi: 1,
+        },
+        playerState: -1,
+      }
+    },
+    computed: {
+      ...mapState(['playingTrack']),
+      player(): YoutubeIframePlayer {
+        const youtube = this.$refs.youtube as YoutubeIframe;
+        return youtube.player as YoutubeIframePlayer;
+      },
+    },
+    mounted () {
+      console.log("add event listener")
+      this.player.addEventListener(
+        'onStateChange',
+        (state) => {
+          /**
+           * Youtube States:
+           *  -1 - unstarted
+           *  0 - ended
+           *  1 - playing
+           *  2 - paused
+           *  3 - buffering
+           *  5 - video cued
+           */
+          this.playerState = state.data;
+        }
+      );
+    },
+    methods: {
+      existsPlayingTrack() {
+        if (this.playingTrack === null) {
+          return false;
+        }
+        return true;
+      },
+      async playVideo() {
+        this.player.loadVideoById(this.playingTrack.video.id)
+        await this.player.playVideo();
+      },
+      async pauseVideo() {
+        await this.player.pauseVideo();
+      },
+    },
+  });
+</script>
+
+<style scoped lang="scss">
+  .video-screen {
+    box-sizing: border-box;
+    width: 100%;
+
+    .default-screen {
+      position: absolute;
+      top: 0;
+      background-color: gray;
+    }
+  }
+
+</style>

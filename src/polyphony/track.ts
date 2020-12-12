@@ -29,14 +29,17 @@ export class Track {
   public async fetchVideoInfo() {
     await this.video.fetchVideoInfo();
   }
+
+  public getDuration(): number {
+    return this.end - this.start;
+  }
 }
 
 export class TrackList {
   protected tracks: Track[];
+  protected idToTrack: Map<number, Track>;
 
   constructor(tracks: Track[]) {
-    this.tracks = tracks;
-
     /* Track ID validation */
     const trackIDs = tracks.map(track => track.id);
     const numTracks = tracks.length;
@@ -44,6 +47,11 @@ export class TrackList {
     if (numTracks !== numUniqueTrackIDs) {
       throw new Error("track duplicated error: " + tracks);
     }
+
+    this.tracks = tracks;
+    this.idToTrack = new Map(
+      tracks.map(track => [track.id, track])
+    );
   }
 
   public setTracks(tracks: Track[]) {
@@ -55,16 +63,11 @@ export class TrackList {
   }
 
   public getTrackByID(id: number): Track {
-    const filteredTracks = this.tracks.filter(
-      track => track.id == id
-    );
-    if (filteredTracks.length === 0) {
-      throw new Error("track not found error: id=" + id);
+    const track = this.idToTrack.get(id);
+    if (track === undefined) {
+      throw new Error("track not found: id=" + id);
     }
-    if (filteredTracks.length > 1) {
-      throw new Error("track duplicated error: id=" + id);
-    }
-    return filteredTracks[0];
+    return track;
   }
 
   public filter(query: string): TrackList {

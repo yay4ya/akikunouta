@@ -33,28 +33,26 @@ export class Video {
       this.url = response.data.url;
       this.title = response.data.title;
       this.channel = new Channel(response.data.author_url, response.data.author_name);
-    }).catch(error => {
-      console.error(error);
-    })
+    });
   }
 
   public getTitle(): string {
     if (this.title === null) {
-      throw new Error("video info not fetched")
+      throw new Error("video info not fetched");
     }
     return this.title;
   }
 
   public getURL(): string {
-    if (this.url=== null) {
-      throw new Error("video info not fetched")
+    if (this.url === null) {
+      throw new Error("video info not fetched");
     }
     return this.url;
   }
 
   public getChannel(): Channel {
     if (this.channel === null) {
-      throw new Error("video info not fetched")
+      throw new Error("video info not fetched");
     }
     return this.channel;
   }

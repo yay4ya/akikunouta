@@ -1,0 +1,1 @@
+export const SET_PLAYING_TRACK = 'SET_PLAYING_TRACK';
