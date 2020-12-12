@@ -59,6 +59,6 @@
   }
 
   .right {
-    margin-left: $player-width;
+    margin-left: 470px;
   }
 </style>

@@ -9,23 +9,23 @@
       <div class="d-flex flex-no-wrap justify-space-between">
         <div class="track-info">
           <v-card-title
-            class="track-info-item"
-            v-text="track.title"
+            class="track-info-item track-title"
+            v-text="track.title + ' / ' + track.artist"
           ></v-card-title>
 
           <v-card-subtitle
-            class="track-info-item"
-            v-text="track.artist"
+            class="track-info-item track-artist"
+            v-text="track.singers.join(', ')"
           ></v-card-subtitle>
 
-          <v-card-text class="video-info">
+          <v-card-text class="track-info-item video-info">
             <div class="track-info-item">
               <a
                 :href="track.video.getURL()"
                 target="_blank"
                 @click.stop=""
               >
-                <v-icon size="18">mdi-youtube</v-icon>
+                <v-icon size="15">mdi-youtube</v-icon>
                 <span>{{ track.video.title }}</span>
               </a>
             </div>
@@ -35,7 +35,7 @@
                 target="_blank"
                 @click.stop=""
               >
-                <v-icon size="18">mdi-account</v-icon>
+                <v-icon size="15">mdi-account</v-icon>
                 <span>{{ track.video.channel.name }}</span>
               </a>
             </div>
@@ -48,28 +48,25 @@
           ></v-img>
           <v-card-actions class="track-actions">
             <v-btn
-              class="ml-2 mt-3"
               dark
               right
               icon
-              height="40px"
-              width="40px"
               @click.stop=""
             >
-              <v-icon>mdi-heart</v-icon>
+              <v-icon size="13">mdi-heart</v-icon>
             </v-btn>
             <v-btn
-              class="ml-2 mt-3"
               dark
               right
               icon
-              height="40px"
-              width="40px"
               @click.stop=""
             >
-              <v-icon>mdi-playlist-plus</v-icon>
+              <v-icon size="13">mdi-playlist-plus</v-icon>
             </v-btn>
           </v-card-actions>
+          <div class="track-duration">
+            {{ secondsToTime(track.getDuration()) }}
+          </div>
         </div>
       </div>
     </v-card>
@@ -80,6 +77,7 @@
   import Vue from 'vue';
   import {mapState, mapMutations} from 'vuex';
   import * as VuexMutation from '@/store/mutation-types';
+  import {secondsToTime} from '@/util';
 
   export default Vue.extend({
     name: 'Track',
@@ -96,6 +94,9 @@
       ...mapMutations({
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
       }),
+      secondsToTime(t: number): string {
+        return secondsToTime(t);
+      },
     },
     watch: {
       playingTrack() {
@@ -125,34 +126,47 @@
   }
 
   .track-info {
-    width: calc(100% - 165px);
+    width: calc(100% - 50px);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 
     .track-info-item {
+      padding: 2px 0px 2px 10px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      line-height: 1.5em;
 
       .v-icon {
         margin-right: 5px;
       }
     }
 
+    .track-title {
+      font-size: 0.9em;
+      padding-bottom: 12px;
+    }
+
+    .track-artist {
+      font-size: 0.7em;
+    }
+
     .video-info {
+      padding: 0;
       font-size: 0.7em;
     }
   }
 
   .track-thumbnail {
+    display: block;
+    position: relative;
+    width: calc((16 / 9) * 60px);
+    height: 60px;
     margin: 0;
 
     .v-image {
       margin: 0 !important;
-      width: 165px;
-      height: 120px;
-      align-items: center;
       justify-content: center;
       position: relative;
       vertical-align: middle;
@@ -167,11 +181,23 @@
       right: 0;
 
       .v-btn {
+        float: flex;
         margin: 0;
-        padding: 0;
-        background-color: rgba(0, 0, 0, 0.4);
+        width: 20px;
+        height: 20px;
+        overflow: hidden;
+        background-color: rgba(0, 0, 0, 0.6);
       }
     }
 
+    .track-duration {
+      position: absolute;
+      bottom: 0px;
+      left: 0px;
+      padding: 0 5px;
+      font-size: 0.65em;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
   }
 </style>

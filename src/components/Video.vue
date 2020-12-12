@@ -4,12 +4,12 @@
       v-on:click="console.log(video)"
       :loading="loading"
       class="mx-auto my-12"
-      width="240"
-      height="210"
+      height="203"
     >
-    <div>
+    <div class="video-thumbnail">
       <v-img
         :src="video.getThumbnailURL('hqdefault')"
+        width="240"
         height="130"
       ></v-img>
     </div>
@@ -45,7 +45,6 @@
     padding: 2px;
   }
 
-
   .v-card {
     margin: 5px !important;
     overflow: hidden;
@@ -61,8 +60,6 @@
       opacity: 0.1;
     }
 
-
-
     .video-info {
       text-overflow: ellipsis;
       overflow: hidden;
@@ -74,7 +71,7 @@
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      font-size: 0.9em;
+      font-size: 0.8em;
       line-height:1.5em;
       padding-bottom: 0;
       margin-bottom: 1em;
