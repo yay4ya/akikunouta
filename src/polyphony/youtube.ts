@@ -20,6 +20,14 @@ export class Video {
   }
 
   public async fetchVideoInfo() {
+    if (
+      this.url !== null
+      && this.title !== null
+      && this.channel !== null
+    ) {
+      return;
+    }
+
     const url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + this.id;
     await axios.get(url).then(response => {
       if (response.status !== 200) {
