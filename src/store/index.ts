@@ -28,6 +28,7 @@ export default new Vuex.Store({
   actions: {
     [VuexAction.SET_NEXT_TRACK]({ commit }) {
       if (this.state.playingTrack === null) {
+        commit(VuexMutation.SET_PLAYING_TRACK, this.state.queuedTracks[0] || null);
         return;
       }
 
@@ -36,9 +37,9 @@ export default new Vuex.Store({
         track => track.uuid === playingTrack.uuid
       );
 
-      if (playingTrackIndex < 0) {
-        return;
-      }
+      // If the playing track is not found in the queue, the top track
+      // in the queue will be selected, because playingTrackIndex
+      // is -1 so that nextTrackIndex will be 0.
 
       const nextTrackIndex = playingTrackIndex + 1;
       const nextTrack = this.state.queuedTracks[nextTrackIndex];
