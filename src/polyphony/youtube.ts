@@ -46,7 +46,7 @@ export class Video {
       }
 
       if (response.data.error !== undefined) {
-        throw new Error("failed to fetch video info: " + response.data);
+        throw new Error("failed to fetch video info: " + response.data.url);
       }
 
       this.url = response.data.url;
