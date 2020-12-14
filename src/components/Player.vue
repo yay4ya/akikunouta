@@ -209,7 +209,7 @@
             this.playVideo();
             const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
             if (nowPlayingTrackElement) {
-              nowPlayingTrackElement.scrollIntoView(true);
+              nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
             }
 
           }
