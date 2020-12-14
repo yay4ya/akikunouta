@@ -115,6 +115,8 @@
 
 <style lang="scss">
   .track-list {
+    height:100%;
+
     .nowPlayingSticky {
       position: sticky;
       top: 0;
@@ -138,7 +140,6 @@
 
 <style scoped lang="scss">
   .container {
-    min-width: 350px;
   }
 
   .track-list {

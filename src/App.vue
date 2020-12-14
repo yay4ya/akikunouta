@@ -100,7 +100,7 @@
 <style scoped lang="scss">
   .container {
     padding: 3px 15px;
-    max-width: 1400px;
+    max-width: 1410px;
   }
   .main-container {
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
@@ -123,8 +123,8 @@
   }
 
   .right {
-    display: frex;
-    margin-left: 30px;
+    margin-left: 20px;
+    min-width: 270px;
     width: 100%;
 
     #nav {

@@ -7,7 +7,10 @@
       v-bind:key="video.id"
       class="item"
     >
-      <Video :video="video"/>
+      <Video
+        :video="video"
+        @clicked="onClick"
+      />
     </li>
   </ul>
 
@@ -34,6 +37,11 @@
        (video: Video) => video.fetchVideoInfo()
       )).then(() => this.videos = this.list);
     },
+    methods: {
+      onClick(video: Video) {
+        this.$emit('clicked', video);
+      }
+    }
   })
 </script>
 

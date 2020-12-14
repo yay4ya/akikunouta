@@ -99,7 +99,7 @@ export class TrackList {
     return [...videoMap.values()];
   }
 
-  public getTrackListByVideo(videoId: string): TrackList {
+  public getTrackListByVideoId(videoId: string): TrackList {
     return new TrackList(this.tracks.filter(
       track => track.video.id === videoId
     ));

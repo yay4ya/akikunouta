@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-card
-      v-on:click="() => {}"
+      @click="onClick"
       class="mx-auto my-12"
       width="220"
       height="190"
@@ -36,6 +36,11 @@
   export default Vue.extend({
     name: 'Video',
     props: ['video'],
+    methods: {
+      onClick() {
+        this.$emit('clicked', this.video);
+      },
+    },
   })
 </script>
 
