@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Library from '@/polyphony/library';
 import {Track} from '@/polyphony/track';
 import * as VuexAction from '@/store/action-types';
 import * as VuexMutation from '@/store/mutation-types';
@@ -8,34 +7,70 @@ import * as Model from '@/model';
 
 Vue.use(Vuex);
 
-const initialState: Model.State = {
-  library: new Library(),
-  queue: [],
-  history: [],
-  playingTrack: null,
-};
+function getInitialState(): Model.State {
+  const state: Model.State = {
+    queuedTracks: [],
+    playingTrack: null,
+  };
+  return state;
+}
 
 export default new Vuex.Store({
-  state: initialState,
+  state: getInitialState(),
   mutations: {
-    [VuexMutation.SET_PLAYING_TRACK](state: Model.State, track: Track) {
+    [VuexMutation.SET_PLAYING_TRACK](state: Model.State, track: Track | null) {
       state.playingTrack = track;
-      state.history.push(track);
     },
     [VuexMutation.SET_QUEUE](state: Model.State, tracks: Track[]) {
-      state.queue = tracks;
+      state.queuedTracks = tracks;
     },
   },
   actions: {
     [VuexAction.SET_NEXT_TRACK]({ commit }) {
-      console.log("set next")
-      const nextTrack = this.state.queue[0];
-      if (nextTrack !== undefined) {
-        // Set null to surely change the playing track.
-        commit(VuexMutation.SET_PLAYING_TRACK, null);
-        commit(VuexMutation.SET_PLAYING_TRACK, nextTrack);
-        commit(VuexMutation.SET_QUEUE, this.state.queue.slice(1));
+      if (this.state.playingTrack === null) {
+        return;
       }
+
+      const playingTrack = this.state.playingTrack;
+      const playingTrackIndex = this.state.queuedTracks.findIndex(
+        track => track.uuid === playingTrack.uuid
+      );
+
+      if (playingTrackIndex < 0) {
+        return;
+      }
+
+      const nextTrackIndex = playingTrackIndex + 1;
+      const nextTrack = this.state.queuedTracks[nextTrackIndex];
+
+      if (!nextTrack) {
+        return;
+      }
+
+      commit(VuexMutation.SET_PLAYING_TRACK, nextTrack);
+    },
+    [VuexAction.SET_PREV_TRACK]({ commit }) {
+      if (this.state.playingTrack === null) {
+        return;
+      }
+
+      const playingTrack = this.state.playingTrack;
+      const playingTrackIndex = this.state.queuedTracks.findIndex(
+        track => track.uuid === playingTrack.uuid
+      );
+
+      if (playingTrackIndex < 0) {
+        return;
+      }
+
+      const prevTrackIndex = playingTrackIndex - 1;
+      const prevTrack = this.state.queuedTracks[prevTrackIndex];
+
+      if (!prevTrack) {
+        return;
+      }
+
+      commit(VuexMutation.SET_PLAYING_TRACK, prevTrack);
     },
   },
   modules: {

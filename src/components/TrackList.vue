@@ -4,20 +4,26 @@
   <draggable
     :list="tracks"
     tag="ul"
-    animation="300"
-    :group="{name: 'tracks', put: this.put, pull: this.pull}"
+    animation="200"
+    :group="{name: 'tracks', put: put, pull: pull}"
     :clone="cloneTrack"
     :sort="sort"
+    @change="onChange"
     class="track-list"
   >
     <li
-      v-for="trackWithId in tracks"
-      v-bind:key="trackWithId.draggableId"
-      v-on:click="onClick(trackWithId)"
+      v-for="track in tracks"
+      v-bind:key="track.uuid"
       class="track"
+      v-bind:class="{ nowPlayingTrack: isNowPlaying(track), nowPlayingSticky: isSticky(track) }"
     >
       <Track
-        :track="trackWithId.track"
+        :track="track"
+        :deletable="deletable"
+        :nowPlayingId="nowPlayingId"
+        :stick="sticky"
+        @clicked="onClick(track)"
+        @deleted="deleteTrack(track)"
       />
     </li>
   </draggable>
@@ -27,91 +33,127 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapState, mapMutations} from 'vuex';
+  import {mapState, mapMutations, mapActions} from 'vuex';
   import draggable from 'vuedraggable';
-  import {Track} from '@/polyphony/track';
+  import {Track, TrackList} from '@/polyphony/track';
   import * as VuexMutation from '@/store/mutation-types';
-
-  let globalDraggableId = 0;
-
-  interface TrackWithId {
-    draggableId: number;
-    track: Track;
-  }
+  import * as VuexAction from '@/store/action-types';
 
   export default Vue.extend({
     name: 'TrackList',
-    props: ['list', 'put', 'pull', 'sort', 'queueing'],
+    props: ['trackList', 'put', 'pull', 'sort', 'queueing',
+            'deletable', 'nowPlayingId', 'sticky'],
     components: {
       draggable,
       Track: () => import('@/components/Track.vue'),
     },
     data() {
       return {
-        tracks: [] as TrackWithId[],
+        tracks: [] as Track[],
       };
     },
     computed: {
       ...mapState(['playingTrack']),
     },
     async created() {
-      await Promise.all(this.list.map(
-        (track: Track) => track.fetchVideoInfo()
-      )).then(() => this.tracks = this.list.map(
-        (track: Track) => {
-          return {
-            draggableId: globalDraggableId++,
-            track: track,
-          };
-        }
-      ));
+      const trackList = this.trackList as TrackList;
+      const tracks = trackList.getAllTracks();
+
+      await Promise.all(
+        tracks.map(
+          track => track.fetchVideoInfo()
+        )
+      ).then(
+        () => this.tracks = tracks
+      );
     },
     methods: {
       ...mapMutations({
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
         setQueue: VuexMutation.SET_QUEUE,
       }),
-      cloneTrack({ track }: TrackWithId): TrackWithId {
-        return {
-          draggableId: globalDraggableId++,
-          track: track,
-        };
-      },
-      onClick({draggableId, track}: TrackWithId) {
-        if (
-          this.playingTrack !== null
-          && this.playingTrack.id === track.id
-        ) {
-          return;
+      ...mapActions({
+        setNextTrack: VuexAction.SET_NEXT_TRACK,
+      }),
+      isNowPlaying(track: Track): boolean {
+        if (!this.playingTrack) {
+          return false;
         }
+        let isNowPlaying = false;
+        if (this.nowPlayingId === "uuid") {
+          isNowPlaying = track.uuid === this.playingTrack.uuid;
+        } else {
+          isNowPlaying = track.id === this.playingTrack.id;
+        }
+        return isNowPlaying;
+      },
+      isSticky(track: Track): boolean {
+        return this.isNowPlaying(track) && this.sticky;
+      },
+      cloneTrack(track: Track): Track {
+        return track.clone();
+      },
+      onChange() {
+        this.$emit('changed', this.tracks);
+      },
+      onClick(targetTrack: Track) {
+        this.setPlayingTrack(targetTrack);
 
-        this.setPlayingTrack(track)
-
-        // Queue all the following tracks.
         if (!this.queueing) {
           return;
         }
-        const draggableIds = this.tracks.map(t => t.draggableId);
-        const tracks = this.tracks.map(t => t.track);
-        const playingTrackIndex = draggableIds.indexOf(draggableId);
-        const followingTracks = tracks.slice(playingTrackIndex + 1);
-        this.setQueue(followingTracks);
-      }
+
+        // Get all tracks following the clicked one to queue
+        const targetTrackIndex = this.tracks.findIndex((track: Track) => track.uuid === targetTrack.uuid);
+        if (targetTrackIndex < 0) {
+          throw new Error("track not found error");
+        }
+        const tracks = this.tracks.slice(targetTrackIndex);
+        this.setQueue(tracks);
+      },
+      deleteTrack(targetTrack: Track) {
+        this.tracks = this.tracks.filter(
+          (track: Track) => track.uuid !== targetTrack.uuid
+        );
+        this.setQueue(this.tracks.map(
+          (track: Track) => track
+        ));
+      },
     }
   })
 </script>
 
+<style lang="scss">
+  .track-list {
+    .nowPlayingSticky {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nowPlayingTrack {
+      .v-card:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.3);
+        pointer-events: none;
+      }
+    }
+  }
+</style>
+
 <style scoped lang="scss">
   .container {
     min-width: 350px;
-    width: 100%;
-    height: 100%;
   }
 
   .track-list {
     margin: 0;
     padding: 0;
-    height: 100%;
   }
 
   .track {

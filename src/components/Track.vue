@@ -4,9 +4,8 @@
       flat
       tile
       @click="onClick()"
+      v-bind:class="{ nowplayingtrack: nowPlaying }"
     >
-      <div v-if="nowPlaying" class="nowplaying-indicator">
-      </div>
       <div class="d-flex flex-no-wrap justify-space-between">
         <div class="track-info">
           <v-card-title
@@ -26,7 +25,10 @@
                 target="_blank"
                 @click.stop=""
               >
-                <v-icon size="15">mdi-youtube</v-icon>
+                <v-icon
+                 size="15"
+                 class="icon-youtube"
+                >mdi-youtube</v-icon>
               </a>
               <span>{{ track.video.title }}</span>
             </div>
@@ -70,6 +72,21 @@
           </div>
         </div>
       </div>
+      <div
+        v-if="deletable"
+        class="btn-delete-track"
+      >
+        <v-btn
+          dark
+          right
+          icon
+          width="22"
+          height="22"
+          @click.stop="onDelete(track)"
+        >
+          <v-icon size="15">mdi-close</v-icon>
+        </v-btn>
+      </div>
     </v-card>
   </v-container>
 </template>
@@ -81,7 +98,10 @@
 
   export default Vue.extend({
     name: 'Track',
-    props: ['track'],
+    props: ['track', 'deletable', 'nowPlayingId'],
+    async created() {
+      await this.track.fetchVideoInfo();
+    },
     data() {
       return {
         nowPlaying: false,
@@ -95,12 +115,19 @@
         return secondsToTime(t);
       },
       onClick() {
-        console.log('')
+        this.$emit('clicked', this.track);
       },
+      onDelete() {
+        this.$emit('deleted', this.track);
+      }
     },
     watch: {
       playingTrack() {
-        this.nowPlaying = this.playingTrack.id === this.track.id;
+        if (this.nowPlayingId === "uuid") {
+          this.nowPlaying = this.playingTrack.uuid === this.track.uuid;
+        } else {
+          this.nowPlaying = this.playingTrack.id === this.track.id;
+        }
       },
     },
   })
@@ -112,8 +139,16 @@
     padding: 0;
   }
 
+  .nowplayingtrack {
+  }
+
   .v-card {
     position: relative;
+
+    &:before {
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
 
     &:hover:before {
       content: '';
@@ -126,15 +161,24 @@
       opacity: 0.1;
     }
 
-    .nowplaying-indicator {
-      content: '';
+    .btn-delete-track {
       position: absolute;
       top: 0;
-      right: 0;
-      left: 0;
-      bottom: 0;
-      background-color: #000000;
-      opacity: 0.1;
+      left: 0px;
+      display: none;
+
+      .v-btn:hover {
+        color: #F96C4F;
+      }
+    }
+
+    &:hover .btn-delete-track {
+      display: block;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    &:hover .track-actions {
+      display: block;
     }
   }
 
@@ -153,6 +197,9 @@
 
       .v-icon {
         margin-right: 5px;
+        &:hover {
+          color: #F96C4F;
+        }
       }
     }
 
@@ -177,7 +224,6 @@
   }
 
   .track-thumbnail {
-    display: block;
     position: relative;
     width: calc((16 / 9) * 60px);
     height: 60px;
@@ -192,30 +238,41 @@
     }
 
     .track-actions {
+      display: none;
       position: absolute;
       margin: 0;
       padding: 0;
       top: 2px;
       right: 2px;
+      transition: display 2s;
 
       .v-btn {
         float: flex;
         margin: 0;
-        width: 20px;
-        height: 20px;
+        padding: 0;
+        width: 30px;
+        height: 30px;
         overflow: hidden;
         background-color: rgba(0, 0, 0, 0.6);
+
+        &:hover {
+          color: #f96c4f;
+        }
       }
     }
+
+
 
     .track-duration {
       position: absolute;
       bottom: 0px;
-      left: 0px;
+      right: 0px;
       padding: 0 5px;
       font-size: 0.65em;
       color: white;
       background-color: rgba(0, 0, 0, 0.6);
     }
   }
+
+
 </style>

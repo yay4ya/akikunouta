@@ -1,2 +1,4 @@
 export const SET_PLAYING_TRACK = 'SET_PLAYING_TRACK';
 export const SET_QUEUE = 'SET_QUEUE';
+export const SAVE_PLAYER_HISTORY = 'SAVE_PLAYER_HISTORY';
+export const DEQUEUE = 'DEQUEUE';

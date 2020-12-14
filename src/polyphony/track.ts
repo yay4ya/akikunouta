@@ -1,4 +1,5 @@
 import {Video} from '@/polyphony/youtube';
+import * as util from '@/util';
 
 export interface TrackJson {
   id: number;
@@ -11,6 +12,7 @@ export interface TrackJson {
 }
 
 export class Track {
+  readonly uuid: string;
   readonly id: number;
   readonly title: string;
   readonly singer: string;
@@ -19,14 +21,31 @@ export class Track {
   readonly start: number;
   readonly end: number;
 
-  constructor(trackJson: TrackJson) {
+  constructor(
+    trackJson: TrackJson,
+    video: Video | null = null,
+    uuid: string | null = null,
+  ) {
+    this.uuid = uuid || util.generateUuid();
     this.id = trackJson.id;
     this.title = trackJson.title;
     this.singer = trackJson.singer;
     this.artist = trackJson.artist;
     this.start = trackJson.start;
     this.end = trackJson.end;
-    this.video = new Video(trackJson.videoid);
+    this.video = video || new Video(trackJson.videoid);
+  }
+
+  public clone(): Track {
+    return new Track({
+      id: this.id,
+      title: this.title,
+      singer: this.singer,
+      artist: this.artist,
+      videoid: this.video.id,
+      start: this.start,
+      end: this.end,
+    }, this.video);
   }
 
   public async fetchVideoInfo() {
@@ -40,21 +59,9 @@ export class Track {
 
 export class TrackList {
   protected tracks: Track[];
-  protected idToTrack: Map<number, Track>;
 
   constructor(tracks: Track[]) {
-    /* Track ID validation */
-    const trackIDs = tracks.map(track => track.id);
-    const numTracks = tracks.length;
-    const numUniqueTrackIDs = (new Set(trackIDs)).size;
-    if (numTracks !== numUniqueTrackIDs) {
-      throw new Error("track duplicated error: " + tracks);
-    }
-
     this.tracks = tracks;
-    this.idToTrack = new Map(
-      tracks.map(track => [track.id, track])
-    );
   }
 
   public setTracks(tracks: Track[]) {
@@ -65,12 +72,23 @@ export class TrackList {
     return this.tracks;
   }
 
-  public getTrackByID(id: number): Track {
-    const track = this.idToTrack.get(id);
+  public getTrackById(id: number): Track {
+    const track =  this.tracks.find(track => track.id == id)
     if (track === undefined) {
       throw new Error("track not found: id=" + id);
     }
     return track;
+  }
+
+  public getTracksByIds(trackIds: number[]): Track[] {
+    return trackIds.map(trackId => this.getTrackById(trackId));
+  }
+
+  public getAllUniqueVideos(): Video[] {
+    const videoMap = new Map(
+      this.tracks.map(track => [track.video.id, track.video])
+    );
+    return [...videoMap.values()];
   }
 
   public getTrackListByVideo(videoId: string): TrackList {

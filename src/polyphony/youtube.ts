@@ -7,16 +7,27 @@ export class Channel {
     readonly url: string,
     readonly name: string,
   ) {}
+
+  public clone(): Channel {
+    return new Channel(this.url, this.name);
+  }
 }
 
 export class Video {
-  readonly id: string;
-  protected url: string | null = null;
-  protected title: string | null = null;
-  protected channel: Channel | null = null;
+  constructor(
+    readonly id: string,
+    protected url: string |null = null,
+    protected title: string | null = null,
+    protected channel: Channel | null = null,
+  ) {}
 
-  constructor(id: string) {
-    this.id = id;
+  public clone(): Video {
+    return new Video(
+      this.id,
+      this.url,
+      this.title,
+      this.channel !== null ? this.channel.clone() : null,
+    );
   }
 
   public async fetchVideoInfo() {

@@ -13,58 +13,60 @@
       ></youtube>
     </div>
 
-    <v-slider
-      v-model="seekbarValue"
-      @start="seekStart"
-      @end="seekEnd"
-      @click="seekEnd"
-      min="0"
-      :max="seekbarMax"
-      class="seekbar"
-    ></v-slider>
+    <div class="video-controller">
+      <v-slider
+        v-model="seekbarValue"
+        @start="seekStart"
+        @end="seekEnd"
+        @click="seekEnd"
+        min="0"
+        :max="seekbarMax"
+        class="seekbar"
+      ></v-slider>
 
-    <div class="track-time">
-      <div class="track-elapsed-time">
-        {{ secondsToTime(trackProgress * trackDuration) }}
+      <div class="track-time">
+        <div class="track-elapsed-time">
+          {{ secondsToTime(trackProgress * trackDuration) }}
+        </div>
+        <div class="track-duration">
+          {{ secondsToTime(trackDuration - trackProgress * trackDuration) }}
+        </div>
       </div>
-      <div class="track-duration">
-        {{ secondsToTime(trackDuration - trackProgress * trackDuration) }}
-      </div>
-    </div>
 
-    <div class="player-control-buttons">
-      <div class="btn-skip-previous">
-        <v-btn
-          icon
-          @click="pauseVideo()"
-        >
-          <v-icon size="30">mdi-skip-previous</v-icon>
-        </v-btn>
-      </div>
-      <div class="btn-play-pause">
-        <v-btn
-          v-if="playerState !== 1"
-          @click="playVideo()"
-          icon
-        >
-          <v-icon size="50">mdi-play</v-icon>
-        </v-btn>
-        <v-btn
-          v-else
-          @click="pauseVideo()"
-          icon
-        >
-          <v-icon size="50">mdi-pause</v-icon>
-        </v-btn>
-      </div>
-      <div class="btn-skip-next">
-        <v-btn
-          icon
-          rounded
-          @click="playNext()"
-        >
-          <v-icon size="30">mdi-skip-next</v-icon>
-        </v-btn>
+      <div class="player-control-buttons">
+        <div class="btn-skip-previous">
+          <v-btn
+            icon
+            @click="playPrev()"
+          >
+            <v-icon size="30">mdi-skip-previous</v-icon>
+          </v-btn>
+        </div>
+        <div class="btn-play-pause">
+          <v-btn
+            v-if="playerState !== 1"
+            @click="playVideo()"
+            icon
+          >
+            <v-icon size="50">mdi-play</v-icon>
+          </v-btn>
+          <v-btn
+            v-else
+            @click="pauseVideo()"
+            icon
+          >
+            <v-icon size="50">mdi-pause</v-icon>
+          </v-btn>
+        </div>
+        <div class="btn-skip-next">
+          <v-btn
+            icon
+            rounded
+            @click="playNext()"
+          >
+            <v-icon size="30">mdi-skip-next</v-icon>
+          </v-btn>
+        </div>
       </div>
     </div>
   </v-container>
@@ -79,6 +81,7 @@
           YoutubeIframePlayer,
           YoutubePlayerState} from 'youtube-iframe-api';
   import {secondsToTime} from '@/util';
+  import {Track} from '@/polyphony/track';
 
   Vue.use(VueYoutube)
 
@@ -103,16 +106,22 @@
       }
     },
     computed: {
-      ...mapState(['playingTrack', 'queue']),
+      ...mapState(['playingTrack', 'queuedTracks']),
       player(): YoutubeIframePlayer {
         const youtube = this.$refs.youtube as YoutubeIframe;
         return youtube.player as YoutubeIframePlayer;
       },
       trackDuration(): number {
-        if (!this.existsPlayingTrack()) {
+        if (this.playingTrack === null) {
           return 0;
         }
         return this.playingTrack.end - this.playingTrack.start;
+      },
+      videoTimeOnSeekbar(): number {
+        const seekbarProgress = this.seekbarValue / this.seekbarMax;
+        const elapsedTime= seekbarProgress * this.trackDuration;
+        const time = this.playingTrack.start + elapsedTime;
+        return time;
       }
     },
     mounted () {
@@ -126,6 +135,7 @@
     methods: {
       ...mapActions({
         setNextTrack: VuexAction.SET_NEXT_TRACK,
+        setPrevTrack: VuexAction.SET_PREV_TRACK,
       }),
       async playing() {
         this.videoDuration = await this.player.getDuration();
@@ -150,10 +160,25 @@
       playNext() {
         this.setNextTrack();
       },
-      existsPlayingTrack(): boolean {
-        return this.playingTrack !== null;
+      playPrev() {
+        this.setPrevTrack();
+      },
+      async loadTrack(track: Track) {
+        await this.player.loadVideoById({
+          'videoId': track.video.id,
+          'startSeconds': track.start,
+          'endSeconds': track.end,
+        });
       },
       async playVideo() {
+        if (this.playerState === -1) {
+          if (this.playingTrack !== null) {
+            await this.loadTrack(this.playingTrack).then(
+              () => this.player.playVideo()
+            );
+            return;
+          }
+        }
         await this.player.playVideo();
       },
       async pauseVideo() {
@@ -164,10 +189,7 @@
       },
       async seekEnd() {
         this.nowSeeking = false;
-        const seekbarProgress = this.seekbarValue / this.seekbarMax;
-        const elapsedTime= seekbarProgress * this.trackDuration;
-        const time = this.playingTrack.start + elapsedTime;
-        await this.player.seekTo(time, true);
+        await this.player.seekTo(this.videoTimeOnSeekbar, true);
       },
       secondsToTime(t: number): string {
         return secondsToTime(t);
@@ -175,65 +197,88 @@
     },
     watch: {
       async playingTrack() {
+        if (this.playingTrack === null) {
+          return;
+        }
         await this.player.loadVideoById({
           'videoId': this.playingTrack.video.id,
           'startSeconds': this.playingTrack.start,
           'endSeconds': this.playingTrack.end,
-        });
-        await this.playVideo();
+        }).then(
+          () => {
+            this.playVideo();
+            const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
+            if (nowPlayingTrackElement) {
+              nowPlayingTrackElement.scrollIntoView(true);
+            }
+
+          }
+        );
       },
     }
   });
 </script>
 
 <style scoped lang="scss">
-  .seekbar {
-    height: 25px;
-  }
-
-  .track-time {
-    position: relative;
-    font-size: 0.7em;
-    height: 1em;
-
-    .track-elapsed-time {
-      position: absolute;
-      left: 0;
-    }
-
-    .track-duration {
-      position: absolute;
-      right: 0;
-    }
-  }
-
-  .player-control-buttons {
-    height: 30px;
+  .container {
     width: 100%;
-    position: relative;
-    align-content: center;
-    margin-top: 0;
+  }
 
-    .btn-play-pause {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      -webkit-transform : translate(-50%,-50%);
-      transform : translate(-50%,-50%);
+  .video-screen {
+    width: 400px;
+  }
+
+  .video-controller {
+    .seekbar {
+      height: 25px;
     }
-    .btn-skip-next{
-      position: absolute;
-      top: 50%;
-      left: 70%;
-      -webkit-transform : translate(-50%,-50%);
-      transform : translate(-50%,-50%);
+
+    .track-time {
+      position: relative;
+      font-size: 0.7em;
+      height: 1em;
+
+      .track-elapsed-time {
+        position: absolute;
+        left: 0;
+      }
+
+      .track-duration {
+        position: absolute;
+        right: 0;
+      }
     }
-    .btn-skip-previous {
-      position: absolute;
-      top: 50%;
-      left: 30%;
-      -webkit-transform : translate(-50%,-50%);
-      transform : translate(-50%,-50%);
+
+    .player-control-buttons {
+      display: flex;
+      align-content: space-between;
+      height: 30px;
+      width: 100%;
+      position: relative;
+      align-content: center;
+
+      .btn-play-pause {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform : translate(-50%,-50%);
+        transform : translate(-50%,-50%);
+      }
+      .btn-skip-next{
+        position: absolute;
+        top: 50%;
+        left: 80%;
+        -webkit-transform : translate(-50%,-50%);
+        transform : translate(-50%,-50%);
+
+      }
+      .btn-skip-previous {
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        -webkit-transform : translate(-50%,-50%);
+        transform : translate(-50%,-50%);
+      }
     }
   }
 </style>
