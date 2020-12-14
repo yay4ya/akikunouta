@@ -39,24 +39,102 @@
     </v-app-bar>
 
     <v-main>
-      <HelloWorld/>
+      <v-container class="d-flex main-container">
+
+        <div class="left">
+          <Player id="video-player"/>
+          <Queue id="queue" class="scroll-thin"/>
+        </div>
+
+        <div class="right">
+          <div id="nav">
+            <router-link to="/">Tracks</router-link> |
+            <router-link to="/videos">Videos</router-link> |
+          </div>
+          <router-view class="router-view"/>
+        </div>
+
+      </v-container>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+  import Vue from 'vue';
+  import {mapState} from 'vuex';
+  import {library} from '@/polyphony/library';
 
-export default Vue.extend({
-  name: 'App',
-
-  components: {
-    HelloWorld,
-  },
-
-  data: () => ({
-    //
-  }),
-});
+  export default Vue.extend({
+    name: 'App',
+    components: {
+      Queue: () => import ('@/components/Queue.vue'),
+      Player: () => import ('@/components/Player.vue'),
+     },
+    data() {
+      return {
+        library: library,
+      }
+    },
+    computed: {
+      ...mapState(['playingTrack']),
+    },
+  });
 </script>
+
+<style labg="scss">
+  .scroll-thin {
+      scrollbar-width: thin;
+
+      &::-webkit-scrollbar {
+        width: 7px;
+        height: 0;
+        background-color: #f0f0f0;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #cdcdcd;
+      }
+  }
+</style>
+
+<style scoped lang="scss">
+  .container {
+    padding: 3px 15px;
+    max-width: 1400px;
+  }
+  .main-container {
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  .left {
+    width: 400px;
+
+    #video-player {
+      margin-bottom: 10px;
+      height: 320px;
+      overflow: hidden;
+    }
+
+    #queue {
+      padding: 0;
+      height: calc(100vh - 395px);
+      background-color: #f3f3f3;
+    }
+  }
+
+  .right {
+    display: frex;
+    margin-left: 30px;
+    width: 100%;
+
+    #nav {
+      height: 150px;
+      padding: 0;
+    }
+
+    .router-view {
+      padding: 0;
+      height: calc(100vh - 215px);
+    }
+  }
+</style>

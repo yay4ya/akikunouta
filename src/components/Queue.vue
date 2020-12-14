@@ -14,6 +14,8 @@
     pull="clone"
     nowPlayingId="uuid"
     @changed="onChange"
+    @deleted="onDeleted"
+    class="queued-tracks scroll-thin"
   />
 
   </v-container>
@@ -32,6 +34,7 @@
     },
     data() {
       return {
+        watchQueue: true,
         queueChange: true,
         trackList: new TrackList([]),
       };
@@ -59,13 +62,26 @@
         return track.clone();
       },
       onChange(tracks: Track[]) {
-        this.setQueue(tracks);
-      }
+        this.watchQueue = false;
+
+        this.setQueue(tracks.map((track: Track) => track));
+      },
+      onDeleted(targetTrack: Track) {
+        this.watchQueue = false;
+        this.setQueue(this.queuedTracks.filter(
+          (track: Track) => track.uuid !== targetTrack.uuid
+        ))
+      },
     },
     watch: {
       queuedTracks() {
-        this.trackList = new TrackList(this.queuedTracks.map((track: Track) => track));
-        this.queueChange = !this.queueChange;
+        if (this.watchQueue) {
+          this.trackList = new TrackList(this.queuedTracks.map(
+            (track: Track) => track
+          ))
+          this.queueChange = !this.queueChange;
+        }
+        this.watchQueue = true;
       }
     },
   })
@@ -73,8 +89,13 @@
 
 <style scoped lang="scss">
   .container {
+    height: 100%;
     min-width: 350px;
     position: relative;
     padding: 0;
+  }
+  .queued-tracks {
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 </style>

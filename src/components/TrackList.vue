@@ -22,8 +22,8 @@
         :deletable="deletable"
         :nowPlayingId="nowPlayingId"
         :stick="sticky"
-        @clicked="onClick(track)"
-        @deleted="deleteTrack(track)"
+        @clicked="onClick"
+        @deleted="deleteTrack"
       />
     </li>
   </draggable>
@@ -64,7 +64,7 @@
           track => track.fetchVideoInfo()
         )
       ).then(
-        () => this.tracks = tracks
+        () => this.tracks = tracks.map((track: Track) => track)
       );
     },
     methods: {
@@ -101,15 +101,13 @@
         if (!this.queueing) {
           return;
         }
-        this.setQueue(this.tracks);
+        this.setQueue(this.tracks.map((track: Track) => track));
       },
       deleteTrack(targetTrack: Track) {
         this.tracks = this.tracks.filter(
           (track: Track) => track.uuid !== targetTrack.uuid
         );
-        this.setQueue(this.tracks.map(
-          (track: Track) => track
-        ));
+        this.$emit('deleted', targetTrack);
       },
     }
   })

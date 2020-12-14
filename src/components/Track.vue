@@ -3,7 +3,7 @@
     <v-card
       flat
       tile
-      @click="onClick()"
+      @click="onClick"
       v-bind:class="{ nowplayingtrack: nowPlaying }"
     >
       <div class="d-flex flex-no-wrap justify-space-between">
@@ -121,7 +121,6 @@
         if (nowPlayingTrackElement) {
           nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
         }
-
       },
       onDelete() {
         this.$emit('deleted', this.track);

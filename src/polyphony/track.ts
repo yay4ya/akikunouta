@@ -7,6 +7,8 @@ export interface TrackJson {
   singer: string;
   artist: string;
   videoid: string;
+  publishedAt: string;
+  tags: string[];
   start: number;
   end: number;
 }
@@ -18,6 +20,8 @@ export class Track {
   readonly singer: string;
   readonly artist: string;
   readonly video: Video;
+  readonly publishedAt: string;
+  readonly tags: string[];
   readonly start: number;
   readonly end: number;
 
@@ -31,6 +35,8 @@ export class Track {
     this.title = trackJson.title;
     this.singer = trackJson.singer;
     this.artist = trackJson.artist;
+    this.publishedAt = trackJson.publishedAt;
+    this.tags = trackJson.tags;
     this.start = trackJson.start;
     this.end = trackJson.end;
     this.video = video || new Video(trackJson.videoid);
@@ -43,6 +49,8 @@ export class Track {
       singer: this.singer,
       artist: this.artist,
       videoid: this.video.id,
+      publishedAt: this.publishedAt,
+      tags: this.tags,
       start: this.start,
       end: this.end,
     }, this.video);
