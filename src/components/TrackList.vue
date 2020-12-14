@@ -98,18 +98,10 @@
       },
       onClick(targetTrack: Track) {
         this.setPlayingTrack(targetTrack);
-
         if (!this.queueing) {
           return;
         }
-
-        // Get all tracks following the clicked one to queue
-        const targetTrackIndex = this.tracks.findIndex((track: Track) => track.uuid === targetTrack.uuid);
-        if (targetTrackIndex < 0) {
-          throw new Error("track not found error");
-        }
-        const tracks = this.tracks.slice(targetTrackIndex);
-        this.setQueue(tracks);
+        this.setQueue(this.tracks);
       },
       deleteTrack(targetTrack: Track) {
         this.tracks = this.tracks.filter(
