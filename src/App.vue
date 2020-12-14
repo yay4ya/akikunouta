@@ -81,7 +81,7 @@
   });
 </script>
 
-<style labg="scss">
+<style lang="scss">
   .scroll-thin {
       scrollbar-width: thin;
 
