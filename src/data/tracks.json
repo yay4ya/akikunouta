@@ -262,5 +262,82 @@
     "tags": ["アカペラ", "歌枠", "配信"],
     "start": 2953,
     "end": 3163
+  },
+  {
+    "id": 24,
+    "title": "ドリームレス・ドリームス",
+    "singer": "鈴谷アキ",
+    "artist": "はるまきごはん",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 491,
+    "end": 687
+  },
+  {
+    "id": 25,
+    "title": "フィクサー",
+    "singer": "鈴谷アキ",
+    "artist": "ぬゆり",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 800,
+    "end": 1001
+  },
+  {
+    "id": 26,
+    "title": "少女レイ",
+    "singer": "鈴谷アキ",
+    "artist": "みきとP",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 1100,
+    "end": 1317
+  },
+  {
+    "id": 27,
+    "title": "秒針を噛む",
+    "singer": "鈴谷アキ",
+    "artist": "ずっと真夜中でいいのに。",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 1434,
+    "end": 1658
+  },
+  {
+    "id": 28,
+    "title": "パイロキネシス",
+    "singer": "鈴谷アキ",
+    "artist": "saiB",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 1854,
+    "end": 2070
+  },
+  {
+    "id": 29,
+    "title": "セブンティーナ",
+    "singer": "鈴谷アキ",
+    "artist": "はるまきごはん",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 2227,
+    "end": 2425
+  },
+  {
+    "id": 30,
+    "title": "「ねぇ。」",
+    "singer": "鈴谷アキ",
+    "artist": "ナノウ",
+    "videoid": "oxyXrJWAMKA",
+    "publishedAt": "2018-11-10",
+    "tags": ["アカペラ", "歌枠", "配信"],
+    "start": 2515,
+    "end": 2905
   }
 ]
