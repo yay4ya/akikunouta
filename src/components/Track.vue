@@ -116,6 +116,12 @@
       },
       onClick() {
         this.$emit('clicked', this.track);
+
+        const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
+        if (nowPlayingTrackElement) {
+          nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
+        }
+
       },
       onDelete() {
         this.$emit('deleted', this.track);
