@@ -9,7 +9,7 @@
         :resize="true"
         @playing="playing"
         @paused="paused"
-        @ended="playNext"
+        @ended="ended"
       ></youtube>
     </div>
 
@@ -103,6 +103,7 @@
         seekbarMax: 1000,
         nowSeeking: false,
         processId: null as number | null,
+        videoPlayed: false,
       }
     },
     computed: {
@@ -138,11 +139,12 @@
         setPrevTrack: VuexAction.SET_PREV_TRACK,
       }),
       async playing() {
+        this.videoPlayed = true;
         this.videoDuration = await this.player.getDuration();
 
         this.processId = setInterval(() => {
           this.player.getCurrentTime().then(currentTime => {
-            const elapsedTime = currentTime - this.playingTrack.start;
+              const elapsedTime = currentTime - this.playingTrack.start;
             const trackProgress = elapsedTime / this.trackDuration;
 
             this.trackProgress = trackProgress < 1 ? trackProgress : 1;
@@ -156,6 +158,11 @@
         if (this.processId !== null) {
           clearInterval(this.processId);
         }
+      },
+      ended() {
+        if (!this.videoPlayed) return;
+        this.videoPlayed = false;
+        this.setNextTrack();
       },
       playNext() {
         this.setNextTrack();
@@ -171,13 +178,9 @@
         });
       },
       async playVideo() {
-        if (this.playerState === -1) {
-          if (this.playingTrack !== null) {
-            await this.loadTrack(this.playingTrack).then(
-              () => this.player.playVideo()
-            );
-            return;
-          }
+        if (!this.playingTrack) {
+          this.playNext();
+          return;
         }
         await this.player.playVideo();
       },
@@ -204,16 +207,12 @@
           'videoId': this.playingTrack.video.id,
           'startSeconds': this.playingTrack.start,
           'endSeconds': this.playingTrack.end,
-        }).then(
-          () => {
-            this.playVideo();
-            const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
-            if (nowPlayingTrackElement) {
-              nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
-            }
-
-          }
-        );
+        });
+        await this.playVideo();
+        const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
+        if (nowPlayingTrackElement) {
+          nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
+        }
       },
     }
   });
