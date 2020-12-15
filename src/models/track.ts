@@ -50,7 +50,7 @@ export class Track {
       artist: this.artist,
       videoid: this.video.id,
       publishedAt: this.publishedAt,
-      tags: this.tags,
+      tags: this.tags.map(tag => tag),
       start: this.start,
       end: this.end,
     }, this.video);
