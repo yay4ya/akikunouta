@@ -1,5 +1,5 @@
 import trackJsons from '@/data/tracks.json';
-import {Track, TrackList} from '@/polyphony/track';
+import {Track, TrackList} from './track';
 
 
 export class Library {

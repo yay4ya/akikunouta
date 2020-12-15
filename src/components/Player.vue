@@ -81,7 +81,7 @@
           YoutubeIframePlayer,
           YoutubePlayerState} from 'youtube-iframe-api';
   import {secondsToTime} from '@/util';
-  import {Track} from '@/polyphony/track';
+  import {Track} from '@/models/track';
 
   Vue.use(VueYoutube)
 

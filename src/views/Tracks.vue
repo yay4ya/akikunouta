@@ -13,7 +13,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {library} from '@/polyphony/library';
+  import {library} from '@/models/library';
 
   export default Vue.extend({
     name: 'HelloWorld',

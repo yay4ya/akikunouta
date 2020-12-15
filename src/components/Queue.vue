@@ -24,7 +24,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import {mapState, mapMutations} from 'vuex';
-  import {Track, TrackList} from '@/polyphony/track';
+  import {Track, TrackList} from '@/models/track';
   import * as VuexMutation from '@/store/mutation-types';
 
   export default Vue.extend({

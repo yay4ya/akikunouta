@@ -1,4 +1,4 @@
-import {Video} from '@/polyphony/youtube';
+import {Video} from './youtube';
 import * as util from '@/util';
 
 export interface TrackJson {

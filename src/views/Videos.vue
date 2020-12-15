@@ -40,8 +40,8 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {library} from '@/polyphony/library';
-  import {Video} from '@/polyphony/youtube';
+  import {library} from '@/models/library';
+  import {Video} from '@/models/youtube';
 
   export default Vue.extend({
     name: 'HelloWorld',

@@ -1,6 +1,6 @@
-import {Track} from '@/polyphony/track';
+import {Track} from './track';
 
-export interface State {
+export default interface State {
   queuedTracks: Track[];
   playingTrack: Track | null;
 }

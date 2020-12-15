@@ -35,7 +35,7 @@
   import Vue from 'vue';
   import {mapState, mapMutations, mapActions} from 'vuex';
   import draggable from 'vuedraggable';
-  import {Track, TrackList} from '@/polyphony/track';
+  import {Track, TrackList} from '@/models/track';
   import * as VuexMutation from '@/store/mutation-types';
   import * as VuexAction from '@/store/action-types';
 

@@ -19,7 +19,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Video} from '@/polyphony/youtube';
+  import {Video} from '@/models/youtube';
 
   export default Vue.extend({
     name: 'VideoList',

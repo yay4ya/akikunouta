@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Track} from '@/polyphony/track';
+import {Track} from '@/models/track';
 import * as VuexAction from '@/store/action-types';
 import * as VuexMutation from '@/store/mutation-types';
-import * as Model from '@/model';
+import State from '@/models/state';
 
 Vue.use(Vuex);
 
-function getInitialState(): Model.State {
-  const state: Model.State = {
+function getInitialState(): State {
+  const state: State = {
     queuedTracks: [],
     playingTrack: null,
   };
@@ -18,10 +18,10 @@ function getInitialState(): Model.State {
 export default new Vuex.Store({
   state: getInitialState(),
   mutations: {
-    [VuexMutation.SET_PLAYING_TRACK](state: Model.State, track: Track | null) {
+    [VuexMutation.SET_PLAYING_TRACK](state: State, track: Track | null) {
       state.playingTrack = track;
     },
-    [VuexMutation.SET_QUEUE](state: Model.State, tracks: Track[]) {
+    [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
       state.queuedTracks = tracks;
     },
   },
