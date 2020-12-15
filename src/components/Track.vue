@@ -117,6 +117,8 @@
       onClick() {
         this.$emit('clicked', this.track);
 
+        // The following statement suppose that the first element with
+        // `nowPlayingTrack` class is in the queue.
         const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
         if (nowPlayingTrackElement) {
           nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
