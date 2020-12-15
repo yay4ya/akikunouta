@@ -192,6 +192,7 @@
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 2;
+          overflow: hidden;
         }
         .vide-info-channel {
           display: -webkit-box;
