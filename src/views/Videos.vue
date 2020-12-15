@@ -10,21 +10,34 @@
       <div v-if="selectedVideo" class="track-list-container">
         <div
           class="video-info-container"
-          v-bind:style="{ backgroundImage: 'url(' + selectedVideo.getThumbnailURL('hqdefault') + ')', backgroundPosition: 'center' }"
+          @click="selectedVideo = null"
         >
-          <h2 class="video-info-title">
-            {{ selectedVideo.title }}
-          </h2>
-        </div>
-        <div class="btn-close-track-list">
-          <v-btn
-            dark
-            icon
-            @click="selectedVideo = null"
+          <div
+            class="video-info-background"
+            v-bind:style="{ backgroundImage: 'url(' + selectedVideo.getThumbnailURL('hqdefault') + ')'}"
           >
-            <v-icon size="40">mdi-chevron-down</v-icon>
-          </v-btn>
+          </div>
+
+          <div class="video-info">
+            <h2 class="video-info-title">
+              {{ selectedVideo.title }}
+            </h2>
+            <h4 class="video-info-channel">
+              {{ selectedVideo.channel.name }}
+            </h4>
+
+          </div>
+
+          <div class="btn-close-track-list">
+            <v-btn
+              dark
+              icon
+            >
+              <v-icon size="40">mdi-chevron-down</v-icon>
+            </v-btn>
+          </div>
         </div>
+
         <TrackList
           :tracks="getTracksByVideoId(selectedVideo.id)"
           :sort="false"
@@ -130,40 +143,61 @@
     }
 
     .video-info-container {
-      content: '';
-      height: 130px;
-      width: 100%;
-      line-height: 300px;
-      position: relative;
-      background-size: cover;
-      overflow: hidden;
-      z-index: 0;
 
-      &:before{
-        z-index: -1;
+      .video-info-background {
         content: '';
-        background: inherit;
-        filter:blur(15px);
-        position: absolute;
-        top: -30px;
-        left: -30px;
-        right: -30px;
-        bottom: -30px;
+        height: 130px;
+        width: 100%;
+        line-height: 300px;
+        position: relative;
+        background-size: cover;
+        background-position: center;
+        text-align: center;
+        overflow: hidden;
+        z-index: 0;
+
+        &:before{
+          z-index: -1;
+          content: '';
+          background: inherit;
+          filter:blur(15px);
+          position: absolute;
+          top: -30px;
+          left: -30px;
+          right: -30px;
+          bottom: -30px;
+        }
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.3);
+        }
       }
 
-      &:after {
-        content: '';
+      .video-info {
         position: absolute;
-        top: 0;
-        left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.1);
-      }
+        top: 0;
+        height: 0;
+        padding: 20px;
+        color: #ffffff;
 
-      .video-info-title {
-        color: white;
-        z-index: 10;
+        .video-info-title {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+        .vide-info-channel {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 1;
+        }
       }
     }
 
