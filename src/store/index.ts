@@ -11,6 +11,7 @@ function getInitialState(): State {
   const state: State = {
     queuedTracks: [],
     playingTrack: null,
+    searchQuery: '',
   };
   return state;
 }
@@ -23,6 +24,9 @@ export default new Vuex.Store({
     },
     [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
       state.queuedTracks = tracks;
+    },
+    [VuexMutation.SET_SEARCH_QUERY](state: State, query: string) {
+      state.searchQuery = query;
     },
   },
   actions: {

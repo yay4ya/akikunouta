@@ -47,6 +47,9 @@
         </div>
 
         <div class="right">
+            <v-text-field
+              v-model="query"
+            ></v-text-field>
           <div id="nav">
             <router-link to="/">Tracks</router-link> |
             <router-link to="/videos">Videos</router-link> |
@@ -64,7 +67,8 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapState} from 'vuex';
+  import {mapState, mapMutations} from 'vuex';
+  import * as VuexMutation from '@/store/mutation-types';
   import {library} from '@/models/library';
 
   export default Vue.extend({
@@ -79,7 +83,20 @@
       }
     },
     computed: {
-      ...mapState(['playingTrack']),
+      ...mapState(['playingTrack', 'searchQuery']),
+      query: {
+        get(): string {
+          return this.searchQuery;
+        },
+        set(query: string) {
+          this.setSearchQuery(query);
+        }
+      },
+    },
+    methods: {
+      ...mapMutations({
+        setSearchQuery: VuexMutation.SET_SEARCH_QUERY,
+      }),
     },
   });
 </script>
@@ -104,6 +121,7 @@
   .container {
     padding: 3px 15px;
     max-width: 1400px;
+    height: calc(100vh - 50px);
   }
   .main-container {
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
@@ -120,7 +138,7 @@
 
     #queue {
       padding: 0;
-      height: calc(100vh - 395px);
+      height: calc(100% - 335px);
       background-color: #f3f3f3;
     }
   }
@@ -137,7 +155,7 @@
 
     .router-view {
       padding: 0;
-      height: calc(100vh - 215px);
+      height: calc(100% - 230px);
     }
   }
 </style>

@@ -82,8 +82,8 @@
         return this.videos.map(video => {
           return {
             id: video.id,
-            title: video.hasVideoInfo() ? video.getTitle() : '',
-            subtitle: video.hasVideoInfo() ? video.getChannel().name : '',
+            title: video.getTitle() || '',
+            subtitle: (video.getChannel() || {}).name  || '',
             thumbnailUrl: video.getThumbnailURL('mqdefault'),
           }
         })

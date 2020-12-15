@@ -89,24 +89,15 @@ export class Video {
     })
   }
 
-  public getTitle(): string {
-    if (this.title === null) {
-      throw new Error("video info not fetched");
-    }
+  public getTitle(): string | null {
     return this.title;
   }
 
-  public getURL(): string {
-    if (this.url === null) {
-      throw new Error("video info not fetched");
-    }
+  public getURL(): string | null {
     return this.url;
   }
 
-  public getChannel(): Channel {
-    if (this.channel === null) {
-      throw new Error("video info not fetched");
-    }
+  public getChannel(): Channel | null {
     return this.channel;
   }
 

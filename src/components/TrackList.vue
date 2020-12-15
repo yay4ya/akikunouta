@@ -2,7 +2,7 @@
   <v-container>
 
   <draggable
-    :list="loadedTracks"
+    :list="filteredTracks"
     tag="ul"
     animation="200"
     :group="{name: 'tracks', put: put, pull: pull}"
@@ -12,7 +12,7 @@
     class="track-list"
   >
     <li
-      v-for="track in loadedTracks"
+      v-for="track in filteredTracks"
       v-bind:key="track.uuid"
       class="track"
       v-bind:class="{ nowPlayingTrack: isNowPlaying(track), nowPlayingSticky: isSticky(track) }"
@@ -35,14 +35,15 @@
   import Vue from 'vue';
   import {mapState, mapMutations, mapActions} from 'vuex';
   import draggable from 'vuedraggable';
-  import {Track} from '@/models/track';
   import * as VuexMutation from '@/store/mutation-types';
   import * as VuexAction from '@/store/action-types';
+  import {Track} from '@/models/track';
+  import Search from '@/models/search';
 
   export default Vue.extend({
     name: 'TrackList',
     props: ['tracks', 'put', 'pull', 'sort', 'queueing',
-            'deletable', 'nowPlayingId', 'sticky'],
+            'deletable', 'nowPlayingId', 'sticky', 'query'],
     components: {
       draggable,
       Track: () => import('@/components/Track.vue'),
@@ -50,10 +51,14 @@
     data() {
       return {
         loadedTracks: [] as Track[],
+        updatedQuery: "",
       };
     },
     computed: {
       ...mapState(['playingTrack']),
+      filteredTracks(): Track[] {
+        return new Search(this.loadedTracks).getTracksByQuery(this.updatedQuery);
+      },
     },
     async created() {
       const tracks = this.tracks as Track[];
@@ -98,7 +103,7 @@
         if (!this.queueing) {
           return;
         }
-        this.setQueue(this.loadedTracks.map((track: Track) => track));
+        this.setQueue(this.filteredTracks.map((track: Track) => track));
       },
       deleteTrack(targetTrack: Track) {
         this.loadedTracks= this.loadedTracks.filter(
@@ -106,7 +111,12 @@
         );
         this.$emit('deleted', targetTrack);
       },
-    }
+    },
+    watch: {
+      query() {
+        this.updatedQuery = this.query;
+      },
+    },
   })
 </script>
 

@@ -6,6 +6,7 @@
       :put="false"
       pull='clone'
       :queueing="true"
+      :query="searchQuery"
       class="track-list scroll-thin"
     />
   </v-container>
@@ -13,6 +14,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
+  import {mapState} from 'vuex';
   import {library} from '@/models/library';
   import Search from '@/models/search';
 
@@ -27,6 +29,7 @@
       }
     },
     computed: {
+      ...mapState(['searchQuery']),
     },
   });
 </script>
