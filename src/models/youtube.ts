@@ -3,8 +3,8 @@ import axios from 'axios';
 interface VideoInfo {
   url: string;
   title: string;
-  author_url: string;
-  author_name: string;
+  authorUrl: string;
+  authorName: string;
 }
 
 const videoInfoCache = new Map<string, VideoInfo>();
@@ -31,25 +31,26 @@ export class Video {
     protected isVideoInfoFetched = false,
     useCache = true,
   ) {
+    if (url && title && channel) return;
     if (useCache) {
       const cache = videoInfoCache.get(this.id);
       if (cache) {
         this.url = cache.url;
         this.title = cache.title;
-        this.channel = new Channel(cache.author_url, cache.author_name);
+        this.channel = new Channel(cache.authorUrl, cache.authorName);
         this.isVideoInfoFetched = true;
       }
     }
   }
 
-  public clone(): Video {
+  public clone(useCache = true): Video {
     return new Video(
       this.id,
       this.url,
       this.title,
       this.channel !== null ? this.channel.clone() : null,
       this.isVideoInfoFetched,
-      false,
+      useCache,
     );
   }
 
@@ -61,24 +62,31 @@ export class Video {
     if (!force && cache) {
       this.url = cache.url;
       this.title = cache.title;
-      this.channel = new Channel(cache.author_url, cache.author_name);
+      this.channel = new Channel(cache.authorUrl, cache.authorName);
       this.isVideoInfoFetched = true;
+      return;
     }
     const url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + this.id;
-    await axios.get(url).then(response => {
-      if (response.status !== 200) {
-        throw new Error("failed to fetch video info: " + response);
-      }
+    const response = await axios.get(url);
+    if (response.status !== 200) {
+      throw new Error("failed to fetch video info: " + response);
+    }
 
-      if (response.data.error !== undefined) {
-        throw new Error("failed to fetch video info: " + response.data.url);
-      }
+    if (response.data.error !== undefined) {
+      throw new Error("failed to fetch video info: " + response.data.url);
+    }
 
-      this.url = response.data.url;
-      this.title = response.data.title;
-      this.channel = new Channel(response.data.author_url, response.data.author_name);
-    });
+    this.url = response.data.url as string;
+    this.title = response.data.title as string;
+    this.channel = new Channel(response.data.author_url, response.data.author_name);
     this.isVideoInfoFetched = true;
+
+    videoInfoCache.set(this.id, {
+      url: this.url,
+      title: this.title,
+      authorUrl: this.channel.url,
+      authorName: this.channel.name,
+    })
   }
 
   public getTitle(): string {
