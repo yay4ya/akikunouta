@@ -51,8 +51,8 @@
               v-model="query"
             ></v-text-field>
           <div id="nav">
-            <router-link to="/">Tracks</router-link> |
-            <router-link to="/videos">Videos</router-link> |
+            <router-link to="/">Videos</router-link> |
+            <router-link to="/tracks">Tracks</router-link> |
             <router-link to="/covers">Covers</router-link> |
           </div>
           <keep-alive>

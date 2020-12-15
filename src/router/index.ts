@@ -6,13 +6,13 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
-    name: 'Tracks',
-    component: () => import('../views/Tracks.vue')
-  },
-  {
-    path: '/videos',
     name: 'Videos',
     component: () => import('../views/Videos.vue')
+  },
+  {
+    path: '/tracks',
+    name: 'Tracks',
+    component: () => import('../views/Tracks.vue')
   },
   {
     path: '/covers',
