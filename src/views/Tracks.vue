@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex">
     <TrackList
-      :trackList="library.trackList"
+      :tracks="library.tracks"
       :sort="false"
       :put="false"
       pull='clone'

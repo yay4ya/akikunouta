@@ -6,7 +6,7 @@
 
   <TrackList
     :key="queueChange"
-    :trackList="trackList"
+    :tracks="tracks"
     :deletable="true"
     :queueing="false"
     :sort="true"
@@ -24,7 +24,7 @@
 <script lang="ts">
   import Vue from 'vue';
   import {mapState, mapMutations} from 'vuex';
-  import {Track, TrackList} from '@/models/track';
+  import {Track} from '@/models/track';
   import * as VuexMutation from '@/store/mutation-types';
 
   export default Vue.extend({
@@ -36,7 +36,7 @@
       return {
         watchQueue: true,
         queueChange: true,
-        trackList: new TrackList([]),
+        tracks: [] as Track[],
       };
     },
     computed: {
@@ -48,9 +48,9 @@
           (track: Track) => track.fetchVideoInfo()
         )
       ).then(
-        () => this.trackList = new TrackList(this.queuedTracks.map(
-          (track: Track) => track
-        ))
+        () => {
+          this.tracks = this.queuedTracks.map((track: Track) => track)
+        }
       );
     },
     methods: {
@@ -63,7 +63,6 @@
       },
       onChange(tracks: Track[]) {
         this.watchQueue = false;
-
         this.setQueue(tracks.map((track: Track) => track));
       },
       onDeleted(targetTrack: Track) {
@@ -76,9 +75,7 @@
     watch: {
       queuedTracks() {
         if (this.watchQueue) {
-          this.trackList = new TrackList(this.queuedTracks.map(
-            (track: Track) => track
-          ))
+          this.tracks = this.queuedTracks.map((track: Track) => track);
           this.queueChange = !this.queueChange;
         }
         this.watchQueue = true;

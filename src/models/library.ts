@@ -1,16 +1,14 @@
 import trackJsons from '@/data/tracks.json';
-import {Track, TrackList} from './track';
+import {Track} from './track';
 
 
 export class Library {
-  readonly trackList: TrackList;
-  protected favoriteTrackList: TrackList;
+  readonly tracks: Track[];
+  protected favoriteTracks: Track[];
 
   constructor() {
-    this.trackList = new TrackList(
-      trackJsons.map(trackJson => new Track(trackJson))
-    );
-    this.favoriteTrackList = new TrackList([]);
+    this.tracks = trackJsons.map(trackJson => new Track(trackJson));
+    this.favoriteTracks= [];
   }
 }
 

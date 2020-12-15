@@ -26,7 +26,7 @@
           </v-btn>
         </div>
         <TrackList
-          :trackList="library.trackList.getTrackListByVideoId(selectedVideo.id)"
+          :tracks="getTracksByVideoId(selectedVideo.id)"
           :sort="false"
           :put="false"
           pull='clone'
@@ -42,6 +42,7 @@
   import Vue from 'vue';
   import {library} from '@/models/library';
   import {Video} from '@/models/youtube';
+  import {Track} from '@/models/track';
   import Card from '@/models/card';
 
   export default Vue.extend({
@@ -58,14 +59,10 @@
       }
     },
     async created() {
-      this.videos = await Promise.all(
-        library.trackList.getAllUniqueVideos().map(
-          video => {
-            video.fetchVideoInfo();
-            return video;
-          }
-        )
-      );
+      const videoIdToVideo = new Map(library.tracks.map(track => [track.video.id, track.video]));
+      const videos = [...videoIdToVideo.values()];
+      await Promise.all(videos.map(video => video.fetchVideoInfo()));
+      this.videos = videos;
     },
     computed: {
       videoCards: function(): Card[] {
@@ -82,7 +79,10 @@
     methods: {
       onClick(videoCard: Card) {
         this.selectedVideo = this.videos.find(video => video.id == videoCard.id) || null;
-      }
+      },
+      getTracksByVideoId(videoId: string): Track[] {
+        return library.tracks.filter(track => track.video.id === videoId);
+      },
     }
   });
 </script>

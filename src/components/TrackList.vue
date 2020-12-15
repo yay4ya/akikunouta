@@ -2,7 +2,7 @@
   <v-container>
 
   <draggable
-    :list="tracks"
+    :list="loadedTracks"
     tag="ul"
     animation="200"
     :group="{name: 'tracks', put: put, pull: pull}"
@@ -12,7 +12,7 @@
     class="track-list"
   >
     <li
-      v-for="track in tracks"
+      v-for="track in loadedTracks"
       v-bind:key="track.uuid"
       class="track"
       v-bind:class="{ nowPlayingTrack: isNowPlaying(track), nowPlayingSticky: isSticky(track) }"
@@ -35,13 +35,13 @@
   import Vue from 'vue';
   import {mapState, mapMutations, mapActions} from 'vuex';
   import draggable from 'vuedraggable';
-  import {Track, TrackList} from '@/models/track';
+  import {Track} from '@/models/track';
   import * as VuexMutation from '@/store/mutation-types';
   import * as VuexAction from '@/store/action-types';
 
   export default Vue.extend({
     name: 'TrackList',
-    props: ['trackList', 'put', 'pull', 'sort', 'queueing',
+    props: ['tracks', 'put', 'pull', 'sort', 'queueing',
             'deletable', 'nowPlayingId', 'sticky'],
     components: {
       draggable,
@@ -49,18 +49,17 @@
     },
     data() {
       return {
-        tracks: [] as Track[],
+        loadedTracks: [] as Track[],
       };
     },
     computed: {
       ...mapState(['playingTrack']),
     },
     async created() {
-      const trackList = this.trackList as TrackList;
-      await trackList.fetchAllVideoInfo();
+      const tracks = this.tracks as Track[];
+      await Promise.all(tracks.map(track => track.fetchVideoInfo()));
 
-      const tracks = trackList.getAllTracks() as Track[];
-      this.tracks = tracks.map((track: Track) => track)
+      this.loadedTracks = tracks.map(track => track)
 
     },
     methods: {
@@ -90,17 +89,17 @@
         return track.clone();
       },
       onChange() {
-        this.$emit('changed', this.tracks);
+        this.$emit('changed', this.loadedTracks);
       },
       onClick(targetTrack: Track) {
         this.setPlayingTrack(targetTrack);
         if (!this.queueing) {
           return;
         }
-        this.setQueue(this.tracks.map((track: Track) => track));
+        this.setQueue(this.loadedTracks.map((track: Track) => track));
       },
       deleteTrack(targetTrack: Track) {
-        this.tracks = this.tracks.filter(
+        this.loadedTracks= this.loadedTracks.filter(
           (track: Track) => track.uuid !== targetTrack.uuid
         );
         this.$emit('deleted', targetTrack);
