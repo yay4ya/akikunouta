@@ -111,7 +111,9 @@
       ...mapState(['playingTrack']),
     },
     mounted() {
-      this.scrollIntoView()
+      if (this.playingTrack.uuid === this.track.uuid) {
+        this.scrollIntoView();
+      }
     },
     methods: {
       secondsToTime(t: number): string {

@@ -2,7 +2,7 @@
   <v-container>
 
   <draggable
-    :list="filteredTracks"
+    :list="loadedTracks"
     tag="ul"
     animation="200"
     :group="{name: 'tracks', put: put, pull: pull}"
@@ -96,7 +96,7 @@
         return track.clone();
       },
       onChange() {
-        this.$emit('changed', this.loadedTracks);
+        this.$emit('changed', this.filteredTracks.map(track => track));
       },
       onClick(targetTrack: Track) {
         this.setPlayingTrack(targetTrack);
