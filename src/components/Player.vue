@@ -209,10 +209,6 @@
           'endSeconds': this.playingTrack.end,
         });
         await this.playVideo();
-        const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
-        if (nowPlayingTrackElement) {
-          nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
-        }
       },
     }
   });

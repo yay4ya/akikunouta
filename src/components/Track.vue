@@ -110,22 +110,27 @@
     computed: {
       ...mapState(['playingTrack']),
     },
+    mounted() {
+      this.scrollIntoView()
+    },
     methods: {
       secondsToTime(t: number): string {
         return secondsToTime(t);
       },
       onClick() {
         this.$emit('clicked', this.track);
-
-        // The following statement suppose that the first element with
-        // `nowPlayingTrack` class is in the queue.
-        const nowPlayingTrackElement = document.getElementsByClassName("nowPlayingTrack")[0];
-        if (nowPlayingTrackElement) {
-          nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
-        }
+        this.scrollIntoView()
       },
       onDelete() {
         this.$emit('deleted', this.track);
+      },
+      scrollIntoView() {
+        // scroll into view for queued track
+        const queueElement = document.getElementById("queue") as Element;
+        const nowPlayingTrackElement = queueElement.getElementsByClassName("nowPlayingTrack")[0];
+        if (nowPlayingTrackElement) {
+          nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     },
     watch: {
@@ -135,6 +140,7 @@
         } else {
           this.nowPlaying = this.playingTrack.id === this.track.id;
         }
+        this.scrollIntoView();
       },
     },
   })
