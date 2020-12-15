@@ -56,8 +56,12 @@ export class Track {
     }, this.video);
   }
 
-  public async fetchVideoInfo() {
-    await this.video.fetchVideoInfo();
+  public async fetchVideoInfo(force = false) {
+    await this.video.fetchVideoInfo(force);
+  }
+
+  public hasVideoInfo(): boolean {
+    return this.video.hasVideoInfo();
   }
 
   public getDuration(): number {
@@ -120,7 +124,12 @@ export class TrackList {
     }));
   }
 
-  public async fetchAllVideoInfo() {
-    await Promise.all(this.tracks.map(track => track.fetchVideoInfo()));
+  public async fetchAllVideoInfo(force = false) {
+    async function fetchVideoInfo(track: Track) {
+      if (force || !track.hasVideoInfo()) {
+        await track.fetchVideoInfo()
+      }
+    }
+    await Promise.all(this.tracks.map(track => fetchVideoInfo(track)));
   }
 }

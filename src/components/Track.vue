@@ -34,13 +34,13 @@
             </div>
             <div class="track-info-item">
               <a
-                :href="track.video.channel.url"
+                :href="track.hasVideoInfo()? track.video.channel.url : ''"
                 target="_blank"
                 @click.stop=""
               >
                 <v-icon size="15">mdi-account</v-icon>
               </a>
-              <span>{{ track.video.channel.name }}</span>
+              <span>{{ track.hasVideoInfo()? track.video.channel.name : '' }}</span>
             </div>
           </v-card-text>
         </div>
@@ -266,8 +266,6 @@
       }
     }
 
-
-
     .track-duration {
       position: absolute;
       bottom: 0px;
@@ -278,6 +276,4 @@
       background-color: rgba(0, 0, 0, 0.6);
     }
   }
-
-
 </style>

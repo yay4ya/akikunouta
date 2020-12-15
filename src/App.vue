@@ -51,7 +51,9 @@
             <router-link to="/">Tracks</router-link> |
             <router-link to="/videos">Videos</router-link> |
           </div>
-          <router-view class="router-view"/>
+          <keep-alive>
+            <router-view class="router-view"/>
+          </keep-alive>
         </div>
 
       </v-container>
@@ -100,7 +102,7 @@
 <style scoped lang="scss">
   .container {
     padding: 3px 15px;
-    max-width: 1410px;
+    max-width: 1400px;
   }
   .main-container {
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);

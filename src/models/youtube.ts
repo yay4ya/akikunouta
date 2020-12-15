@@ -19,6 +19,7 @@ export class Video {
     protected url: string |null = null,
     protected title: string | null = null,
     protected channel: Channel | null = null,
+    protected isVideoInfoFetched = false,
   ) {}
 
   public clone(): Video {
@@ -30,15 +31,10 @@ export class Video {
     );
   }
 
-  public async fetchVideoInfo() {
-    if (
-      this.url !== null
-      && this.title !== null
-      && this.channel !== null
-    ) {
+  public async fetchVideoInfo(force = false) {
+    if (!force && this.isVideoInfoFetched) {
       return;
     }
-
     const url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + this.id;
     await axios.get(url).then(response => {
       if (response.status !== 200) {
@@ -53,6 +49,7 @@ export class Video {
       this.title = response.data.title;
       this.channel = new Channel(response.data.author_url, response.data.author_name);
     });
+    this.isVideoInfoFetched = true;
   }
 
   public getTitle(): string {
@@ -77,6 +74,10 @@ export class Video {
   }
 
   public getThumbnailURL(quality: ThumbnailQuality): string {
-    return 'https://i.ytimg.com/vi/' + this.id + '/' + quality + '.jpg'
+    return 'https://i.ytimg.com/vi/' + this.id + '/' + quality + '.jpg';
+  }
+
+  public hasVideoInfo(): boolean {
+    return this.isVideoInfoFetched;
   }
 }

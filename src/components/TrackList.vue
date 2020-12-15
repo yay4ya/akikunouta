@@ -57,15 +57,11 @@
     },
     async created() {
       const trackList = this.trackList as TrackList;
-      const tracks = trackList.getAllTracks();
+      await trackList.fetchAllVideoInfo();
 
-      await Promise.all(
-        tracks.map(
-          track => track.fetchVideoInfo()
-        )
-      ).then(
-        () => this.tracks = tracks.map((track: Track) => track)
-      );
+      const tracks = trackList.getAllTracks() as Track[];
+      this.tracks = tracks.map((track: Track) => track)
+
     },
     methods: {
       ...mapMutations({

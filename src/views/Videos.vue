@@ -1,7 +1,7 @@
 <template>
   <v-container class="d-flex">
-    <VideoList
-      :list ="library.trackList.getAllUniqueVideos()"
+    <CardList
+      :cards="videoCards"
       class="video-list scroll-thin"
       @clicked="onClick"
     />
@@ -42,25 +42,46 @@
   import Vue from 'vue';
   import {library} from '@/models/library';
   import {Video} from '@/models/youtube';
+  import Card from '@/models/card';
 
   export default Vue.extend({
-    name: 'HelloWorld',
+    name: 'Videos',
     components: {
-      VideoList: () => import ('@/components/VideoList.vue'),
+      CardList: () => import ('@/components/CardList.vue'),
       TrackList: () => import ('@/components/TrackList.vue'),
     },
     data() {
       return {
         library: library,
+        videos: [] as Video[],
         selectedVideo: null as Video | null,
       }
     },
+    async created() {
+      this.videos = await Promise.all(
+        library.trackList.getAllUniqueVideos().map(
+          video => {
+            video.fetchVideoInfo();
+            return video;
+          }
+        )
+      );
+    },
     computed: {
+      videoCards: function(): Card[] {
+        return this.videos.map(video => {
+          return {
+            id: video.id,
+            title: video.hasVideoInfo() ? video.getTitle() : '',
+            subtitle: video.hasVideoInfo() ? video.getChannel().name : '',
+            thumbnailUrl: video.getThumbnailURL('mqdefault'),
+          }
+        })
+      },
     },
     methods: {
-      onClick(video: Video) {
-        console.log(video);
-        this.selectedVideo = video;
+      onClick(videoCard: VideoCard) {
+        this.selectedVideo = this.videos.find(video => video.id == videoCard.id);
       }
     }
   });
@@ -150,7 +171,6 @@
       height: calc(100%  - 130px);
       overflow-x: none;
       overflow-y: scroll;
-
 
     }
   }

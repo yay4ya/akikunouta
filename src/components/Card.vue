@@ -6,9 +6,9 @@
       width="220"
       height="190"
     >
-    <div class="video-thumbnail">
+    <div class="card-thumbnail">
       <v-img
-        :src="video.getThumbnailURL('hqdefault')"
+        :src="card.thumbnailUrl"
         height="120"
       ></v-img>
     </div>
@@ -16,13 +16,13 @@
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
           <v-card-title
-            v-text="video.getTitle()"
-            class="video-info video-title"
+            v-text="card.title"
+            class="card-info card-title"
           ></v-card-title>
 
           <v-card-subtitle
-            v-text="video.getChannel().name"
-            class="video-info video-channel"
+            v-text="card.subtitle"
+            class="card-info card-subtitle"
           ></v-card-subtitle>
         </div>
       </div>
@@ -34,11 +34,11 @@
   import Vue from 'vue';
 
   export default Vue.extend({
-    name: 'Video',
-    props: ['video'],
+    name: 'Card',
+    props: ['card', 'width', 'height'],
     methods: {
       onClick() {
-        this.$emit('clicked', this.video);
+        this.$emit('clicked', this.card);
       },
     },
   })
@@ -65,13 +65,13 @@
       opacity: 0.1;
     }
 
-    .video-info {
+    .card-info {
       text-overflow: ellipsis;
       overflow: hidden;
       padding: 8px;
     }
 
-    .video-title {
+    .card-title {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
@@ -81,7 +81,7 @@
       margin-bottom: 1em;
     }
 
-    .video-channel {
+    .card-subtitle {
       text-overflow: ellipsis;
       white-space: nowrap;
       font-size: 0.8em;
