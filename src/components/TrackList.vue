@@ -57,9 +57,11 @@
     },
     async created() {
       const tracks = this.tracks as Track[];
+      const videoMap = new Map(tracks.map(track => [track.video.id, track.video]));
+      const videos = [...videoMap.values()];
+      await Promise.all(videos.map(video => video.fetchVideoInfo()));
       await Promise.all(tracks.map(track => track.fetchVideoInfo()));
-
-      this.loadedTracks = tracks.map(track => track)
+      this.loadedTracks = tracks.map(track => track);
 
     },
     methods: {
