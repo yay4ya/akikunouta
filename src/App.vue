@@ -50,6 +50,7 @@
           <div id="nav">
             <router-link to="/">Tracks</router-link> |
             <router-link to="/videos">Videos</router-link> |
+            <router-link to="/covers">Covers</router-link> |
           </div>
           <keep-alive>
             <router-view class="router-view"/>
