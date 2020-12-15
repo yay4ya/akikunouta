@@ -80,8 +80,8 @@
       },
     },
     methods: {
-      onClick(videoCard: VideoCard) {
-        this.selectedVideo = this.videos.find(video => video.id == videoCard.id);
+      onClick(videoCard: Card) {
+        this.selectedVideo = this.videos.find(video => video.id == videoCard.id) || null;
       }
     }
   });
