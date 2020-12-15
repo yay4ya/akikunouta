@@ -1,5 +1,14 @@
 import axios from 'axios';
 
+interface VideoInfo {
+  url: string;
+  title: string;
+  author_url: string;
+  author_name: string;
+}
+
+const videoInfoCache = new Map<string, VideoInfo>();
+
 export type ThumbnailQuality = 'default' | 'mqdefault' | 'hqdefault';
 
 export class Channel {
@@ -20,7 +29,18 @@ export class Video {
     protected title: string | null = null,
     protected channel: Channel | null = null,
     protected isVideoInfoFetched = false,
-  ) {}
+    useCache = true,
+  ) {
+    if (useCache) {
+      const cache = videoInfoCache.get(this.id);
+      if (cache) {
+        this.url = cache.url;
+        this.title = cache.title;
+        this.channel = new Channel(cache.author_url, cache.author_name);
+        this.isVideoInfoFetched = true;
+      }
+    }
+  }
 
   public clone(): Video {
     return new Video(
@@ -28,12 +48,21 @@ export class Video {
       this.url,
       this.title,
       this.channel !== null ? this.channel.clone() : null,
+      this.isVideoInfoFetched,
+      false,
     );
   }
 
   public async fetchVideoInfo(force = false) {
     if (!force && this.isVideoInfoFetched) {
       return;
+    }
+    const cache = videoInfoCache.get(this.id);
+    if (!force && cache) {
+      this.url = cache.url;
+      this.title = cache.title;
+      this.channel = new Channel(cache.author_url, cache.author_name);
+      this.isVideoInfoFetched = true;
     }
     const url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + this.id;
     await axios.get(url).then(response => {
