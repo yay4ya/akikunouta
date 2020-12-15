@@ -111,7 +111,7 @@
       ...mapState(['playingTrack']),
     },
     mounted() {
-      if (this.playingTrack.uuid === this.track.uuid) {
+      if (this.playingTrack && this.playingTrack.uuid === this.track.uuid) {
         this.scrollIntoView();
       }
     },
