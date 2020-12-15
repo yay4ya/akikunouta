@@ -473,7 +473,7 @@
     "end": 2500
   },
   {
-    "id": 42,
+    "id": 43,
     "title": "小夜子",
     "singer": "鈴谷アキ",
     "artist": "みきとP",
@@ -484,7 +484,7 @@
     "end": 2826
   },
   {
-    "id": 43,
+    "id": 44,
     "title": "-ERROR",
     "singer": "鈴谷アキ",
     "artist": "niki",
@@ -495,7 +495,7 @@
     "end": 3230
   },
   {
-    "id": 44,
+    "id": 45,
     "title": "シリョクケンサ",
     "singer": "鈴谷アキ",
     "artist": "40mP",
@@ -506,7 +506,7 @@
     "end": 3570
   },
   {
-    "id": 45,
+    "id": 46,
     "title": "愛に奇術師",
     "singer": "鈴谷アキ",
     "artist": "電ポルP",
@@ -517,7 +517,7 @@
     "end": 3883
   },
   {
-    "id": 46,
+    "id": 47,
     "title": "回る空うさぎ",
     "singer": "鈴谷アキ",
     "artist": "Orangestar",
@@ -528,7 +528,7 @@
     "end": 4152
   },
   {
-    "id": 47,
+    "id": 48,
     "title": "敗北の少年 (アキくん敗北ver.)",
     "singer": "鈴谷アキ",
     "artist": "kemu",
@@ -539,7 +539,7 @@
     "end": 4264
   },
   {
-    "id": 48,
+    "id": 49,
     "title": "メーベル",
     "singer": "鈴谷アキ",
     "artist": "バルーン",
@@ -550,7 +550,7 @@
     "end": 4543
   },
   {
-    "id": 49,
+    "id": 50,
     "title": "式日とマンホール",
     "singer": "鈴谷アキ",
     "artist": "PolyphonicBranch",
@@ -561,7 +561,7 @@
     "end": 4685
   },
   {
-    "id": 50,
+    "id": 51,
     "title": "アスノヨゾラ哨戒班",
     "singer": "鈴谷アキ",
     "artist": "Orangestar",
@@ -572,7 +572,7 @@
     "end": 5051
   },
   {
-    "id": 51,
+    "id": 52,
     "title": "ブリキノダンス",
     "singer": "鈴谷アキ",
     "artist": "日向電工",
@@ -583,7 +583,7 @@
     "end": 5349
   },
   {
-    "id": 52,
+    "id": 53,
     "title": "DAYBREAK FRONTLINE",
     "singer": "鈴谷アキ",
     "artist": "Orangestar",
@@ -594,7 +594,7 @@
     "end": 5668
   },
   {
-    "id": 53,
+    "id": 54,
     "title": "それがあなたの幸せとしても",
     "singer": "鈴谷アキ",
     "artist": "ヘブンズP",
@@ -605,7 +605,7 @@
     "end": 6044
   },
   {
-    "id": 54,
+    "id": 55,
     "title": "快晴",
     "singer": "鈴谷アキ",
     "artist": "Orangestar",
@@ -625,5 +625,126 @@
     "tags": ["歌ってみた", "コラボ"],
     "start": 0,
     "end": 271
+  },
+  {
+    "id": 101,
+    "title": "エル・タンゴ・エゴイスタ",
+    "singer": "楓アキ花咲リリ刀也ギル",
+    "artist": "nyanyannya",
+    "videoid": "FGmYCkvWNWw",
+    "publishedAt": "2019-09-03",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 200
+  },
+  {
+    "id": 102,
+    "title": "ノエル・デ・フィガロ",
+    "singer": "アキ花咲刀也",
+    "artist": "nyanyannya",
+    "videoid": "ZrN3JHDf-gg",
+    "publishedAt": "2019-12-19",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 214
+  },
+  {
+    "id": 103,
+    "title": "クラブ=マジェスティ",
+    "singer": "楓アキ花咲リリ刀也ギル",
+    "artist": "nyanyannya",
+    "videoid": "V0njuvP7yPw",
+    "publishedAt": "2019-12-29",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 218
+  },
+  {
+    "id": 104,
+    "title": "明星ギャラクティカ",
+    "singer": "wingこらぼ (鈴谷アキ・モイラ)",
+    "artist": "ナユタン星人",
+    "videoid": "9FfPVleFoGQ",
+    "publishedAt": "2020-01-27",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 182
+  },
+  {
+    "id": 105,
+    "title": "僕たちはひとつの光",
+    "singer": "にじさんじ1期生",
+    "artist": "μ's",
+    "videoid": "pMI8wD9Di-k",
+    "publishedAt": "2020-02-09",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 315
+  },
+  {
+    "id": 106,
+    "title": "嗚呼、素晴らしきニャン生",
+    "singer": "まほすず (鈴谷アキ・勇気ちひろ)",
+    "artist": "Nem",
+    "videoid": "n2BrstdTTOc",
+    "publishedAt": "2019-12-22",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 220
+  },
+  {
+    "id": 107,
+    "title": "CITRUS",
+    "singer": "鈴谷アキ・樋口楓",
+    "artist": "Orangestar",
+    "videoid": "cvx4Tr3mWs8",
+    "publishedAt": "2019-12-26",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 218
+  },
+  {
+    "id": 108,
+    "title": "黒猫",
+    "singer": "鈴谷アキ",
+    "artist": "赤髪",
+    "videoid": "ST3_N-ayVjw",
+    "publishedAt": "2020-02-22",
+    "tags": ["歌ってみた"],
+    "start": 0,
+    "end": 296
+  },
+  {
+    "id": 109,
+    "title": "flos",
+    "singer": "鈴谷アキ・剣持刀也",
+    "artist": "R Sound Design",
+    "videoid": "sWDZghAERnk",
+    "publishedAt": "2020-04-18",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 280
+  },
+  {
+    "id": 110,
+    "title": "メルヘン彼氏とメルヘン彼女",
+    "singer": "鈴谷アキ・森中花咲",
+    "artist": "Nem",
+    "videoid": "74DV1ZXYyrU",
+    "publishedAt": "2020-06-03",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 263
+  },
+  {
+    "id": 111,
+    "title": "女の子になりたい",
+    "singer": "鈴谷アキ",
+    "artist": "まふまふ",
+    "videoid": "EK_mGZoNw1g",
+    "publishedAt": "2020-06-22",
+    "tags": ["歌ってみた"],
+    "start": 0,
+    "end": 240
   }
 ]
