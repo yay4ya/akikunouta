@@ -125,7 +125,7 @@
       }
     },
     computed: {
-      ...mapState(['playingTrack']),
+      ...mapState(['playingTrack', 'favoriteTracks']),
     },
     mounted() {
       if (this.playingTrack && this.playingTrack.uuid === this.track.uuid) {
@@ -174,6 +174,14 @@
           this.nowPlaying = this.playingTrack.id === this.track.id;
         }
         this.scrollIntoView();
+      },
+      favoriteTracks() {
+        for (const track of this.favoriteTracks) {
+          if (track.id === this.track.id) {
+            this.track.isFavorite = true;
+            break;
+          }
+        }
       },
     },
   })
