@@ -227,6 +227,7 @@
       width: 30px;
       position: relative;
       transition: background-color 0.2s;
+      cursor: move;
 
 
       &:hover {
