@@ -72,19 +72,25 @@ export class Track {
   }
 
   public match(query: string): boolean {
+    const keywords = query.split(/[\s]/);
+
     const videoTitle = this.video.getTitle() || '';
 
     const channel = this.video.getChannel();
     const channelName = channel? channel.name : '';
 
-    const target = [
-      this.title,
-      this.singer,
-      this.artist,
-      videoTitle,
-      channelName,
-    ].join('  ').toLowerCase();
-    return target.indexOf(query) >= 0;
-
+    let isMatch = true;
+    for (const keyword of keywords) {
+      const target = [
+        this.title,
+        this.singer,
+        this.artist,
+        videoTitle,
+        channelName,
+        this.tags.join('  '),
+      ].join('  ').toLowerCase();
+      isMatch = isMatch && target.indexOf(keyword) >= 0;
+    }
+    return isMatch;
   }
 }
