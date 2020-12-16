@@ -47,6 +47,7 @@
             v-if="playerState !== 1"
             @click="playVideo()"
             icon
+            large
           >
             <v-icon size="50">mdi-play</v-icon>
           </v-btn>
@@ -54,6 +55,7 @@
             v-else
             @click="pauseVideo()"
             icon
+            large
           >
             <v-icon size="50">mdi-pause</v-icon>
           </v-btn>
@@ -217,10 +219,14 @@
 <style scoped lang="scss">
   .container {
     width: 100%;
+    padding: 0;
   }
 
   .video-screen {
-    width: 400px;
+    width: 100%;
+    height: calc((9/16) * 400px);
+    border-radius: 10px 10px 10px 10px;
+    overflow: hidden;
   }
 
   .video-controller {
@@ -262,7 +268,7 @@
       .btn-skip-next{
         position: absolute;
         top: 50%;
-        left: 80%;
+        left: 70%;
         -webkit-transform : translate(-50%,-50%);
         transform : translate(-50%,-50%);
 
@@ -270,7 +276,7 @@
       .btn-skip-previous {
         position: absolute;
         top: 50%;
-        left: 20%;
+        left: 30%;
         -webkit-transform : translate(-50%,-50%);
         transform : translate(-50%,-50%);
       }

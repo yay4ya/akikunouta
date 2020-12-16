@@ -112,7 +112,6 @@
   .video-list {
     overflow-x: hidden;
     overflow-y: scroll;
-    margin-top: 10px;
   }
 
   .slide-enter-active, .slide-leave-active {
@@ -132,8 +131,8 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     background-color: white;
 
     .btn-close-track-list {

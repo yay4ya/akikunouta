@@ -746,5 +746,49 @@
     "tags": ["歌ってみた"],
     "start": 0,
     "end": 240
+  },
+  {
+    "id": 112,
+    "title": "Henceforth",
+    "singer": "鈴谷アキ",
+    "artist": "Orangestar",
+    "videoid": "GSAEd_pMhIU",
+    "publishedAt": "2020-08-02",
+    "tags": ["歌ってみた"],
+    "start": 0,
+    "end": 237
+  },
+  {
+    "id": 113,
+    "title": "花に雨を、君に歌を",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "THE BINARY",
+    "videoid": "G8DH6f2S9yY",
+    "publishedAt": "2020-09-24",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 264
+  },
+  {
+    "id": 114,
+    "title": "ヒバナ",
+    "singer": "ねないこ (鈴谷アキ・緑仙)",
+    "artist": "DECO*27",
+    "videoid": "U66Vb4huX6w",
+    "publishedAt": "2020-10-03",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 205
+  },
+  {
+    "id": 115,
+    "title": "猫猫的宇宙論",
+    "singer": "ねないこ (鈴谷アキ・緑仙)",
+    "artist": "ナユタン星人",
+    "videoid": "Dbf4_o-trNc",
+    "publishedAt": "2020-11-21",
+    "tags": ["歌ってみた", "コラボ"],
+    "start": 0,
+    "end": 218
   }
 ]

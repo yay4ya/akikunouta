@@ -246,12 +246,14 @@
     height: 60px;
     margin: 0;
 
+
     .v-image {
       margin: 0 !important;
       justify-content: center;
       position: relative;
       vertical-align: middle;
       overflow: hidden;
+      border-radius: 10px 10px 10px 10px;
     }
 
     .track-actions {
@@ -280,12 +282,13 @@
 
     .track-duration {
       position: absolute;
-      bottom: 0px;
-      right: 0px;
+      bottom: 3px;
+      right: 3px;
       padding: 0 5px;
       font-size: 0.65em;
       color: white;
       background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 5px 5px 5px 5px;
     }
   }
 </style>

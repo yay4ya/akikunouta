@@ -2,6 +2,7 @@
   <v-container>
 
   <div class="queue-background">
+    <v-icon dark size="120">mdi-tray-plus</v-icon>
   </div>
 
   <TrackList
@@ -89,5 +90,19 @@
   .queued-tracks {
     overflow-x: hidden;
     overflow-y: scroll;
+  }
+
+  .queue-background {
+    position: absolute;
+    width: 100%;
+    height: 100;
+    top: 50%;
+
+    .v-icon {
+      top: 50%;
+      left: 50%;
+      -webkit-transform : translate(-50%,-50%);
+      transform : translate(-50%,-50%);
+    }
   }
 </style>

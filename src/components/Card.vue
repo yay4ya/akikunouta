@@ -49,10 +49,15 @@
     padding: 2px;
   }
 
+  .v-sheet.v-card:not(.v-sheet--outlined) {
+    box-shadow: none;
+  }
+
   .v-card {
     position: relative;
     margin: 5px !important;
     overflow: hidden;
+    background-color: white;
 
     &:hover:after {
       content: '';

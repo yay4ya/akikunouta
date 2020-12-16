@@ -117,11 +117,33 @@
   }
 </style>
 
+<style lang="scss">
+  .v-main__wrap {
+    background-color: #f2f2f2;
+  }
+</style>
+
 <style scoped lang="scss">
+  .background {
+    position: absolute;
+    width: 200px;
+    bottom: 0;
+    right: 20px;
+    transform: scale(-1, 1);
+    opacity: 0.8;
+  }
+
+  @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
+
+
   .container {
+    z-index: 10;
     padding: 3px 15px;
-    max-width: 1400px;
+    max-width: 1395px;
     height: calc(100vh - 50px);
+    background-color: #fffbe8;
+    font-family: 'Noto Sans JP', sans-serif;;
+    font-size: 95%;
   }
   .main-container {
     box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
@@ -129,9 +151,9 @@
 
   .left {
     width: 400px;
+    margin-top: 10px;
 
     #video-player {
-      margin-bottom: 10px;
       height: 320px;
       overflow: hidden;
     }
@@ -140,6 +162,9 @@
       padding: 0;
       height: calc(100% - 335px);
       background-color: #f3f3f3;
+      border-radius: 10px 10px 10px 10px;
+      overflow: hidden;
+      border: solid 5px #d9cac8
     }
   }
 
@@ -149,13 +174,16 @@
     width: 100%;
 
     #nav {
-      height: 150px;
+      height: 80px;
       padding: 0;
     }
 
     .router-view {
       padding: 0;
-      height: calc(100% - 230px);
+      height: calc(100% - 165px);
+      border-radius: 10px 10px 10px 10px;
+      overflow: hidden;
+      background-color: #f4f4f4;
     }
   }
 </style>
