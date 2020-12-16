@@ -2,7 +2,7 @@ import trackJsons from '@/data/tracks.json';
 import {Track} from './track';
 
 
-const LOCALSTORAGE_FAVORIT_TRACK_KEY = 'akikun_favorite_tracks';
+const LOCALSTORAGE_FAVORIT_TRACK_KEY = 'favorite_tracks';
 
 
 export class Library {
