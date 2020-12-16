@@ -3,6 +3,7 @@
     <v-card
       flat
       tile
+      :ripple="false"
       @click="onClick"
       v-bind:class="{ nowplayingtrack: nowPlaying }"
     >
@@ -152,6 +153,7 @@
   .container {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
 
   .nowplayingtrack {
