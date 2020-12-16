@@ -134,6 +134,9 @@
           this.playerState = state.data;
         }
       );
+      if (this.playingTrack) {
+        this.loadTrack(this.playingTrack);
+      }
     },
     methods: {
       ...mapActions({
@@ -184,6 +187,9 @@
           this.playNext();
           return;
         }
+        if (this.playerState === -1) {
+          await this.loadTrack(this.playingTrack)
+        }
         await this.player.playVideo();
       },
       async pauseVideo() {
@@ -205,11 +211,7 @@
         if (this.playingTrack === null) {
           return;
         }
-        await this.player.loadVideoById({
-          'videoId': this.playingTrack.video.id,
-          'startSeconds': this.playingTrack.start,
-          'endSeconds': this.playingTrack.end,
-        });
+        await this.loadTrack(this.playingTrack);
         await this.playVideo();
       },
     }

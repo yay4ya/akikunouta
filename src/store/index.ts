@@ -10,8 +10,8 @@ Vue.use(Vuex);
 
 function getInitialState(): State {
   const state: State = {
-    queuedTracks: [],
-    playingTrack: null,
+    queuedTracks: library.loadQueuedTracks(),
+    playingTrack: library.loadPlayingTrack(),
     searchQuery: '',
     favoriteTracks: library.loadFavoriteTracks(),
   };
@@ -23,15 +23,18 @@ export default new Vuex.Store({
   mutations: {
     [VuexMutation.SET_PLAYING_TRACK](state: State, track: Track | null) {
       state.playingTrack = track;
+      library.savePlayingTrack(track);
     },
     [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
       state.queuedTracks = tracks;
+      library.saveQueuedTracks(state.queuedTracks);
     },
     [VuexMutation.SET_SEARCH_QUERY](state: State, query: string) {
       state.searchQuery = query;
     },
     [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
       state.queuedTracks.push(track);
+      library.saveQueuedTracks(state.queuedTracks);
     },
     [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {
       library.addFavoriteTrack(track);
