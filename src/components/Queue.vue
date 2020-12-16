@@ -44,14 +44,9 @@
     },
     async created() {
       await Promise.all(
-        this.queuedTracks.map(
-          (track: Track) => track.fetchVideoInfo()
-        )
-      ).then(
-        () => {
-          this.tracks = this.queuedTracks.map((track: Track) => track)
-        }
+        this.queuedTracks.map((track: Track) => track.fetchVideoInfo())
       );
+      this.tracks = this.queuedTracks.map((track: Track) => track)
     },
     methods: {
       ...mapMutations({
