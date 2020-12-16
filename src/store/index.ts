@@ -4,6 +4,7 @@ import {Track} from '@/models/track';
 import * as VuexAction from '@/store/action-types';
 import * as VuexMutation from '@/store/mutation-types';
 import State from '@/models/state';
+import {library} from '@/models/library';
 
 Vue.use(Vuex);
 
@@ -12,6 +13,7 @@ function getInitialState(): State {
     queuedTracks: [],
     playingTrack: null,
     searchQuery: '',
+    favoriteTracks: library.loadFavoriteTracks(),
   };
   return state;
 }
@@ -27,6 +29,21 @@ export default new Vuex.Store({
     },
     [VuexMutation.SET_SEARCH_QUERY](state: State, query: string) {
       state.searchQuery = query;
+    },
+    [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
+      state.queuedTracks.push(track);
+    },
+    [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {
+      library.addFavoriteTrack(track);
+      const favoriteTracks = state.favoriteTracks.map(x => x);
+      favoriteTracks.unshift(track);
+      state.favoriteTracks = favoriteTracks;
+    },
+    [VuexMutation.REMOVE_FAVORITE_TRACK](state: State, targetTrack: Track) {
+      library.removeFavoriteTrack(targetTrack);
+      state.favoriteTracks = state.favoriteTracks.filter(
+        track => track.id !== targetTrack.id
+      );
     },
   },
   actions: {

@@ -54,6 +54,7 @@
             <router-link to="/">Videos</router-link> |
             <router-link to="/tracks">Tracks</router-link> |
             <router-link to="/covers">Covers</router-link> |
+            <router-link to="/favorites">Favorites</router-link> |
           </div>
           <keep-alive>
             <router-view class="router-view"/>
@@ -146,7 +147,7 @@
     font-size: 95%;
   }
   .main-container {
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
   }
 
   .left {

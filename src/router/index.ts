@@ -19,6 +19,11 @@ const routes: Array<RouteConfig> = [
     name: 'Covers',
     component: () => import('../views/Covers.vue')
   },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: () => import('../views/Favorites.vue')
+  },
 ];
 
 const router = new VueRouter({

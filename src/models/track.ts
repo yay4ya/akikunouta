@@ -24,9 +24,11 @@ export class Track {
   readonly tags: string[];
   readonly start: number;
   readonly end: number;
+  public isFavorite: boolean;
 
   constructor(
     trackJson: TrackJson,
+    isFavorite = false,
     video: Video | null = null,
     uuid: string | null = null,
   ) {
@@ -39,6 +41,7 @@ export class Track {
     this.tags = trackJson.tags;
     this.start = trackJson.start;
     this.end = trackJson.end;
+    this.isFavorite = isFavorite;
     this.video = video || new Video(trackJson.videoid);
   }
 
@@ -53,7 +56,7 @@ export class Track {
       tags: this.tags.map(tag => tag),
       start: this.start,
       end: this.end,
-    }, this.video);
+    }, this.isFavorite, this.video);
   }
 
   public async fetchVideoInfo(force = false) {

@@ -7,8 +7,22 @@
       @click="onClick"
       v-bind:class="{ nowplayingtrack: nowPlaying }"
     >
-      <div class="d-flex flex-no-wrap justify-space-between">
+      <div class="d-flex flex-no-wrap justify-space-between track-content">
+        <div class="handle">
+          <v-icon size="20">mdi-drag</v-icon>
+        </div>
         <div class="track-info">
+          <v-btn
+            right
+            icon
+            width="25"
+            height="25"
+            :color="track.isFavorite? 'red' : ''"
+            @click.stop="toggleFavorite"
+            class="btn-favorite"
+          >
+            <v-icon size="17">{{ track.isFavorite? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+          </v-btn>
           <v-card-title
             class="track-info-item track-title"
             v-text="track.title + ' / ' + track.artist"
@@ -52,12 +66,13 @@
           ></v-img>
           <v-card-actions class="track-actions">
             <v-btn
+              v-if="queueing"
               dark
               right
               icon
-              @click.stop=""
+              @click.stop="addToQueue(track)"
             >
-              <v-icon size="13">mdi-heart</v-icon>
+              <v-icon size="18">mdi-plus</v-icon>
             </v-btn>
             <v-btn
               dark
@@ -65,7 +80,7 @@
               icon
               @click.stop=""
             >
-              <v-icon size="13">mdi-playlist-plus</v-icon>
+              <v-icon size="18">mdi-playlist-plus</v-icon>
             </v-btn>
           </v-card-actions>
           <div class="track-duration">
@@ -81,8 +96,8 @@
           dark
           right
           icon
-          width="22"
-          height="22"
+          width="20"
+          height="20"
           @click.stop="onDelete(track)"
         >
           <v-icon size="15">mdi-close</v-icon>
@@ -94,12 +109,13 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapState} from 'vuex';
+  import {mapState, mapMutations} from 'vuex';
   import {secondsToTime} from '@/util';
+  import * as VuexMutation from '@/store/mutation-types';
 
   export default Vue.extend({
     name: 'Track',
-    props: ['track', 'deletable', 'nowPlayingId'],
+    props: ['track', 'deletable', 'nowPlayingId', 'queueing'],
     async created() {
       await this.track.fetchVideoInfo();
     },
@@ -117,6 +133,11 @@
       }
     },
     methods: {
+      ...mapMutations({
+        addFavoriteTrack: VuexMutation.ADD_FAVORITE_TRACK,
+        removeFavoriteTrack: VuexMutation.REMOVE_FAVORITE_TRACK,
+        addToQueue: VuexMutation.ADD_TO_QUEUE,
+      }),
       secondsToTime(t: number): string {
         return secondsToTime(t);
       },
@@ -133,6 +154,15 @@
         const nowPlayingTrackElement = queueElement.getElementsByClassName("nowPlayingTrack")[0];
         if (nowPlayingTrackElement) {
           nowPlayingTrackElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      },
+      toggleFavorite() {
+        if (this.track.isFavorite) {
+          this.removeFavoriteTrack(this.track)
+          this.track.isFavorite = false;
+        } else {
+          this.addFavoriteTrack(this.track);
+          this.track.isFavorite = true;
         }
       }
     },
@@ -154,6 +184,7 @@
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 100%;
   }
 
   .nowplayingtrack {
@@ -161,6 +192,9 @@
 
   .v-card {
     position: relative;
+    user-select:none;
+    align-items: center;
+    height: 100%;
 
     &:before {
       transition: opacity 0.3s;
@@ -176,6 +210,36 @@
       bottom: 0;
       background-color: #000000;
       opacity: 0.1;
+    }
+
+    .v-icon {
+      &:hover {
+        color: #F96C4F;
+      }
+    }
+
+    .track-content {
+      height: 100%;
+    }
+
+    .handle {
+      height: 100%;
+      width: 30px;
+      position: relative;
+      transition: background-color 0.2s;
+
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .v-icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+      }
     }
 
     .btn-delete-track {
@@ -206,18 +270,18 @@
     text-overflow: ellipsis;
 
     .track-info-item {
-      padding: 2px 0px 2px 10px;
+      padding: 2px 0px 2px 3px;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
       line-height: 1.5em;
+    }
 
-      .v-icon {
-        margin-right: 5px;
-        &:hover {
-          color: #F96C4F;
-        }
-      }
+    .btn-favorite {
+      display: inline;
+      float: left;
+      margin-top: 7px;
+      margin-left: 1px;
     }
 
     .track-title {
@@ -230,9 +294,12 @@
     }
 
     .video-info {
-      padding: 0;
       font-size: 0.7em;
       color: #5d5d5d;
+
+      .v-icon {
+        padding-right: 7px;
+      }
 
       a{
         text-decoration: none;
@@ -245,7 +312,6 @@
     width: calc((16 / 9) * 60px);
     height: 60px;
     margin: 0;
-
 
     .v-image {
       margin: 0 !important;

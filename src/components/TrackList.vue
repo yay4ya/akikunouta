@@ -8,6 +8,7 @@
     :group="{name: 'tracks', put: put, pull: pull}"
     :clone="cloneTrack"
     :sort="sort"
+    handle=".handle"
     @change="onChange"
     class="track-list"
   >
@@ -22,7 +23,7 @@
         :track="track"
         :deletable="deletable"
         :nowPlayingId="nowPlayingId"
-        :stick="sticky"
+        :queueing="queueing"
         @clicked="onClick"
         @deleted="deleteTrack"
       />
@@ -43,7 +44,7 @@
   export default Vue.extend({
     name: 'TrackList',
     props: ['tracks', 'put', 'pull', 'sort', 'queueing',
-            'deletable', 'nowPlayingId', 'sticky', 'query'],
+            'deletable', 'nowPlayingId', 'query'],
     components: {
       draggable,
       Track: () => import('@/components/Track.vue'),
@@ -113,6 +114,14 @@
       query() {
         this.updatedQuery = this.query;
       },
+      async tracks() {
+        const tracks = this.tracks as Track[];
+        const videoMap = new Map(tracks.map(track => [track.video.id, track.video]));
+        const videos = [...videoMap.values()];
+        await Promise.all(videos.map(video => video.fetchVideoInfo()));
+        await Promise.all(tracks.map(track => track.fetchVideoInfo()));
+        this.loadedTracks = tracks.map(track => track);
+      }
     },
   })
 </script>
@@ -120,12 +129,6 @@
 <style lang="scss">
   .track-list {
     height:100%;
-
-    .nowPlayingSticky {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
 
     .nowPlayingTrack {
       .v-card:after {
@@ -135,7 +138,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.3);
+        background-color: rgba(0, 0, 0, 0.2);
         pointer-events: none;
       }
     }
@@ -155,5 +158,6 @@
     margin: 0;
     list-style: none;
     border-bottom: solid 2px #f2f2f2;
+    height: 85px;
   }
 </style>

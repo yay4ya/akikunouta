@@ -6,12 +6,10 @@
   </div>
 
   <TrackList
-    :key="queueChange"
-    :tracks="tracks"
+    :tracks="queuedTracks"
     :deletable="true"
     :queueing="false"
     :sort="true"
-    :sticky="true"
     pull="clone"
     nowPlayingId="uuid"
     @changed="onChange"
@@ -33,21 +31,8 @@
     components: {
       TrackList: () => import('@/components/TrackList.vue'),
     },
-    data() {
-      return {
-        watchQueue: true,
-        queueChange: true,
-        tracks: [] as Track[],
-      };
-    },
     computed: {
       ...mapState(['playingTrack', 'queuedTracks']),
-    },
-    async created() {
-      await Promise.all(
-        this.queuedTracks.map((track: Track) => track.fetchVideoInfo())
-      );
-      this.tracks = this.queuedTracks.map((track: Track) => track)
     },
     methods: {
       ...mapMutations({
@@ -58,24 +43,13 @@
         return track.clone();
       },
       onChange(tracks: Track[]) {
-        this.watchQueue = false;
         this.setQueue(tracks.map((track: Track) => track));
       },
       onDeleted(targetTrack: Track) {
-        this.watchQueue = false;
         this.setQueue(this.queuedTracks.filter(
           (track: Track) => track.uuid !== targetTrack.uuid
         ))
       },
-    },
-    watch: {
-      queuedTracks() {
-        if (this.watchQueue) {
-          this.tracks = this.queuedTracks.map((track: Track) => track);
-          this.queueChange = !this.queueChange;
-        }
-        this.watchQueue = true;
-      }
     },
   })
 </script>
