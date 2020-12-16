@@ -12,10 +12,11 @@
     class="track-list"
   >
     <li
-      v-for="track in filteredTracks"
+      v-for="track in loadedTracks"
       v-bind:key="track.uuid"
       class="track"
-      v-bind:class="{ nowPlayingTrack: isNowPlaying(track), nowPlayingSticky: isSticky(track) }"
+      v-bind:class="{ nowPlayingTrack: isNowPlaying(track) }"
+      v-bind:style="{ display: track.match(updatedQuery)? 'block' : 'none' }"
     >
       <Track
         :track="track"
@@ -38,7 +39,6 @@
   import * as VuexMutation from '@/store/mutation-types';
   import * as VuexAction from '@/store/action-types';
   import {Track} from '@/models/track';
-  import Search from '@/models/search';
 
   export default Vue.extend({
     name: 'TrackList',
@@ -57,7 +57,7 @@
     computed: {
       ...mapState(['playingTrack']),
       filteredTracks(): Track[] {
-        return new Search(this.loadedTracks).getTracksByQuery(this.updatedQuery);
+        return this.loadedTracks.filter(track => track.match(this.updatedQuery));
       },
     },
     async created() {
@@ -88,9 +88,6 @@
           isNowPlaying = track.id === this.playingTrack.id;
         }
         return isNowPlaying;
-      },
-      isSticky(track: Track): boolean {
-        return this.isNowPlaying(track) && this.sticky;
       },
       cloneTrack(track: Track): Track {
         return track.clone();

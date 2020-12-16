@@ -67,4 +67,21 @@ export class Track {
   public getDuration(): number {
     return this.end - this.start;
   }
+
+  public match(query: string): boolean {
+    const videoTitle = this.video.getTitle() || '';
+
+    const channel = this.video.getChannel();
+    const channelName = channel? channel.name : '';
+
+    const target = [
+      this.title,
+      this.singer,
+      this.artist,
+      videoTitle,
+      channelName,
+    ].join('  ').toLowerCase();
+    return target.indexOf(query) >= 0;
+
+  }
 }
