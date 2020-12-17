@@ -3,8 +3,8 @@
     <v-app-bar
       app
       color="primary"
-      dark
       height="50"
+      elevation="0"
     >
       <div class="d-flex align-center">
         <v-img
@@ -146,9 +146,6 @@
     font-family: 'Noto Sans JP', sans-serif;;
     font-size: 95%;
   }
-  .main-container {
-    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.1);
-  }
 
   .left {
     width: 400px;
@@ -162,10 +159,9 @@
     #queue {
       padding: 0;
       height: calc(100% - 335px);
-      background-color: #f3f3f3;
+      background-color: rgba(0, 0, 0, 0.1);
       border-radius: 10px 10px 10px 10px;
       overflow: hidden;
-      border: solid 5px #d9cac8
     }
   }
 
@@ -184,7 +180,7 @@
       height: calc(100% - 165px);
       border-radius: 10px 10px 10px 10px;
       overflow: hidden;
-      background-color: #f4f4f4;
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 </style>

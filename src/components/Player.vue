@@ -240,6 +240,7 @@
       position: relative;
       font-size: 0.7em;
       height: 1em;
+      user-select:none;
 
       .track-elapsed-time {
         position: absolute;
