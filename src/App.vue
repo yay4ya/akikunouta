@@ -134,7 +134,7 @@
   .container {
     padding: 10px 15px;
     height: calc(100vh - 50px);
-    max-width: 1400px;
+    max-width: 1390px;
     background-color: #fffbe8;
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
@@ -142,7 +142,7 @@
 
   .left {
     height: 100%;
-    width: 360px;
+    width: 400px;
     display: flex;
     flex-direction: column;
 
@@ -162,7 +162,7 @@
 
   .right {
     height: 100%;
-    width: calc(100% - 360px);
+    width: calc(100% - 400px);
     display: flex;
     flex-direction: column;
     padding-left: 15px;
