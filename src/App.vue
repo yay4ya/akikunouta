@@ -133,7 +133,7 @@
 
   .container {
     padding: 10px 15px;
-    max-height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
     max-width: 1400px;
     background-color: #fffbe8;
     font-size: 97%;
@@ -141,15 +141,18 @@
   }
 
   .left {
-    width: 30%;
+    height: 100%;
+    width: 360px;
     display: flex;
     flex-direction: column;
 
     #video-player {
+      height: 500px;
       margin-bottom: 15px;
     }
 
     #queue {
+      height: 100%;
       padding: 0;
       overflow: hidden;
       border-radius: 10px 10px 10px 10px;
@@ -158,7 +161,8 @@
   }
 
   .right {
-    width: 70%;
+    height: 100%;
+    width: calc(100% - 360px);
     display: flex;
     flex-direction: column;
     padding-left: 15px;
