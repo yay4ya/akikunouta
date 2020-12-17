@@ -47,9 +47,13 @@
         </div>
 
         <div class="right">
+          <div id="search">
+            <v-icon color="rgb(249, 102, 102)" size="30">mdi-magnify</v-icon>
             <v-text-field
               v-model="query"
+              color="#e55555"
             ></v-text-field>
+          </div>
           <div id="nav">
             <router-link to="/">Videos</router-link> |
             <router-link to="/tracks">Tracks</router-link> |
@@ -57,7 +61,7 @@
             <router-link to="/favorites">Favorites</router-link> |
           </div>
           <keep-alive>
-            <router-view class="router-view"/>
+            <router-view id="router-view"/>
           </keep-alive>
         </div>
 
@@ -125,62 +129,63 @@
 </style>
 
 <style scoped lang="scss">
-  .background {
-    position: absolute;
-    width: 200px;
-    bottom: 0;
-    right: 20px;
-    transform: scale(-1, 1);
-    opacity: 0.8;
-  }
-
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
-
   .container {
-    z-index: 10;
-    padding: 3px 15px;
-    max-width: 1395px;
-    height: calc(100vh - 50px);
+    padding: 10px 15px;
+    max-height: calc(100vh - 50px);
+    max-width: 1400px;
     background-color: #fffbe8;
+    font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
-    font-size: 95%;
   }
 
   .left {
-    width: 400px;
-    margin-top: 10px;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
 
     #video-player {
-      height: 320px;
-      overflow: hidden;
+      margin-bottom: 15px;
     }
 
     #queue {
       padding: 0;
-      height: calc(100% - 335px);
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 10px 10px 10px 10px;
       overflow: hidden;
+      border-radius: 10px 10px 10px 10px;
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
   .right {
-    margin-left: 20px;
-    min-width: 270px;
-    width: 100%;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    padding-left: 15px;
+
+    #search {
+      display: flex;
+
+      .v-icon {
+        padding-right: 10px;
+        height: 50px;
+      }
+
+      .v-input {
+        padding: 0;
+      }
+    }
 
     #nav {
-      height: 80px;
       padding: 0;
     }
 
-    .router-view {
+    #router-view {
+      width: 100%;
       padding: 0;
-      height: calc(100% - 165px);
       border-radius: 10px 10px 10px 10px;
-      overflow: hidden;
       background-color: rgba(0, 0, 0, 0.1);
+      overflow: hidden;
     }
   }
 </style>

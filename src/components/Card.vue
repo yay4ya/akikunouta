@@ -57,7 +57,11 @@
     position: relative;
     margin: 5px !important;
     overflow: hidden;
-    background-color: white;
+
+    &:after {
+      transition: opacity 0.3s;
+      opacity: 0;
+    }
 
     &:hover:after {
       content: '';

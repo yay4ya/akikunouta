@@ -130,7 +130,6 @@
     mounted() {
       if (this.playingTrack && this.playingTrack.uuid === this.track.uuid) {
         this.scrollIntoView();
-        console.log("mounted")
       }
     },
     methods: {

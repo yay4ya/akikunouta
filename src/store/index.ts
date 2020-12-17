@@ -33,7 +33,7 @@ export default new Vuex.Store({
       state.searchQuery = query;
     },
     [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
-      state.queuedTracks.push(track);
+      state.queuedTracks.push(track.clone());
       library.saveQueuedTracks(state.queuedTracks);
     },
     [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {

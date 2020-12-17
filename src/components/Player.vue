@@ -10,26 +10,56 @@
         @playing="playing"
         @paused="paused"
         @ended="ended"
+        class="youtube-player"
       ></youtube>
     </div>
 
-    <div class="video-controller">
-      <v-slider
-        v-model="seekbarValue"
-        @start="seekStart"
-        @end="seekEnd"
-        @click="seekEnd"
-        min="0"
-        :max="seekbarMax"
-        class="seekbar"
-      ></v-slider>
-
-      <div class="track-time">
-        <div class="track-elapsed-time">
-          {{ secondsToTime(trackProgress * trackDuration) }}
+    <div class="playing-track-info">
+      <v-btn
+        icon
+        small
+      >
+        <v-icon size="20">mdi-heart-outline</v-icon>
+      </v-btn>
+      <div class="playing-track-details">
+        <div class="playing-track-title">
+          {{ playingTrack? playingTrack.title + " / " + playingTrack.artist : '' }}
         </div>
+        <div
+         class="playing-track-singer"
+         target="_blank"
+        >
+          {{ this.playingTrack? this.playingTrack.singer : ''}}
+        </div>
+      </div>
+      <v-btn
+        icon
+        small
+      >
+        <v-icon size="20">mdi-speaker</v-icon>
+      </v-btn>
+    </div>
+
+    <div class="video-controller">
+      <div class="seekbar-container">
+        <div class="track-elapsed-time">
+          {{ secondsToTime((seekbarValue / seekbarMax)* trackDuration) }}
+        </div>
+
+        <v-slider
+          v-model="seekbarValue"
+          @start="seekStart"
+          @end="seekEnd"
+          @click="seekEnd"
+          min="0"
+          :max="seekbarMax"
+          color="#ff0000"
+          track-color="rgba(255, 0, 0, 0.2)"
+          class="seekbar"
+        ></v-slider>
+
         <div class="track-duration">
-          {{ secondsToTime(trackDuration - trackProgress * trackDuration) }}
+          {{ secondsToTime(trackDuration - (seekbarValue / seekbarMax)* trackDuration) }}
         </div>
       </div>
 
@@ -37,7 +67,7 @@
         <div class="btn-skip-previous">
           <v-btn
             icon
-            @click="playPrev()"
+            @click="playPrev"
           >
             <v-icon size="30">mdi-skip-previous</v-icon>
           </v-btn>
@@ -45,7 +75,7 @@
         <div class="btn-play-pause">
           <v-btn
             v-if="playerState !== 1"
-            @click="playVideo()"
+            @click="playVideo"
             icon
             large
           >
@@ -53,7 +83,7 @@
           </v-btn>
           <v-btn
             v-else
-            @click="pauseVideo()"
+            @click="pauseVideo"
             icon
             large
           >
@@ -92,6 +122,7 @@
     data() {
       return {
         playerVars: {
+          autoplay: 0,
           controls: 0,
           fs: 0,
           rel: 0,
@@ -127,7 +158,7 @@
         return time;
       }
     },
-    mounted () {
+    async mounted () {
       this.player.addEventListener(
         'onStateChange',
         (state: YoutubePlayerState) => {
@@ -135,7 +166,7 @@
         }
       );
       if (this.playingTrack) {
-        this.loadTrack(this.playingTrack);
+        await this.loadTrack(this.playingTrack);
       }
     },
     methods: {
@@ -149,7 +180,8 @@
 
         this.processId = setInterval(() => {
           this.player.getCurrentTime().then(currentTime => {
-              const elapsedTime = currentTime - this.playingTrack.start;
+            this.videoCurrentTime = currentTime;
+            const elapsedTime = currentTime - this.playingTrack.start;
             const trackProgress = elapsedTime / this.trackDuration;
 
             this.trackProgress = trackProgress < 1 ? trackProgress : 1;
@@ -218,38 +250,83 @@
   });
 </script>
 
+
+<style lang="scss">
+  .video-screen {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 10px 10px 10px 10px;
+    position: relative;
+
+    &:before {
+      content:"";
+      display: block;
+      padding-top: 56.25%;
+    }
+
+    iframe {
+      position: absolute;
+      top: 0;
+    }
+  }
+</style>
+
 <style scoped lang="scss">
   .container {
     width: 100%;
     padding: 0;
   }
 
-  .video-screen {
+  .playing-track-info {
     width: 100%;
-    height: calc((9/16) * 400px);
-    border-radius: 10px 10px 10px 10px;
-    overflow: hidden;
+    display: flex;
+    padding: 5px 10px 0 10px;
+
+    .v-btn {
+      margin-top: 5px;
+    }
+
+    .playing-track-details {
+        width: calc(100% - 50px);
+        padding: 0 10px;
+        overflow: hidden;
+
+      .playing-track-title, .playing-track-singer {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .playing-track-title {
+        color: #3f3f3f;
+      }
+
+      .playing-track-singer {
+        text-decoration: none;
+        font-size: 0.8em;
+        color: #8f8f8f;
+      }
+    }
   }
 
   .video-controller {
-    .seekbar {
-      height: 25px;
-    }
+    .seekbar-container {
+      display: flex;
+      padding-bottom: 5px;
 
-    .track-time {
-      position: relative;
-      font-size: 0.7em;
-      height: 1em;
-      user-select:none;
-
-      .track-elapsed-time {
-        position: absolute;
-        left: 0;
+      .seekbar {
+        height: 25px;
+        width: calc(100% - 50px);
       }
 
-      .track-duration {
-        position: absolute;
-        right: 0;
+      .track-elapsed-time, .track-duration {
+        height: 1em;
+        width: 40px;
+        padding-top: 8px;
+        user-select:none;
+        font-size: 0.7em;
+        text-align: center;
       }
     }
 

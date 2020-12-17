@@ -57,7 +57,6 @@
 <style scoped lang="scss">
   .container {
     height: 100%;
-    min-width: 350px;
     position: relative;
     padding: 0;
   }
