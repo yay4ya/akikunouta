@@ -19,7 +19,7 @@
   import {Track} from '@/models/track';
 
   export default Vue.extend({
-    name: 'HelloWorld',
+    name: 'Tracks',
     components: {
       TrackList: () => import ('@/components/TrackList.vue'),
     },

@@ -6,11 +6,13 @@
       :ripple="false"
       @click="onClick"
       v-bind:class="{ nowplayingtrack: nowPlaying }"
+      class="track-card"
     >
       <div class="d-flex flex-no-wrap justify-space-between track-content">
         <div class="handle">
           <v-icon size="20">mdi-drag</v-icon>
         </div>
+
         <div class="track-info">
           <v-btn
             right
@@ -23,6 +25,7 @@
           >
             <v-icon size="17">{{ track.isFavorite? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
           </v-btn>
+
           <v-card-title
             class="track-info-item track-title"
             v-text="track.title + ' / ' + track.artist"
@@ -64,7 +67,7 @@
           <v-img
             :src="track.video.getThumbnailURL('mqdefault')"
           ></v-img>
-          <v-card-actions class="track-actions">
+          <div class="track-actions">
             <v-btn
               v-if="queueing"
               dark
@@ -74,15 +77,32 @@
             >
               <v-icon size="18">mdi-plus</v-icon>
             </v-btn>
-            <v-btn
-              dark
-              right
-              icon
-              @click.stop=""
+
+            <v-dialog
+              transition="dialog-bottom-transition"
+              max-width="600"
+              scrollable
+              v-model="playlistDialog"
             >
-              <v-icon size="18">mdi-playlist-plus</v-icon>
-            </v-btn>
-          </v-card-actions>
+              <template  v-slot:activator="{ on, attrs }">
+                <v-btn
+                  dark
+                  right
+                  icon
+                  @click.stop=""
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <v-icon size="18">mdi-playlist-plus</v-icon>
+                </v-btn>
+              </template>
+              <PlaylistDialog
+                :track="track"
+                @addedTrackToPlaylist="playlistDialog = false"
+              />
+            </v-dialog>
+
+          </div>
           <div class="track-duration">
             {{ secondsToTime(track.getDuration()) }}
           </div>
@@ -116,12 +136,16 @@
   export default Vue.extend({
     name: 'Track',
     props: ['track', 'deletable', 'nowPlayingId', 'queueing'],
+    components: {
+      PlaylistDialog: () => import ('@/components/PlaylistDialog.vue'),
+     },
     async created() {
       await this.track.fetchVideoInfo();
     },
     data() {
       return {
         nowPlaying: false,
+        playlistDialog: false,
       }
     },
     computed: {
@@ -198,7 +222,7 @@
   .nowplayingtrack {
   }
 
-  .v-card {
+  .track-card {
     position: relative;
     user-select:none;
     align-items: center;
@@ -334,16 +358,12 @@
     .track-actions {
       display: none;
       position: absolute;
-      margin: 0;
-      padding: 0;
       top: 2px;
       right: 2px;
       transition: display 2s;
 
       .v-btn {
         float: flex;
-        margin: 0;
-        padding: 0;
         width: 30px;
         height: 30px;
         overflow: hidden;

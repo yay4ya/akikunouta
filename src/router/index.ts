@@ -24,6 +24,11 @@ const routes: Array<RouteConfig> = [
     name: 'Favorites',
     component: () => import('../views/Favorites.vue')
   },
+  {
+    path: '/playlists',
+    name: 'Playlists',
+    component: () => import('../views/Playlists.vue')
+  },
 ];
 
 const router = new VueRouter({

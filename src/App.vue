@@ -59,6 +59,7 @@
             <router-link to="/tracks">Tracks</router-link> |
             <router-link to="/covers">Covers</router-link> |
             <router-link to="/favorites">Favorites</router-link> |
+            <router-link to="/playlists">Playlists</router-link>
           </div>
           <keep-alive>
             <router-view id="router-view"/>

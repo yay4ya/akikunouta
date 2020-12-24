@@ -21,6 +21,7 @@
           ></v-card-title>
 
           <v-card-subtitle
+            v-if="card.subtitle"
             v-text="card.subtitle"
             class="card-info card-subtitle"
           ></v-card-subtitle>

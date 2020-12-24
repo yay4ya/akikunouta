@@ -1,10 +1,11 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {Track} from '@/models/track';
 import * as VuexAction from '@/store/action-types';
 import * as VuexMutation from '@/store/mutation-types';
 import State from '@/models/state';
 import {library} from '@/models/library';
+import {Track} from '@/models/track';
+import {Playlist} from '@/models/playlist';
 
 Vue.use(Vuex);
 
@@ -14,6 +15,7 @@ function getInitialState(): State {
     playingTrack: library.loadPlayingTrack(),
     searchQuery: '',
     favoriteTracks: library.loadFavoriteTracks(),
+    playlists: library.loadPlaylists(),
   };
   return state;
 }
@@ -33,8 +35,8 @@ export default new Vuex.Store({
       state.searchQuery = query;
     },
     [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
-      state.queuedTracks.push(track.clone());
       library.saveQueuedTracks(state.queuedTracks);
+      state.queuedTracks.push(track.clone());
     },
     [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {
       library.addFavoriteTrack(track);
@@ -47,6 +49,14 @@ export default new Vuex.Store({
       state.favoriteTracks = state.favoriteTracks.filter(
         track => track.id !== targetTrack.id
       );
+    },
+    [VuexMutation.ADD_PLAYLIST](state: State, playlist: Playlist) {
+      library.addPlaylist(playlist);
+      state.playlists.unshift(playlist);
+    },
+    [VuexMutation.REMOVE_PLAYLIST](state: State, targetPlaylist: Playlist) {
+      library.removePlaylist(targetPlaylist);
+      state.playlists = state.playlists.filter(playlist => playlist.name != targetPlaylist.name);
     },
   },
   actions: {
