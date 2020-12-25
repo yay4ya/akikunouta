@@ -3,6 +3,11 @@ declare module 'youtube-iframe-api' {
     addEventListener(string, Function): void;
     getCurrentTime(): Promise<number>;
     getDuration(): Promise<number>;
+    getVolume(): Promise<number>;
+    setVolume(number): Promise<void>;
+    mute(): Promise<void>;
+    unMute(): Promise<void>;
+    isMuted(): Promise<boolean>;
     loadVideoById(any): Promise<void>;
     playVideo(): Promise<void>;
     pauseVideo(): Promise<void>;

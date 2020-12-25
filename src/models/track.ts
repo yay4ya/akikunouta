@@ -45,7 +45,7 @@ export class Track {
     this.video = video || new Video(trackJson.videoid);
   }
 
-  public clone(): Track {
+  public clone(uuid: boolean | string = false): Track {
     return new Track({
       id: this.id,
       title: this.title,
@@ -56,7 +56,7 @@ export class Track {
       tags: this.tags.map(tag => tag),
       start: this.start,
       end: this.end,
-    }, this.isFavorite, this.video);
+    }, this.isFavorite, this.video, uuid === true ? this.uuid : uuid || null);
   }
 
   public async fetchVideoInfo(force = false) {

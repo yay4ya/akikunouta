@@ -23,11 +23,26 @@
         <v-list dense>
           <v-list-item-group>
             <v-list-item v-for="playlist in playlists" :key="playlist.name">
-              <v-list-item-title
-                @click="addTrackToPlaylist(playlist)"
+
+              <v-list-item-content>
+                <v-list-item-title
+                  @click="addTrackToPlaylist(playlist)"
+                >
+                  {{ playlist.name }}
+                </v-list-item-title>
+              </v-list-item-content>
+
+              <v-list-item-icon
+                v-if="playlist.tracks.find(t => t.id === track.id)"
               >
-                {{ playlist.name }}
-              </v-list-item-title>
+                <v-icon
+                  color="green"
+                  size="18"
+                >
+                mdi-checkbox-marked-circle-outline
+                </v-icon>
+              </v-list-item-icon>
+
             </v-list-item>
           </v-list-item-group>
         </v-list>

@@ -20,6 +20,15 @@ export function secondsToTime(t: number): string {
           zeroPadding(seconds, 2)].join(':');
 }
 
+export function shuffle<T>(array: Array<T>): Array<T> {
+  array = array.map(item => item);
+  for (let i = 0; i < array.length; i++) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}
+
 export function generateUuid(): string {
     const chars = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".split("");
     for (let i = 0, len = chars.length; i < len; i++) {

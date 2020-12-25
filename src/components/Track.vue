@@ -80,7 +80,7 @@
 
             <v-dialog
               transition="dialog-bottom-transition"
-              max-width="600"
+              max-width="450"
               scrollable
               v-model="playlistDialog"
             >

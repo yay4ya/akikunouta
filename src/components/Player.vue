@@ -18,8 +18,11 @@
       <v-btn
         icon
         small
+        :color="playingTrack.isFavorite? 'red' : ''"
+        @click="toggleFavorite"
+        class="btn-favorite"
       >
-        <v-icon size="20">mdi-heart-outline</v-icon>
+        <v-icon size="20">{{ playingTrack.isFavorite? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
       <div class="playing-track-details">
         <div class="playing-track-title">
@@ -32,12 +35,24 @@
           {{ this.playingTrack? this.playingTrack.singer : ''}}
         </div>
       </div>
-      <v-btn
-        icon
-        small
-      >
-        <v-icon size="20">mdi-speaker</v-icon>
-      </v-btn>
+
+      <div class="volume-control">
+        <div class="volume-slider">
+          <v-slider
+            max="100"
+            min="0"
+            v-model="playerVolume"
+          ></v-slider>
+        </div>
+        <v-btn
+          icon
+          small
+          class="btn-volume"
+          @click="toggleMute"
+        >
+          <v-icon size="20">{{ volumeIcon }}</v-icon>
+        </v-btn>
+      </div>
     </div>
 
     <div class="video-controller">
@@ -106,8 +121,9 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapActions, mapState} from 'vuex';
+  import {mapActions, mapMutations, mapState} from 'vuex';
   import * as VuexAction from '@/store/action-types';
+  import * as VuexMutation from '@/store/mutation-types';
   import VueYoutube from 'vue-youtube';
   import {YoutubeIframe,
           YoutubeIframePlayer,
@@ -116,6 +132,9 @@
   import {Track} from '@/models/track';
 
   Vue.use(VueYoutube)
+
+  const LOCALSTORAGE_PLAYER_VOLUME = 'player_volume';
+  const LOCALSTORAGE_PLAYER_MUTE = 'player_mute';
 
   export default Vue.extend({
     name: 'Player',
@@ -137,6 +156,8 @@
         nowSeeking: false,
         processId: null as number | null,
         videoPlayed: false,
+        playerVolume: JSON.parse(localStorage[LOCALSTORAGE_PLAYER_VOLUME] || '50'),
+        playerMute: JSON.parse(localStorage[LOCALSTORAGE_PLAYER_MUTE] || 'false'),
       }
     },
     computed: {
@@ -156,6 +177,13 @@
         const elapsedTime= seekbarProgress * this.trackDuration;
         const time = this.playingTrack.start + elapsedTime;
         return time;
+      },
+      volumeIcon(): string {
+        if (this.playerMute) return 'mdi-volume-mute';
+        return this.playerVolume === 0 ? 'mdi-volume-mute' : (
+          this.playerVolume < 34 ? 'mdi-volume-low' :(
+          this.playerVolume < 67 ? 'mdi-volume-medium' : 'mdi-volume-high'
+        ));
       }
     },
     async mounted () {
@@ -168,8 +196,18 @@
       if (this.playingTrack) {
         await this.loadTrack(this.playingTrack);
       }
+      await this.player.setVolume(this.playerVolume);
+      if (this.playerMute) {
+        await this.player.mute();
+      } else {
+        await this.player.unMute();
+      }
     },
     methods: {
+      ...mapMutations({
+        addFavoriteTrack: VuexMutation.ADD_FAVORITE_TRACK,
+        removeFavoriteTrack: VuexMutation.REMOVE_FAVORITE_TRACK,
+      }),
       ...mapActions({
         setNextTrack: VuexAction.SET_NEXT_TRACK,
         setPrevTrack: VuexAction.SET_PREV_TRACK,
@@ -237,6 +275,18 @@
       secondsToTime(t: number): string {
         return secondsToTime(t);
       },
+      toggleFavorite() {
+        if (this.playingTrack.isFavorite) {
+          this.removeFavoriteTrack(this.playingTrack)
+          this.playingTrack.isFavorite = false;
+        } else {
+          this.addFavoriteTrack(this.playingTrack);
+          this.playingTrack.isFavorite = true;
+        }
+      },
+      async toggleMute() {
+        this.playerMute = !this.playerMute
+      },
     },
     watch: {
       async playingTrack() {
@@ -246,6 +296,18 @@
         await this.loadTrack(this.playingTrack);
         await this.playVideo();
       },
+      async playerVolume() {
+        localStorage[LOCALSTORAGE_PLAYER_VOLUME] = JSON.stringify(this.playerVolume);
+        await this.player.setVolume(this.playerVolume);
+      },
+      async playerMute() {
+        localStorage[LOCALSTORAGE_PLAYER_MUTE] = JSON.stringify(this.playerMute);
+        if (this.playerMute) {
+          await this.player.mute();
+        } else {
+          await this.player.unMute();
+        }
+      }
     }
   });
 </script>
@@ -280,11 +342,51 @@
   .playing-track-info {
     width: 100%;
     display: flex;
+    position: relative;
     padding: 5px 10px 0 10px;
 
     .v-btn {
       margin-top: 5px;
     }
+
+    .btn-favorite {
+      &:hover {
+        color: red;
+      }
+    }
+
+    .volume-control {
+      &:hover .btn-volume {
+        color: #ffffff;
+      }
+
+      .volume-slider {
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        width: 110px;
+        height: 30px;
+        padding-right: 25px;
+        background-color: rgba(0, 0, 0, 0.2);
+        border-radius: 5px 5px 5px 5px;
+        display: none;
+      }
+
+      @keyframes show{
+          from{
+              opacity: 0;
+          }
+          to{
+              opacity: 1;
+          }
+      }
+
+      &:hover .volume-slider {
+        display: block;
+        animation: show 0.2s ease 0s;
+      }
+    }
+
 
     .playing-track-details {
         width: calc(100% - 50px);

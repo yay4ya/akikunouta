@@ -18,118 +18,126 @@
           >
           </div>
 
-          <div class="playlist-info">
-            <h2 class="playlist-info-title">
-              {{ selectedPlaylist.name }}
+          <div class="playlist-info-content">
+            <div class="playlist-info">
+              <h2 class="playlist-info-title">
+                {{ selectedPlaylist.name }}
 
-            <v-dialog
-              v-model="renameDialog"
-              max-width="400px"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  icon
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="renamedPlaylistName = selectedPlaylist.name"
-                >
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title>プレイリスト名を変更</v-card-title>
-                <v-alert
-                  v-if="renamePlaylistErrorMessage"
-                  :type="renamePlaylistErrorMessage.type"
-                  @click="renamePlaylistErrorMessage = null"
-                >
-                  {{ renamePlaylistErrorMessage.text }}
-                </v-alert>
-                <v-card-text>
-                  <v-text-field
-                    v-model="renamedPlaylistName"
-                    class="text-field-rename"
-                  ></v-text-field>
-                </v-card-text>
-                <v-card-actions>
+              <v-dialog
+                v-model="renameDialog"
+                max-width="400px"
+              >
+                <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    text
-                    color="blue"
-                    @click="renameSelectedPlaylist"
-                  >変更</v-btn>
-                  <v-btn
-                    text
-                    color="red"
-                    @click="renameDialog = false"
-                  >キャンセル</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-            </h2>
+                    icon
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    small
+                    @click="renamedPlaylistName = selectedPlaylist.name"
+                  >
+                    <v-icon size="18">mdi-pencil</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>プレイリスト名を変更</v-card-title>
+                  <v-alert
+                    v-if="renamePlaylistErrorMessage"
+                    :type="renamePlaylistErrorMessage.type"
+                    @click="renamePlaylistErrorMessage = null"
+                  >
+                    {{ renamePlaylistErrorMessage.text }}
+                  </v-alert>
+                  <v-card-text>
+                    <v-text-field
+                      v-model="renamedPlaylistName"
+                      class="text-field-rename"
+                    ></v-text-field>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn
+                      text
+                      color="blue"
+                      @click="renameSelectedPlaylist"
+                    >変更</v-btn>
+                    <v-btn
+                      text
+                      color="red"
+                      @click="renameDialog = false"
+                    >キャンセル</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+              </h2>
 
-            <h4 class="playlist-info-subtitle">
-              {{ selectedPlaylist.tracks.length + ' 曲' }}
-            </h4>
-          </div>
+              <h4 class="playlist-info-subtitle">
+                {{ selectedPlaylist.tracks.length + ' 曲' }}
+              </h4>
 
-          <div class="btn-close-track-list">
-            <v-btn
-              dark
-              icon
-            >
-              <v-icon size="40">mdi-chevron-down</v-icon>
-            </v-btn>
-          </div>
+            </div>
 
-          <div class="playlist-actions">
-            <v-btn
-              icon
-              dark
-              @click.stop=""
-            >
-              <v-icon>mdi-plus</v-icon>
-            </v-btn>
-            <v-btn
-              icon
-              dark
-              @click.stop=""
-            >
-              <v-icon>mdi-shuffle-variant</v-icon>
-            </v-btn>
-            <v-dialog
-              max-width="300px"
-              v-model="deleteDialog"
-            >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  icon
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  @click.stop=""
-                >
-                  <v-icon>mdi-delete</v-icon>
-                </v-btn>
-              </template>
-              <v-card>
-                <v-card-title>
-                  プレイリストを削除しますか？
-                </v-card-title>
-                <v-card-actions>
+            <div class="btn-close-track-list">
+              <v-btn
+                dark
+                icon
+              >
+                <v-icon size="40">mdi-chevron-down</v-icon>
+              </v-btn>
+            </div>
+
+            <div class="playlist-actions">
+              <v-btn
+                icon
+                dark
+                @click.stop="addTracksToQueue"
+              >
+                <v-icon>mdi-plus</v-icon>
+              </v-btn>
+              <v-btn
+                icon
+                dark
+                @click.stop="shuffleAndQueue"
+              >
+                <v-icon>mdi-shuffle-variant</v-icon>
+              </v-btn>
+              <v-dialog
+                max-width="300px"
+                v-model="deleteDialog"
+              >
+                <template v-slot:activator="{ on, attrs }">
                   <v-btn
-                    text
-                    color="blue"
-                    @click="deleteSeledtedPlaylist"
-                  >はい</v-btn>
-                  <v-btn
-                    text
-                    color="red"
-                    @click="deleteDialog = false"
-                  >いいえ</v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
+                    icon
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    @click.stop=""
+                    class="btn-delete"
+                  >
+                    <v-icon>mdi-delete</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-card-title>
+                    プレイリストを削除しますか？
+                  </v-card-title>
+                  <v-card-subtitle>
+                  {{ selectedPlaylist.name }}
+                  </v-card-subtitle>
+                  <v-card-actions>
+                    <v-btn
+                      text
+                      color="blue"
+                      @click="deleteSeledtedPlaylist"
+                    >はい</v-btn>
+                    <v-btn
+                      text
+                      color="red"
+                      @click="deleteDialog = false"
+                    >いいえ</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-dialog>
+            </div>
           </div>
         </div>
 
@@ -153,6 +161,7 @@
   import Vue from 'vue';
   import {mapState, mapMutations} from 'vuex';
   import * as VuexMutation from '@/store/mutation-types';
+  import * as util from '@/util';
   import {Track} from '@/models/track';
   import {Playlist} from '@/models/playlist';
   import Message from '@/models/message'
@@ -194,6 +203,7 @@
       ...mapMutations({
         addPlaylist: VuexMutation.ADD_PLAYLIST,
         removePlaylist: VuexMutation.REMOVE_PLAYLIST,
+        addToQueue: VuexMutation.ADD_TO_QUEUE,
       }),
       onClick(playlistCard: Card) {
         this.selectedPlaylist = this.playlists.find(
@@ -241,6 +251,19 @@
       updatePlaylist(playlist: Playlist) {
         this.removePlaylist(playlist);
         this.addPlaylist(playlist);
+      },
+      addTracksToQueue() {
+        if (!this.selectedPlaylist) {
+          throw Error("no playlist selected");
+        }
+        this.selectedPlaylist.tracks.map(track => this.addToQueue(track.clone()));
+      },
+      shuffleAndQueue() {
+         if (!this.selectedPlaylist) {
+          throw Error("no playlist selected");
+        }
+        const tracks = util.shuffle(this.selectedPlaylist.tracks);
+        tracks.map(track => this.addToQueue(track.clone()));
       }
     }
   });
@@ -286,33 +309,14 @@
       height: 130px;
       overflow: hidden;
 
-      .v-btn {
-        color: rgba(255, 255, 255, 0.5);
-
-        &:hover {
-          color: rgba(255, 255, 255, 1.0);
-        }
-      }
-
-      .btn-close-track-list {
-        position: absolute;
-        top: 5px;
-        right: 5px;
-      }
-
-      .playlist-actions {
-        position: absolute;
-        padding: 5px;
-        bottom: 0;
-        right: 0;
-      }
-
       .playlist-info-background {
+        position: absolute;
         content: '';
+        top: 0;
+        left: 0;
         width: 100%;
         height: 100%;
         line-height: 300px;
-        position: relative;
         background-size: cover;
         background-position: center;
         text-align: center;
@@ -340,24 +344,54 @@
         }
       }
 
-      .playlist-info {
-        position: absolute;
-        top: 0;
-        height: 0;
-        padding: 20px;
-        color: #ffffff;
+      .playlist-info-content {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
 
-        .playlist-info-title {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 2;
-          overflow: hidden;
+        .v-btn {
+          color: rgba(255, 255, 255, 0.5);
+
+          &:hover {
+            color: rgba(255, 255, 255, 1.0);
+          }
         }
 
-        .playlist-info-subtitle {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 1;
+        .playlist-info {
+          position: relative;
+          color: #ffffff;
+
+          .playlist-info-title {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            overflow: hidden;
+          }
+
+          .playlist-info-subtitle {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+          }
+        }
+
+        .btn-close-track-list {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+        }
+
+        .playlist-actions {
+          position: absolute;
+          width: 100%;
+          padding: 5px;
+          bottom: 0;
+          left: 0;
+
+          .btn-delete {
+            float: right;
+          }
         }
       }
     }

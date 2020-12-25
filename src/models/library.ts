@@ -5,11 +5,15 @@ import {Playlist, PlaylistJson} from './playlist';
 
 const LOCALSTORAGE_FAVORITE_TRACKS_KEY = 'favorite_tracks';
 const LOCALSTORAGE_PLAYLISTS_KEY = 'playlists';
-const LOCALSTORAGE_QUEUED_TRACKS_KEY = 'queued_tracks';
-const LOCALSTORAGE_PLAYING_TRACK_KEY = 'playing_track';
+const LOCALSTORAGE_PLAYER_STATE = 'player_state';
+
+interface PlayerState {
+  queuedTracks: Track[];
+  playingTrack: Track | null;
+}
 
 
-export class Library {
+class Library {
   readonly tracks: Track[];
   readonly idToTrack: Map<number, Track>;
 
@@ -19,14 +23,16 @@ export class Library {
     this.tracks.map(track => track.isFavorite = this.isFavoriteTrack(track));
   }
 
+  public getTrackById(trackId: number): Track {
+    const track = this.idToTrack.get(trackId);
+    if (!track) {
+      throw new Error("track not found error: " + trackId);
+    }
+    return track.clone();
+  }
+
   public getTracksByIds(trackIds: number[]): Track[] {
-    return trackIds.map(trackId => {
-      const track = this.idToTrack.get(trackId);
-      if (!track) {
-        throw new Error("track not found error: " + trackId);
-      }
-      return track;
-    });
+    return trackIds.map(trackId  => this.getTrackById(trackId));
   }
 
   public loadTracks(key: string): Track[] {
@@ -68,7 +74,7 @@ export class Library {
       (playlistJson: PlaylistJson) => {
         return {
           name: playlistJson.name,
-          tracks: this.getTracksByIds(playlistJson.trackIds).map(track => track.clone()),
+          tracks: this.getTracksByIds(playlistJson.trackIds).map(track => track),
         }
       }
     );
@@ -114,28 +120,41 @@ export class Library {
     return playlist || null;
   }
 
-  public saveQueuedTracks(tracks: Track[]) {
-    this.saveTracks(LOCALSTORAGE_QUEUED_TRACKS_KEY, tracks);
+  public savePlayerState({ queuedTracks, playingTrack }: PlayerState) {
+    const queuedTrackIds = queuedTracks.map(track => track.id);
+    const playingTrackId = playingTrack ? playingTrack.id : null;
+    const playingTrackIndex = playingTrack ? queuedTracks.map(track => track.uuid).indexOf(playingTrack.uuid) : null;
+    localStorage[LOCALSTORAGE_PLAYER_STATE] = JSON.stringify({
+      queuedTrackIds: queuedTrackIds,
+      playingTrackId: playingTrackId,
+      playingTrackIndex: playingTrackIndex,
+    });
   }
 
-  public loadQueuedTracks() {
-    return this.loadTracks(LOCALSTORAGE_QUEUED_TRACKS_KEY);
-  }
+  public loadPlayerState(): PlayerState {
+    const state = JSON.parse(localStorage[LOCALSTORAGE_PLAYER_STATE] || 'null');
+    if (!state) return { queuedTracks: [], playingTrack: null };
 
-  public savePlayingTrack(track: Track | null) {
-    localStorage[LOCALSTORAGE_PLAYING_TRACK_KEY] = JSON.stringify(track? track.id: null);
-  }
+    const queuedTracks = this.getTracksByIds(state.queuedTrackIds as number[]);
 
-  public loadPlayingTrack(): Track | null {
-    const trackId = JSON.parse(localStorage[LOCALSTORAGE_PLAYING_TRACK_KEY] || 'null');
-    return this.tracks.find(track => track.id === trackId) || null;
+    const playingTrackId  = state.playingTrackId as number | null;
+    const playingTrackIndex = state.playingTrackIndex as number | null;
+
+    let playingTrack = queuedTracks[playingTrackIndex || -1] || null;
+    if (!playingTrack && playingTrackId) {
+      playingTrack = this.getTrackById(playingTrackId);
+    }
+
+    return {
+      queuedTracks: queuedTracks,
+      playingTrack: playingTrack,
+    };
   }
 
   public clean() {
-    this.saveTracks(LOCALSTORAGE_QUEUED_TRACKS_KEY, []);
-    this.saveTracks(LOCALSTORAGE_FAVORITE_TRACKS_KEY, []);
-    this.savePlaylists([]);
-    this.savePlayingTrack(null);
+    localStorage.removeItem(LOCALSTORAGE_PLAYER_STATE);
+    localStorage.removeItem(LOCALSTORAGE_FAVORITE_TRACKS_KEY);
+    localStorage.removeItem(LOCALSTORAGE_PLAYLISTS_KEY)
   }
 }
 

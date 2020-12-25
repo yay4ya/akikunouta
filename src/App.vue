@@ -125,7 +125,7 @@
 
 <style lang="scss">
   .v-main__wrap {
-    background-color: #f2f2f2;
+    background-color: #f6f6f6;
   }
 </style>
 
@@ -157,7 +157,7 @@
       padding: 0;
       overflow: hidden;
       border-radius: 10px 10px 10px 10px;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(100, 100, 100, 0.1);
     }
   }
 
@@ -189,7 +189,7 @@
       width: 100%;
       padding: 0;
       border-radius: 10px 10px 10px 10px;
-      background-color: rgba(0, 0, 0, 0.1);
+      background-color: rgba(100, 100, 100, 0.1);
       overflow: hidden;
     }
   }

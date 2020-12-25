@@ -10,9 +10,10 @@ import {Playlist} from '@/models/playlist';
 Vue.use(Vuex);
 
 function getInitialState(): State {
+  const playerState = library.loadPlayerState();
   const state: State = {
-    queuedTracks: library.loadQueuedTracks(),
-    playingTrack: library.loadPlayingTrack(),
+    queuedTracks: playerState.queuedTracks,
+    playingTrack: playerState.playingTrack,
     searchQuery: '',
     favoriteTracks: library.loadFavoriteTracks(),
     playlists: library.loadPlaylists(),
@@ -25,18 +26,18 @@ export default new Vuex.Store({
   mutations: {
     [VuexMutation.SET_PLAYING_TRACK](state: State, track: Track | null) {
       state.playingTrack = track;
-      library.savePlayingTrack(track);
+      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
     },
     [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
       state.queuedTracks = tracks;
-      library.saveQueuedTracks(state.queuedTracks);
+      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
     },
     [VuexMutation.SET_SEARCH_QUERY](state: State, query: string) {
       state.searchQuery = query;
     },
     [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
-      library.saveQueuedTracks(state.queuedTracks);
-      state.queuedTracks.push(track.clone());
+      state.queuedTracks.push(track);
+      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
     },
     [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {
       library.addFavoriteTrack(track);
