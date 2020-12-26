@@ -163,6 +163,8 @@
     methods: {
       ...mapMutations({
         addToQueue: VuexMutation.ADD_TO_QUEUE,
+        setQueue: VuexMutation.SET_QUEUE,
+        setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
       }),
       onClick(videoCard: Card) {
         this.selectedVideo = this.videos.find(video => video.id == videoCard.id) || null;
@@ -182,7 +184,10 @@
           throw Error("no video selected");
         }
         const tracks = util.shuffle(this.getTracksByVideoId(this.selectedVideo.id));
-        tracks.map(track => this.addToQueue(track.clone()));
+        if (tracks.length > 0) {
+          this.setPlayingTrack(tracks[0]);
+          this.setQueue(tracks);
+        }
       }
     }
   });
