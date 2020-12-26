@@ -208,6 +208,8 @@
         addPlaylist: VuexMutation.ADD_PLAYLIST,
         removePlaylist: VuexMutation.REMOVE_PLAYLIST,
         addToQueue: VuexMutation.ADD_TO_QUEUE,
+        setQueue: VuexMutation.SET_QUEUE,
+        setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
       }),
       onClick(playlistCard: Card) {
         this.selectedPlaylist = this.playlists.find(
@@ -263,11 +265,14 @@
         this.selectedPlaylist.tracks.map(track => this.addToQueue(track.clone()));
       },
       shuffleAndQueue() {
-         if (!this.selectedPlaylist) {
+        if (!this.selectedPlaylist) {
           throw Error("no playlist selected");
         }
         const tracks = util.shuffle(this.selectedPlaylist.tracks);
-        tracks.map(track => this.addToQueue(track.clone()));
+        if (tracks.length > 0) {
+          this.setPlayingTrack(tracks[0]);
+          this.setQueue(tracks);
+        }
       }
     }
   });
