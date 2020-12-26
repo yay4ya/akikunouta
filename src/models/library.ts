@@ -1,16 +1,12 @@
 import trackJsons from '@/data/tracks.json';
 import {Track} from './track';
 import {Playlist, PlaylistJson} from './playlist';
+import {PlayerState, PlayerRepeat} from './player';
 
 
 const LOCALSTORAGE_FAVORITE_TRACKS_KEY = 'favorite_tracks';
 const LOCALSTORAGE_PLAYLISTS_KEY = 'playlists';
 const LOCALSTORAGE_PLAYER_STATE = 'player_state';
-
-interface PlayerState {
-  queuedTracks: Track[];
-  playingTrack: Track | null;
-}
 
 
 class Library {
@@ -120,7 +116,7 @@ class Library {
     return playlist || null;
   }
 
-  public savePlayerState({ queuedTracks, playingTrack }: PlayerState) {
+  public savePlayerState({ queuedTracks, playingTrack, repeat, volume, mute }: PlayerState) {
     const queuedTrackIds = queuedTracks.map(track => track.id);
     const playingTrackId = playingTrack ? playingTrack.id : null;
     const playingTrackIndex = playingTrack ? queuedTracks.map(track => track.uuid).indexOf(playingTrack.uuid) : null;
@@ -128,13 +124,25 @@ class Library {
       queuedTrackIds: queuedTrackIds,
       playingTrackId: playingTrackId,
       playingTrackIndex: playingTrackIndex,
+      repeat: repeat,
+      volume: volume,
+      mute: mute,
     });
   }
 
   public loadPlayerState(): PlayerState {
     const state = JSON.parse(localStorage[LOCALSTORAGE_PLAYER_STATE] || 'null');
-    if (!state) return { queuedTracks: [], playingTrack: null };
+    if (!state) return {
+      queuedTracks: [],
+      playingTrack: null ,
+      repeat: 'repeat-off',
+      volume: 50,
+      mute: false,
+    };
 
+    const repeat = state.repeat as PlayerRepeat;
+    const volume = state.volume as number;
+    const mute = state.mute as boolean;
     const queuedTracks = this.getTracksByIds(state.queuedTrackIds as number[]);
 
     const playingTrackId  = state.playingTrackId as number | null;
@@ -148,6 +156,9 @@ class Library {
     return {
       queuedTracks: queuedTracks,
       playingTrack: playingTrack,
+      repeat: repeat,
+      volume: volume,
+      mute: mute,
     };
   }
 

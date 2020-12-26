@@ -2,6 +2,7 @@
   <v-container class="d-flex">
     <CardList
       :cards="playlistCards"
+      :query="searchQuery"
       class="playlist-list scroll-thin"
       @clicked="onClick"
     />
@@ -183,7 +184,7 @@
       }
     },
     computed: {
-      ...mapState(['playlists']),
+      ...mapState(['playlists', 'searchQuery']),
       playlistCards: function(): Card[] {
         return this.playlists.map((playlist: Playlist) => {
           return {
@@ -191,6 +192,7 @@
             title: playlist.name,
             subtitle: playlist.tracks.length + ' 曲',
             thumbnailUrl: playlist.tracks.length ? playlist.tracks[0].video.getThumbnailURL('mqdefault') : '',
+            metadata: '',
           }
         })
       },

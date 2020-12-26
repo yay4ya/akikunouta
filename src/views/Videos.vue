@@ -2,6 +2,7 @@
   <v-container class="d-flex">
     <CardList
       :cards="videoCards"
+      :query="searchQuery"
       class="video-list scroll-thin"
       @clicked="onClick"
     />
@@ -71,7 +72,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {mapMutations} from 'vuex';
+  import {mapMutations, mapState} from 'vuex';
   import * as VuexMutation from '@/store/mutation-types';
   import * as util from '@/util';
   import {library} from '@/models/library';
@@ -99,13 +100,19 @@
       this.videos = videos;
     },
     computed: {
+      ...mapState(['searchQuery']),
       videoCards: function(): Card[] {
         return this.videos.map(video => {
+          const tags: Set<string> = new Set();
+          library.tracks.filter(
+            track => track.video.id === video.id
+          ).map(track => track.tags.map(tag => tags.add(tag)));
           return {
             id: video.id,
             title: video.getTitle() || '',
             subtitle: (video.getChannel() || {}).name  || '',
             thumbnailUrl: video.getThumbnailURL('mqdefault'),
+            metadata: [...tags].join('  '),
           }
         })
       },
@@ -231,15 +238,17 @@
           color: #ffffff;
 
           .video-info-title {
+            font-size: 20px;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+          }
+          .video-info-channel {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 1;
             overflow: hidden;
-          }
-          .vide-info-channel {
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 1;
           }
         }
 

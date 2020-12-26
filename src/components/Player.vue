@@ -18,21 +18,21 @@
       <v-btn
         icon
         small
-        :color="playingTrack.isFavorite? 'red' : ''"
+        :color="(playingTrack && playingTrack.isFavorite)? 'red' : ''"
         @click="toggleFavorite"
         class="btn-favorite"
       >
-        <v-icon size="20">{{ playingTrack.isFavorite? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
+        <v-icon size="20">{{ (playingTrack && playingTrack.isFavorite)? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
       <div class="playing-track-details">
         <div class="playing-track-title">
-          {{ playingTrack? playingTrack.title + " / " + playingTrack.artist : '' }}
+          {{ playingTrack? (playingTrack.title + " / " + playingTrack.artist) : '' }}
         </div>
         <div
          class="playing-track-singer"
          target="_blank"
         >
-          {{ this.playingTrack? this.playingTrack.singer : ''}}
+          {{ playingTrack? playingTrack.singer : ''}}
         </div>
       </div>
 
@@ -41,7 +41,8 @@
           <v-slider
             max="100"
             min="0"
-            v-model="playerVolume"
+            dark
+            v-model="volume"
           ></v-slider>
         </div>
         <v-btn
@@ -133,9 +134,6 @@
 
   Vue.use(VueYoutube)
 
-  const LOCALSTORAGE_PLAYER_VOLUME = 'player_volume';
-  const LOCALSTORAGE_PLAYER_MUTE = 'player_mute';
-
   export default Vue.extend({
     name: 'Player',
     data() {
@@ -156,62 +154,79 @@
         nowSeeking: false,
         processId: null as number | null,
         videoPlayed: false,
-        playerVolume: JSON.parse(localStorage[LOCALSTORAGE_PLAYER_VOLUME] || '50'),
-        playerMute: JSON.parse(localStorage[LOCALSTORAGE_PLAYER_MUTE] || 'false'),
       }
     },
     computed: {
-      ...mapState(['playingTrack', 'queuedTracks']),
+      ...mapState(['playingTrack', 'queuedTracks', 'playerVolume', 'playerMute']),
+
       player(): YoutubeIframePlayer {
         const youtube = this.$refs.youtube as YoutubeIframe;
         return youtube.player as YoutubeIframePlayer;
       },
+
       trackDuration(): number {
         if (this.playingTrack === null) {
           return 0;
         }
         return this.playingTrack.end - this.playingTrack.start;
       },
+
       videoTimeOnSeekbar(): number {
         const seekbarProgress = this.seekbarValue / this.seekbarMax;
         const elapsedTime= seekbarProgress * this.trackDuration;
         const time = this.playingTrack.start + elapsedTime;
         return time;
       },
+
       volumeIcon(): string {
         if (this.playerMute) return 'mdi-volume-mute';
         return this.playerVolume === 0 ? 'mdi-volume-mute' : (
-          this.playerVolume < 34 ? 'mdi-volume-low' :(
-          this.playerVolume < 67 ? 'mdi-volume-medium' : 'mdi-volume-high'
+          this.playerVolume < 20 ? 'mdi-volume-low' :(
+          this.playerVolume < 80 ? 'mdi-volume-medium' : 'mdi-volume-high'
         ));
+      },
+
+      volume: {
+        get(): number {
+          return this.playerVolume;
+        },
+        set(volume: number) {
+          this.setPlayerVolume(volume);
+        },
       }
     },
+
     async mounted () {
+      if (this.playingTrack) {
+        await this.loadTrack(this.playingTrack);
+        await this.player.setVolume(this.playerVolume);
+        if (this.playerMute) {
+          await this.player.mute();
+        } else {
+          await this.player.unMute();
+        }
+      }
       this.player.addEventListener(
         'onStateChange',
         (state: YoutubePlayerState) => {
           this.playerState = state.data;
         }
       );
-      if (this.playingTrack) {
-        await this.loadTrack(this.playingTrack);
-      }
-      await this.player.setVolume(this.playerVolume);
-      if (this.playerMute) {
-        await this.player.mute();
-      } else {
-        await this.player.unMute();
-      }
     },
+
     methods: {
       ...mapMutations({
         addFavoriteTrack: VuexMutation.ADD_FAVORITE_TRACK,
         removeFavoriteTrack: VuexMutation.REMOVE_FAVORITE_TRACK,
+        setPlayerVolume: VuexMutation.SET_PLAYER_VOLUME,
+        setPlayerMute: VuexMutation.SET_PLAYER_MUTE,
       }),
+
       ...mapActions({
         setNextTrack: VuexAction.SET_NEXT_TRACK,
         setPrevTrack: VuexAction.SET_PREV_TRACK,
       }),
+
       async playing() {
         this.videoPlayed = true;
         this.videoDuration = await this.player.getDuration();
@@ -229,22 +244,27 @@
           });
         }, 100);
       },
+
       paused() {
         if (this.processId !== null) {
           clearInterval(this.processId);
         }
       },
+
       ended() {
         if (!this.videoPlayed) return;
         this.videoPlayed = false;
         this.setNextTrack();
       },
+
       playNext() {
         this.setNextTrack();
       },
+
       playPrev() {
         this.setPrevTrack();
       },
+
       async loadTrack(track: Track) {
         await this.player.loadVideoById({
           'videoId': track.video.id,
@@ -252,6 +272,7 @@
           'endSeconds': track.end,
         });
       },
+
       async playVideo() {
         if (!this.playingTrack) {
           this.playNext();
@@ -262,19 +283,24 @@
         }
         await this.player.playVideo();
       },
+
       async pauseVideo() {
         await this.player.pauseVideo();
       },
+
       seekStart() {
         this.nowSeeking = true;
       },
+
       async seekEnd() {
         this.nowSeeking = false;
         await this.player.seekTo(this.videoTimeOnSeekbar, true);
       },
+
       secondsToTime(t: number): string {
         return secondsToTime(t);
       },
+
       toggleFavorite() {
         if (this.playingTrack.isFavorite) {
           this.removeFavoriteTrack(this.playingTrack)
@@ -284,24 +310,33 @@
           this.playingTrack.isFavorite = true;
         }
       },
+
       async toggleMute() {
-        this.playerMute = !this.playerMute
+        this.setPlayerMute(!this.playerMute);
       },
+
     },
+
     watch: {
       async playingTrack() {
         if (this.playingTrack === null) {
           return;
         }
         await this.loadTrack(this.playingTrack);
+        await this.player.setVolume(this.playerVolume);
+        if (this.playerMute) {
+          await this.player.mute();
+        } else {
+          await this.player.unMute();
+        }
         await this.playVideo();
       },
+
       async playerVolume() {
-        localStorage[LOCALSTORAGE_PLAYER_VOLUME] = JSON.stringify(this.playerVolume);
         await this.player.setVolume(this.playerVolume);
       },
+
       async playerMute() {
-        localStorage[LOCALSTORAGE_PLAYER_MUTE] = JSON.stringify(this.playerMute);
         if (this.playerMute) {
           await this.player.mute();
         } else {
@@ -356,18 +391,18 @@
     }
 
     .volume-control {
-      &:hover .btn-volume {
-        color: #ffffff;
+      &:hover .v-btn {
+        color: white;
       }
 
       .volume-slider {
         position: absolute;
         top: 8px;
         right: 10px;
-        width: 110px;
+        width: 120px;
         height: 30px;
         padding-right: 25px;
-        background-color: rgba(0, 0, 0, 0.2);
+        background-color: rgba(100, 100, 100, 0.8);
         border-radius: 5px 5px 5px 5px;
         display: none;
       }
@@ -386,7 +421,6 @@
         animation: show 0.2s ease 0s;
       }
     }
-
 
     .playing-track-details {
         width: calc(100% - 50px);

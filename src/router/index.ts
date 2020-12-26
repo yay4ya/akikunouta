@@ -6,6 +6,10 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: '/',
+    redirect: '/videos',
+  },
+  {
+    path: '/videos',
     name: 'Videos',
     component: () => import('../views/Videos.vue')
   },

@@ -3,4 +3,5 @@ export default interface Card {
   title: string;
   subtitle: string;
   thumbnailUrl: string;
+  metadata: string;
 }

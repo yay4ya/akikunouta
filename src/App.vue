@@ -2,39 +2,19 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="#ffda6f"
       height="50"
       elevation="0"
     >
       <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
       </div>
 
       <v-spacer></v-spacer>
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+        icon
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
+        <v-icon>mdi-cog</v-icon>
       </v-btn>
     </v-app-bar>
 
@@ -48,19 +28,51 @@
 
         <div class="right">
           <div id="search">
-            <v-icon color="rgb(249, 102, 102)" size="30">mdi-magnify</v-icon>
+            <v-icon
+              color="rgb(249, 102, 102)"
+              size="30"
+              class="icon-search"
+            >mdi-magnify</v-icon>
             <v-text-field
               v-model="query"
               color="#e55555"
+              hint="キーワードで曲を検索します: 「歌枠 コラボ」"
             ></v-text-field>
+            <v-btn
+              icon
+              class="btn-clear-query"
+              @click="query = ''"
+            >
+              <v-icon size="20">mdi-close</v-icon>
+            </v-btn>
           </div>
           <div id="nav">
-            <router-link to="/">Videos</router-link> |
-            <router-link to="/tracks">Tracks</router-link> |
-            <router-link to="/covers">Covers</router-link> |
-            <router-link to="/favorites">Favorites</router-link> |
-            <router-link to="/playlists">Playlists</router-link>
+            <router-link to="/videos" class="router-link">
+              <v-icon>mdi-youtube</v-icon>
+              <span>動画</span>
+            </router-link>
+
+            <router-link to="/tracks" class="router-link">
+              <v-icon>mdi-music-circle</v-icon>
+              <span>曲</span>
+            </router-link>
+
+            <router-link to="/covers" class="router-link">
+              <v-icon>mdi-record-circle</v-icon>
+              <span>歌ってみた</span>
+            </router-link>
+
+            <router-link to="/favorites" class="router-link">
+              <v-icon>mdi-heart-circle</v-icon>
+              <span>いいね</span>
+            </router-link>
+
+            <router-link to="/playlists" class="router-link">
+              <v-icon>mdi-playlist-music</v-icon>
+              <span>プレイリスト</span>
+            </router-link>
           </div>
+
           <keep-alive>
             <router-view id="router-view"/>
           </keep-alive>
@@ -97,6 +109,9 @@
         set(query: string) {
           this.setSearchQuery(query);
         }
+      },
+      routerPath(): string {
+        return this.$route.path;
       },
     },
     methods: {
@@ -170,19 +185,80 @@
 
     #search {
       display: flex;
+      position: relative;
+      width: 100%;
+      height: 70px;
 
-      .v-icon {
-        padding-right: 10px;
-        height: 50px;
+      .icon-search {
       }
 
       .v-input {
+        position: absolute;
+        left: 40px;
+        width: calc(100% - 50px);
         padding: 0;
+      }
+
+      .btn-clear-query {
+        position: absolute;
+        right: 0;
       }
     }
 
     #nav {
       padding: 0;
+      height: 65px;
+      margin-bottom: 5px;
+      display: flex;
+      justify-content: space-around;
+
+      .router-link {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 10px 10px 10px 10px;
+        overflow: hidden;
+
+        &:after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(100, 100, 100, 0.1);
+          overflow: hidden;
+          opacity: 0;
+          transition: opacity 0.2s ease;
+        }
+
+        &:hover:after {
+          opacity: 1;
+        }
+
+        &.router-link-active {
+          background-color: rgba(100, 100, 100, 0.1);
+        }
+
+        .router-link-content {
+          margin: auto;
+        }
+
+        .v-icon {
+          display: block;
+        }
+
+        span {
+          color: gray;
+          font-size: 0.75em;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+          user-select: none;
+        }
+      }
     }
 
     #router-view {

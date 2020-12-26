@@ -6,6 +6,7 @@ import State from '@/models/state';
 import {library} from '@/models/library';
 import {Track} from '@/models/track';
 import {Playlist} from '@/models/playlist';
+import {PlayerState, PlayerRepeat} from '@/models/player';
 
 Vue.use(Vuex);
 
@@ -17,8 +18,21 @@ function getInitialState(): State {
     searchQuery: '',
     favoriteTracks: library.loadFavoriteTracks(),
     playlists: library.loadPlaylists(),
+    playerRepeat: playerState.repeat,
+    playerVolume: playerState.volume,
+    playerMute: playerState.mute,
   };
   return state;
+}
+
+function getPlayerState(state: State): PlayerState {
+  return {
+    playingTrack: state.playingTrack,
+    queuedTracks: state.queuedTracks,
+    repeat: state.playerRepeat,
+    volume: state.playerVolume,
+    mute: state.playerMute,
+  }
 }
 
 export default new Vuex.Store({
@@ -26,18 +40,18 @@ export default new Vuex.Store({
   mutations: {
     [VuexMutation.SET_PLAYING_TRACK](state: State, track: Track | null) {
       state.playingTrack = track;
-      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
+      library.savePlayerState(getPlayerState(state));
     },
     [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
       state.queuedTracks = tracks;
-      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
+      library.savePlayerState(getPlayerState(state));
     },
     [VuexMutation.SET_SEARCH_QUERY](state: State, query: string) {
       state.searchQuery = query;
     },
     [VuexMutation.ADD_TO_QUEUE](state: State, track: Track) {
       state.queuedTracks.push(track);
-      library.savePlayerState({playingTrack: state.playingTrack, queuedTracks: state.queuedTracks});
+      library.savePlayerState(getPlayerState(state));
     },
     [VuexMutation.ADD_FAVORITE_TRACK](state: State, track: Track) {
       library.addFavoriteTrack(track);
@@ -59,6 +73,18 @@ export default new Vuex.Store({
       library.removePlaylist(targetPlaylist);
       state.playlists = state.playlists.filter(playlist => playlist.name != targetPlaylist.name);
     },
+    [VuexMutation.SET_PLAYER_REPEAT](state: State, repeat: PlayerRepeat) {
+      state.playerRepeat = repeat;
+      library.savePlayerState(getPlayerState(state));
+    },
+    [VuexMutation.SET_PLAYER_VOLUME](state: State, volume: number) {
+      state.playerVolume = volume;
+      library.savePlayerState(getPlayerState(state));
+    },
+    [VuexMutation.SET_PLAYER_MUTE](state: State, mute: boolean) {
+      state.playerMute = mute;
+      library.savePlayerState(getPlayerState(state));
+    },
   },
   actions: {
     [VuexAction.SET_NEXT_TRACK]({ commit }) {
@@ -76,11 +102,22 @@ export default new Vuex.Store({
       // in the queue will be selected, because playingTrackIndex
       // is -1 so that nextTrackIndex will be 0.
 
-      const nextTrackIndex = playingTrackIndex + 1;
+      let nextTrackIndex = playingTrackIndex + 1;
+      if (this.state.playerRepeat === 'repeat') {
+        nextTrackIndex = nextTrackIndex % this.state.queuedTracks.length;
+      } else if (this.state.playerRepeat === 'repeat-once') {
+        nextTrackIndex = playingTrackIndex;
+      }
       const nextTrack = this.state.queuedTracks[nextTrackIndex];
 
       if (!nextTrack) {
         return;
+      }
+
+      // This statement is needed to notify other components that the
+      // playing track is changed.
+      if (nextTrack.uuid === this.state.playingTrack.uuid) {
+        commit(VuexMutation.SET_PLAYING_TRACK, null);
       }
 
       commit(VuexMutation.SET_PLAYING_TRACK, nextTrack);

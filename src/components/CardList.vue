@@ -6,6 +6,7 @@
       v-for="card in cards"
       v-bind:key="card.id"
       class="card-list-item"
+      v-bind:style = "{ display: matchQuery(card)? 'block': 'none' }"
     >
       <Card
         :card="card"
@@ -23,13 +24,21 @@
 
   export default Vue.extend({
     name: 'CardList',
-    props: ['cards'],
+    props: ['cards', 'query'],
     components: {
       Card: () => import ('@/components/Card.vue'),
     },
     methods: {
       onClick(card: Card) {
         this.$emit('clicked', card);
+      },
+      matchQuery(card: Card): boolean {
+        const target = [
+          card.title,
+          card.subtitle,
+          card.metadata,
+        ].join('  ').toLowerCase();
+        return target.indexOf(this.query.toLowerCase()) >= 0;
       }
     }
   })
