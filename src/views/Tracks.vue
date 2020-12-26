@@ -26,7 +26,7 @@
     },
     data() {
       return {
-        tracks: util.sortTracksByData(library.tracks as Track[]).reverse(),
+        tracks: util.sortTracksByData(library.tracks as Track[], true),
       }
     },
     computed: {

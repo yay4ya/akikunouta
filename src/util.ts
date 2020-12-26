@@ -59,12 +59,12 @@ export function sortByKey<T>(items: Array<T>, getKey: (x: T) => (number | string
   });
 }
 
-export function sortTracksByData(tracks: Track[]): Track[] {
+export function sortTracksByData(tracks: Track[], reverse = false): Track[] {
   return tracks.map(track => track).sort((a, b) => {
     if (a.publishedAt < b.publishedAt) {
-      return -1;
+      return reverse ? 1 : -1;
     } else if (a.publishedAt > b.publishedAt) {
-      return 1;
+      return reverse ? -1 : 1;
     }
 
     if (a.start < b.start) {
