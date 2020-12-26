@@ -1,5 +1,6 @@
 <template>
   <v-container class="d-flex">
+
     <TrackList
       :tracks="tracks"
       :sort="false"
@@ -7,6 +8,7 @@
       pull='clone'
       :queueing="true"
       :query="searchQuery"
+      :listActions="true"
       class="track-list scroll-thin"
     />
   </v-container>
@@ -40,7 +42,6 @@
     height: 100%;
   }
   .track-list {
-    overflow: scroll;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 </style>

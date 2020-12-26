@@ -1,7 +1,7 @@
 <template>
   <v-container>
 
-  <ul class="card-list">
+  <ul class="card-list scroll-thin">
     <li
       v-for="card in cards"
       v-bind:key="card.id"
@@ -38,7 +38,11 @@
           card.subtitle,
           card.metadata,
         ].join('  ').toLowerCase();
-        return target.indexOf(this.query.toLowerCase()) >= 0;
+        let match = true;
+        for (const keyword of this.query.toLowerCase().split(/\s/)) {
+          match = match && (target.indexOf(keyword) >= 0);
+        }
+        return match;
       }
     }
   })
@@ -47,10 +51,11 @@
 <style scoped lang="scss">
   .card-list{
     padding: 0;
-
     display: flex;
-    justify-content: stretch;
+    max-height: 100%;
     flex-wrap: wrap;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .card-list-item {

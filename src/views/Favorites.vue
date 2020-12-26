@@ -7,7 +7,8 @@
       pull='clone'
       :queueing="true"
       :query="searchQuery"
-      class="track-list scroll-thin"
+      :listActions="true"
+      class="track-list"
     />
   </v-container>
 </template>
@@ -36,9 +37,5 @@
 <style scoped lang="scss">
   .container {
     height: 100%;
-  }
-  .track-list {
-    overflow: scroll;
-    overflow-x: hidden;
   }
 </style>

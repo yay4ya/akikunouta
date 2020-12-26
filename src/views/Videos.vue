@@ -1,11 +1,46 @@
 <template>
-  <v-container class="d-flex">
-    <CardList
-      :cards="videoCards"
-      :query="searchQuery"
-      class="video-list scroll-thin"
-      @clicked="onClick"
-    />
+  <v-container>
+    <div class="list-actions">
+      <div class="list-actions-left">
+        <v-btn
+          icon
+          small
+          class="btn-shuffle"
+        >
+          <v-icon size="20">mdi-shuffle-variant</v-icon>
+        </v-btn>
+
+        <v-btn
+          icon
+          small
+          class="btn-repeat"
+        >
+          <v-icon size="20"> mdi-repeat </v-icon>
+        </v-btn>
+      </div>
+
+      <div class="list-actions-center">
+      </div>
+
+      <div class="list-actions-right">
+        <v-btn
+          icon
+          small
+          class="btn-repeat"
+        >
+          <v-icon size="20"> mdi-swap-vertical </v-icon>
+        </v-btn>
+      </div>
+    </div>
+
+    <div class="card-list-container">
+      <CardList
+        :cards="videoCards"
+        :query="searchQuery"
+        class="video-list"
+        @clicked="onClick"
+      />
+    </div>
 
     <transition name="slide">
       <div v-if="selectedVideo" class="track-list-container">
@@ -106,16 +141,21 @@
           this.videos,
           video => video.publishedAt,
         ).reverse().map(video => {
-          const tags: Set<string> = new Set();
+          const keywords: Set<string> = new Set();
           library.tracks.filter(
             track => track.video.id === video.id
-          ).map(track => track.tags.map(tag => tags.add(tag)));
+          ).map(track => {
+            keywords.add(track.title);
+            keywords.add(track.artist);
+            keywords.add(track.singer);
+            track.tags.map(tag => keywords.add(tag));
+          });
           return {
             id: video.id,
             title: video.getTitle() || '',
             subtitle: (video.getChannel() || {}).name  || '',
             thumbnailUrl: video.getThumbnailURL('mqdefault'),
-            metadata: [...tags].join('  '),
+            metadata: [...keywords].join('  '),
           }
         })
       },
@@ -157,9 +197,44 @@
     overflow: hidden;
   }
 
+  .list-actions {
+    display: flex;
+    height: 35px;
+    width: 100%;
+    justify-content: space-between;
+    user-select: none;
+
+    div {
+      margin: auto 5px;
+      width: 30%;
+    }
+
+    .list-actions-center {
+      text-align: center;
+    }
+
+    .v-btn {
+      color: rgba(100, 100, 100, 0.5);
+
+      &:hover {
+        color: rgba(100, 100, 100, 1.0);
+      }
+    }
+
+    .list-actions-right{
+      text-align: right;
+      float: right;
+    }
+  }
+
+
+  .card-list-container {
+    position: relative;
+    height: calc(100% - 35px);
+  }
+
   .video-list {
-    overflow-x: hidden;
-    overflow-y: scroll;
+    height: 100%;
   }
 
   .slide-enter-active, .slide-leave-active {
@@ -272,8 +347,6 @@
 
     .track-list {
       height: calc(100%  - 130px);
-      overflow-x: none;
-      overflow-y: scroll;
     }
   }
 </style>

@@ -1,11 +1,13 @@
 <template>
-  <v-container class="d-flex">
-    <CardList
-      :cards="playlistCards"
-      :query="searchQuery"
-      class="playlist-list scroll-thin"
-      @clicked="onClick"
-    />
+  <v-container>
+    <div class="card-list-container">
+      <CardList
+        :cards="playlistCards"
+        :query="searchQuery"
+        class="playlist-list"
+        @clicked="onClick"
+      />
+    </div>
 
     <transition name="slide">
       <div v-if="selectedPlaylist" class="track-list-container">
@@ -280,9 +282,14 @@
     overflow: hidden;
   }
 
+  .card-list-container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+
   .playlist-list {
-    overflow-x: hidden;
-    overflow-y: scroll;
+    height: 100%;
   }
 
   .slide-enter-active, .slide-leave-active {
@@ -313,6 +320,8 @@
 
       .playlist-info-background {
         position: absolute;
+        padding: 0;
+        margin: 0;
         content: '';
         top: 0;
         left: 0;
@@ -400,8 +409,6 @@
 
     .track-list {
       height: calc(100%  - 130px);
-      overflow-x: none;
-      overflow-y: scroll;
     }
   }
 </style>

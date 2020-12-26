@@ -169,11 +169,16 @@
       text-align: center;
     }
 
+    .queue-actions-right {
+      text-align: right;
+    }
+
 
     .num-queued-tracks {
       color: rgba(100, 100, 100, 0.7);
       cursor: pointer;
     }
+
 
     .v-btn {
       color: rgba(100, 100, 100, 0.5);
@@ -182,19 +187,10 @@
         color: rgba(100, 100, 100, 1.0);
       }
     }
-
-    .btn-delete {
-      float: right;
-    }
   }
 
   .queue-list {
     height: calc(100% - 35px);
-
-    .queued-tracks {
-      overflow-x: hidden;
-      overflow-y: scroll;
-    }
 
     .queue-background {
       position: absolute;

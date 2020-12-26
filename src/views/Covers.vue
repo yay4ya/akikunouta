@@ -7,7 +7,8 @@
       pull='clone'
       :queueing="true"
       :query="searchQuery"
-      class="track-list scroll-thin"
+      :listActions="true"
+      class="track-list"
     />
   </v-container>
 </template>
@@ -17,6 +18,7 @@
   import {mapState} from 'vuex';
   import {library} from '@/models/library';
   import Search from '@/models/search';
+  import * as util from '@/util';
 
   export default Vue.extend({
     name: 'HelloWorld',
@@ -25,7 +27,7 @@
     },
     data() {
       return {
-        tracks: new Search(library.tracks).getTracksByTag("歌ってみた"),
+        tracks: new Search(util.sortTracksByData(library.tracks, true)).getTracksByTag("歌ってみた"),
       }
     },
     computed: {
@@ -37,9 +39,5 @@
 <style scoped lang="scss">
   .container {
     height: 100%;
-  }
-  .track-list {
-    overflow: scroll;
-    overflow-x: hidden;
   }
 </style>
