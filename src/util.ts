@@ -1,3 +1,5 @@
+import {Track} from '@/models/track';
+
 export function deepCopy<T>(src: T): T {
   return JSON.parse(JSON.stringify(src));
 }
@@ -42,4 +44,35 @@ export function generateUuid(): string {
         }
     }
     return chars.join("");
+}
+
+export function sortByKey<T>(items: Array<T>, getKey: (x: T) => (number | string)): Array<T> {
+  return items.map(item => item).sort((a, b) => {
+    const keyA = getKey(a);
+    const keyB = getKey(b);
+    if (keyA < keyB) {
+      return -1;
+    } else if(keyA > keyB) {
+      return 1;
+    }
+    return 0;
+  });
+}
+
+export function sortTracksByData(tracks: Track[]): Track[] {
+  return tracks.map(track => track).sort((a, b) => {
+    if (a.publishedAt < b.publishedAt) {
+      return -1;
+    } else if (a.publishedAt > b.publishedAt) {
+      return 1;
+    }
+
+    if (a.start < b.start) {
+      return -1;
+    } else if (a.start > b.start) {
+      return 1;
+    }
+
+    return 0;
+  });
 }

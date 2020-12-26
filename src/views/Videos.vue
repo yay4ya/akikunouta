@@ -102,7 +102,10 @@
     computed: {
       ...mapState(['searchQuery']),
       videoCards: function(): Card[] {
-        return this.videos.map(video => {
+        return util.sortByKey(
+          this.videos,
+          video => video.publishedAt,
+        ).reverse().map(video => {
           const tags: Set<string> = new Set();
           library.tracks.filter(
             track => track.video.id === video.id

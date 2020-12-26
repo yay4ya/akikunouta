@@ -42,7 +42,7 @@ export class Track {
     this.start = trackJson.start;
     this.end = trackJson.end;
     this.isFavorite = isFavorite;
-    this.video = video || new Video(trackJson.videoid);
+    this.video = video || new Video(trackJson.videoid, trackJson.publishedAt);
   }
 
   public clone(uuid: boolean | string = false): Track {

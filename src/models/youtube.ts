@@ -25,6 +25,7 @@ export class Channel {
 export class Video {
   constructor(
     readonly id: string,
+    readonly publishedAt: string,
     protected url: string |null = null,
     protected title: string | null = null,
     protected channel: Channel | null = null,
@@ -46,6 +47,7 @@ export class Video {
   public clone(useCache = true): Video {
     return new Video(
       this.id,
+      this.publishedAt,
       this.url,
       this.title,
       this.channel !== null ? this.channel.clone() : null,

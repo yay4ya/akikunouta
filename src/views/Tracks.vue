@@ -17,6 +17,7 @@
   import {mapState} from 'vuex';
   import {library} from '@/models/library';
   import {Track} from '@/models/track';
+  import * as util from '@/util';
 
   export default Vue.extend({
     name: 'Tracks',
@@ -25,7 +26,7 @@
     },
     data() {
       return {
-        tracks: library.tracks.map((track: Track) => track),
+        tracks: util.sortTracksByData(library.tracks as Track[]).reverse(),
       }
     },
     computed: {
