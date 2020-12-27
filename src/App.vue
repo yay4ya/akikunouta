@@ -11,11 +11,22 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn
-        icon
+      <v-dialog
+        max-width="800px"
       >
-        <v-icon>mdi-cog</v-icon>
-      </v-btn>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            icon
+            v-on="on"
+            v-bind="attrs"
+          >
+            <v-icon>mdi-cog</v-icon>
+          </v-btn>
+        </template>
+          <v-card>
+            <Config/>
+          </v-card>
+      </v-dialog>
     </v-app-bar>
 
     <v-main>
@@ -94,6 +105,7 @@
     components: {
       Queue: () => import ('@/components/Queue.vue'),
       Player: () => import ('@/components/Player.vue'),
+      Config: () => import ('@/components/Config.vue'),
      },
     data() {
       return {
@@ -147,10 +159,11 @@
 <style scoped lang="scss">
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
-  .container {
+  .main-container {
     padding: 10px 15px;
     height: calc(100vh - 50px);
     max-width: 1390px;
+    min-width: 920px;
     background-color: #fffbe8;
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
