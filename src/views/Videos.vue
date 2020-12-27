@@ -1,38 +1,5 @@
 <template>
   <v-container>
-    <div class="list-actions">
-      <div class="list-actions-left">
-        <v-btn
-          icon
-          small
-          class="btn-shuffle"
-        >
-          <v-icon size="20">mdi-shuffle-variant</v-icon>
-        </v-btn>
-
-        <v-btn
-          icon
-          small
-          class="btn-repeat"
-        >
-          <v-icon size="20"> mdi-repeat </v-icon>
-        </v-btn>
-      </div>
-
-      <div class="list-actions-center">
-      </div>
-
-      <div class="list-actions-right">
-        <v-btn
-          icon
-          small
-          class="btn-repeat"
-        >
-          <v-icon size="20"> mdi-swap-vertical </v-icon>
-        </v-btn>
-      </div>
-    </div>
-
     <div class="card-list-container">
       <CardList
         :cards="videoCards"
@@ -88,6 +55,13 @@
               >
                 <v-icon>mdi-shuffle-variant</v-icon>
               </v-btn>
+              <v-btn
+                icon
+                dark
+                @click.stop="queueAndRepeat"
+              >
+                <v-icon>mdi-repeat</v-icon>
+              </v-btn>
             </div>
           </div>
         </div>
@@ -125,46 +99,50 @@
       return {
         library: library,
         videos: [] as Video[],
+        videoCards: [] as Card[],
+        videoToTracks: new Map<string, Track[]>(),
         selectedVideo: null as Video | null,
       }
     },
     async created() {
       const videoIdToVideo = new Map(library.tracks.map(track => [track.video.id, track.video]));
       const videos = [...videoIdToVideo.values()];
+      this.videoToTracks = new Map(videos.map(
+        video => [video.id, library.tracks.filter(track => track.video.id === video.id)]
+      ));
       await Promise.all(videos.map(video => video.fetchVideoInfo()));
       this.videos = videos;
+      this.videoCards = util.sortByKey(
+        this.videos,
+        video => video.publishedAt,
+      ).reverse().map(video => {
+        const keywords: Set<string> = new Set();
+        library.tracks.filter(
+          track => track.video.id === video.id
+        ).map(track => {
+          keywords.add(track.title);
+          keywords.add(track.artist);
+          keywords.add(track.singer);
+          track.tags.map(tag => keywords.add(tag));
+        });
+        return {
+          id: video.id,
+          title: video.getTitle() || '',
+          subtitle: (video.getChannel() || {}).name  || '',
+          thumbnailUrl: video.getThumbnailURL('mqdefault'),
+          metadata: [...keywords].join('  '),
+        }
+      });
     },
     computed: {
       ...mapState(['searchQuery']),
-      videoCards: function(): Card[] {
-        return util.sortByKey(
-          this.videos,
-          video => video.publishedAt,
-        ).reverse().map(video => {
-          const keywords: Set<string> = new Set();
-          library.tracks.filter(
-            track => track.video.id === video.id
-          ).map(track => {
-            keywords.add(track.title);
-            keywords.add(track.artist);
-            keywords.add(track.singer);
-            track.tags.map(tag => keywords.add(tag));
-          });
-          return {
-            id: video.id,
-            title: video.getTitle() || '',
-            subtitle: (video.getChannel() || {}).name  || '',
-            thumbnailUrl: video.getThumbnailURL('mqdefault'),
-            metadata: [...keywords].join('  '),
-          }
-        })
-      },
     },
     methods: {
       ...mapMutations({
         addToQueue: VuexMutation.ADD_TO_QUEUE,
         setQueue: VuexMutation.SET_QUEUE,
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
+        setPlayerRepeat: VuexMutation.SET_PLAYER_REPEAT,
       }),
       onClick(videoCard: Card) {
         this.selectedVideo = this.videos.find(video => video.id == videoCard.id) || null;
@@ -188,6 +166,17 @@
           this.setPlayingTrack(tracks[0]);
           this.setQueue(tracks);
         }
+      },
+      queueAndRepeat() {
+        if (!this.selectedVideo) {
+          throw Error("no video selected");
+        }
+        const tracks = this.getTracksByVideoId(this.selectedVideo.id);
+        if (tracks.length > 0) {
+          this.setPlayingTrack(tracks[0]);
+          this.setQueue(tracks);
+          this.setPlayerRepeat('repeat');
+        }
       }
     }
   });
@@ -201,37 +190,6 @@
     height: 100%;
     overflow: hidden;
   }
-
-  .list-actions {
-    display: flex;
-    height: 35px;
-    width: 100%;
-    justify-content: space-between;
-    user-select: none;
-
-    div {
-      margin: auto 5px;
-      width: 30%;
-    }
-
-    .list-actions-center {
-      text-align: center;
-    }
-
-    .v-btn {
-      color: rgba(100, 100, 100, 0.5);
-
-      &:hover {
-        color: rgba(100, 100, 100, 1.0);
-      }
-    }
-
-    .list-actions-right{
-      text-align: right;
-      float: right;
-    }
-  }
-
 
   .card-list-container {
     position: relative;

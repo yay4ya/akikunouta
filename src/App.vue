@@ -36,7 +36,7 @@
             <v-text-field
               v-model="query"
               color="#e55555"
-              hint="キーワードで検索します: 「歌枠 コラボ」"
+              hint="キーワードで検索: 「歌ってみた コラボ」「歌枠 音源あり」..."
             ></v-text-field>
             <v-btn
               icon

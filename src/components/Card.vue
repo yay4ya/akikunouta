@@ -58,6 +58,7 @@
     position: relative;
     margin: 5px !important;
     overflow: hidden;
+    user-select: none;
 
     &:after {
       transition: opacity 0.3s;

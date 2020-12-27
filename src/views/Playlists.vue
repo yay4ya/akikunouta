@@ -103,6 +103,13 @@
               >
                 <v-icon>mdi-shuffle-variant</v-icon>
               </v-btn>
+              <v-btn
+                icon
+                dark
+                @click.stop="queueAndRepeat"
+              >
+                <v-icon>mdi-repeat</v-icon>
+              </v-btn>
               <v-dialog
                 max-width="300px"
                 v-model="deleteDialog"
@@ -210,6 +217,7 @@
         addToQueue: VuexMutation.ADD_TO_QUEUE,
         setQueue: VuexMutation.SET_QUEUE,
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
+        setPlayerRepeat: VuexMutation.SET_PLAYER_REPEAT,
       }),
       onClick(playlistCard: Card) {
         this.selectedPlaylist = this.playlists.find(
@@ -272,6 +280,17 @@
         if (tracks.length > 0) {
           this.setPlayingTrack(tracks[0]);
           this.setQueue(tracks);
+        }
+      },
+      queueAndRepeat() {
+        if (!this.selectedPlaylist) {
+          throw Error("no playlist selected");
+        }
+        const tracks = this.selectedPlaylist.tracks;
+        if (tracks.length > 0) {
+          this.setPlayingTrack(tracks[0]);
+          this.setQueue(tracks);
+          this.setPlayerRepeat('repeat');
         }
       }
     }
