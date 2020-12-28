@@ -85,6 +85,15 @@ export default new Vuex.Store({
       state.playerMute = mute;
       library.savePlayerState(getPlayerState(state));
     },
+    [VuexMutation.CLEAN_ALL](state: State) {
+      state.playingTrack = null;
+      state.queuedTracks = [];
+      state.playerVolume = 50;
+      state.playerMute = false;
+      state.favoriteTracks = [];
+      state.playlists = [];
+      library.clean();
+    },
   },
   actions: {
     [VuexAction.SET_NEXT_TRACK]({ commit }) {
