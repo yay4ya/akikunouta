@@ -200,14 +200,14 @@
             id: playlist.name,
             title: playlist.name,
             subtitle: playlist.tracks.length + ' 曲',
-            thumbnailUrl: playlist.tracks.length ? playlist.tracks[0].video.getThumbnailURL('mqdefault') : '',
+            thumbnailUrl: playlist.tracks.length ? playlist.tracks[0].video.getThumbnailURL('hqdefault') : '',
             metadata: '',
           }
         })
       },
       selectedPlaylistThumbnail(): string {
         const track = this.selectedPlaylist && this.selectedPlaylist.tracks.length ? this.selectedPlaylist.tracks[0] : null;
-        return track ? track.video.getThumbnailURL('mqdefault') : '';
+        return track ? track.video.getThumbnailURL('hqdefault') : '';
       }
     },
     methods: {

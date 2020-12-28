@@ -1,10 +1,9 @@
 <template>
-  <v-container>
+  <v-container class="videos-container">
     <div class="card-list-container">
       <CardList
         :cards="videoCards"
         :query="searchQuery"
-        :cardWidth="220"
         class="video-list"
         @clicked="onClick"
       />
@@ -184,7 +183,7 @@
 </script>
 
 <style scoped lang="scss">
-  .container {
+  .videos-container {
     position: relative;
     padding: 0;
     width: 100%;
@@ -195,9 +194,12 @@
   .card-list-container {
     position: relative;
     height: 100%;
+    width: 100%;
+    padding: 0;
   }
 
   .video-list {
+    width: 100%;
     height: 100%;
   }
 

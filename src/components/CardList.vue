@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="card-list-container">
     <div class="card-list scroll-thin">
       <div
         v-for="card in cards"
@@ -48,19 +48,20 @@
 </script>
 
 <style scoped lang="scss">
+  .card-list-container {
+    width: 100%;
+    height: 100%;
+  }
   .card-list{
     display: grid;
     gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     width: 100%;
+    height: 100%;
     max-height: 100%;
     padding-right: 10px;
     overflow-x: hidden;
     overflow-y: scroll;
-  }
-
-  .card-list-item {
-
   }
 
   .card {

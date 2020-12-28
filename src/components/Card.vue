@@ -47,6 +47,7 @@
     width: 100%;
     height: 100%;
     padding: 2px;
+    margin: auto;
   }
 
   .v-sheet.v-card:not(.v-sheet--outlined) {
