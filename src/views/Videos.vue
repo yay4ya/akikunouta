@@ -88,6 +88,7 @@
   import {Video} from '@/models/youtube';
   import {Track} from '@/models/track';
   import Card from '@/models/card';
+  import Message from '@/models/message';
 
   export default Vue.extend({
     name: 'Videos',
@@ -143,6 +144,7 @@
         setQueue: VuexMutation.SET_QUEUE,
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
         setPlayerRepeat: VuexMutation.SET_PLAYER_REPEAT,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
       onClick(videoCard: Card) {
         this.selectedVideo = this.videos.find(video => video.id == videoCard.id) || null;
@@ -156,6 +158,7 @@
         }
         const tracks = this.getTracksByVideoId(this.selectedVideo.id);
         tracks.map(track => this.addToQueue(track.clone()));
+        this.addMessage(new Message('info', tracks.length + '曲をキューに追加しました'));
       },
       shuffleAndQueue() {
         if (!this.selectedVideo) {
@@ -165,6 +168,7 @@
         if (tracks.length > 0) {
           this.setPlayingTrack(tracks[0]);
           this.setQueue(tracks);
+          this.addMessage(new Message('info', tracks.length + '曲をキューにセットしました'));
         }
       },
       queueAndRepeat() {
@@ -176,6 +180,7 @@
           this.setPlayingTrack(tracks[0]);
           this.setQueue(tracks);
           this.setPlayerRepeat('repeat');
+          this.addMessage(new Message('info', tracks.length + '曲をキューにセットしました'));
         }
       }
     }

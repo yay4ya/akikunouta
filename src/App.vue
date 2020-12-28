@@ -107,6 +107,8 @@
             <v-icon size="40">{{ player? 'mdi-chevron-down' : 'mdi-chevron-up'  }}</v-icon>
           </v-btn>
         </div>
+
+        <MessageTray id="message-tray"/>
       </v-container>
     </v-main>
   </v-app>
@@ -124,6 +126,7 @@
       Queue: () => import ('@/components/Queue.vue'),
       Player: () => import ('@/components/Player.vue'),
       Config: () => import ('@/components/Config.vue'),
+      MessageTray: () => import ('@/components/MessageTray.vue'),
      },
     data() {
       return {
@@ -167,7 +170,7 @@
     overflow: hidden;
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 780px) {
     .v-main {
       padding-top: 0 !important;
       height: 100vh;
@@ -317,6 +320,14 @@
     }
   }
 
+  #message-tray {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 350px;
+    z-index: 3;
+  }
+
   #player-toggle {
     display: none;
   }
@@ -375,6 +386,10 @@
     .right {
       width: 100%;
       padding: 0;
+    }
+
+    #message-tray {
+      bottom: 50px;
     }
 
     #player-toggle {

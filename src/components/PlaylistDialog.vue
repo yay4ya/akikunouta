@@ -115,10 +115,10 @@
   import {Playlist} from '@/models/playlist';
   import Message from '@/models/message';
 
-  const emptyPlaylistNameErrorMessage = {
-    type: 'error',
-    text: 'プレイリスト名が空欄です',
-  };
+  const emptyPlaylistNameErrorMessage = new Message(
+    'error',
+    'プレイリスト名が空欄です',
+  );
 
   export default Vue.extend({
     name: 'PlaylistDialog',
@@ -138,6 +138,7 @@
       ...mapMutations({
         addPlaylist: VuexMutation.ADD_PLAYLIST,
         removePlaylist: VuexMutation.REMOVE_PLAYLIST,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
       createPlaylist() {
         if (!this.newPlaylistName) {
@@ -151,10 +152,10 @@
         try {
           this.addPlaylist(playlist);
         } catch(error) {
-          this.newPlaylistErrorMessage = {
-            type: "error",
-            text: error.message,
-          };
+          this.newPlaylistErrorMessage = new Message(
+            'error',
+            error.message,
+          );
           return;
         }
         this.newPlaylistName = '';
@@ -166,12 +167,13 @@
           this.removePlaylist(playlist);
           this.addPlaylist(playlist);
         } catch(error) {
-          this.errorMessage = {
-            "type": "error",
-            "text": error.message,
-          }
+          this.errorMessage = new Message(
+            'error',
+            error.message,
+          );
           return;
         }
+        this.addMessage(new Message('info', '"' + this.track.title + '" をプレイリスト "' + playlist.name + '" に追加しました'))
         this.$emit('addedTrackToPlaylist')
       },
     },

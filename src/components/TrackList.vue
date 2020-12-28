@@ -88,6 +88,7 @@
   import * as VuexAction from '@/store/action-types';
   import * as util from '@/util';
   import {Track} from '@/models/track';
+  import Message from '@/models/message';
 
   export default Vue.extend({
     name: 'TrackList',
@@ -124,6 +125,7 @@
         setQueue: VuexMutation.SET_QUEUE,
         addToQueue: VuexMutation.ADD_TO_QUEUE,
         setPlayerRepeat: VuexMutation.SET_PLAYER_REPEAT,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
       ...mapActions({
         setNextTrack: VuexAction.SET_NEXT_TRACK,
@@ -151,7 +153,9 @@
         if (!this.queueing) {
           return;
         }
-        this.setQueue(this.filteredTracks.map((track: Track) => track));
+        const tracks = this.filteredTracks.map((track: Track) => track);
+        this.setQueue(tracks);
+        this.addMessage(new Message('info', tracks.length + '曲をキューにセットしました'));
       },
       deleteTrack(targetTrack: Track) {
         this.loadedTracks= this.loadedTracks.filter(
@@ -160,13 +164,16 @@
         this.$emit('deleted', targetTrack);
       },
       addFilteredTracksToQueue() {
-        this.filteredTracks.map(track => this.addToQueue(track.clone()));
+        const tracks = this.filteredTracks;
+        tracks.map(track => this.addToQueue(track.clone()));
+        this.addMessage(new Message('info', tracks.length + '曲をキューに追加しました'));
       },
       shuffle() {
         if (this.filteredTracks.length < 1) return;
         const tracks = util.shuffle(this.filteredTracks.map(track => track.clone()));
         this.setPlayingTrack(tracks[0] || null);
         this.setQueue(tracks);
+        this.addMessage(new Message('info', tracks.length + '曲をキューにセットしました'));
       },
       repeat() {
         if (this.filteredTracks.length < 1) return;
@@ -174,6 +181,7 @@
         this.setPlayerRepeat('repeat');
         this.setPlayingTrack(tracks[0] || null);
         this.setQueue(tracks);
+        this.addMessage(new Message('info', tracks.length + '曲をキューにセットしました'));
       }
     },
     watch: {

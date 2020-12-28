@@ -73,13 +73,12 @@
               dark
               right
               icon
-              @click.stop="addToQueue(track)"
+              @click.stop="addTrackToQueue(track)"
             >
               <v-icon size="18">mdi-plus</v-icon>
             </v-btn>
 
             <v-dialog
-              transition="dialog-bottom-transition"
               max-width="450"
               scrollable
               v-model="playlistDialog"
@@ -132,6 +131,8 @@
   import {mapState, mapMutations} from 'vuex';
   import {secondsToTime} from '@/util';
   import * as VuexMutation from '@/store/mutation-types';
+  import {Track} from '@/models/track';
+  import Message from '@/models/message';
 
   export default Vue.extend({
     name: 'Track',
@@ -161,6 +162,7 @@
         addFavoriteTrack: VuexMutation.ADD_FAVORITE_TRACK,
         removeFavoriteTrack: VuexMutation.REMOVE_FAVORITE_TRACK,
         addToQueue: VuexMutation.ADD_TO_QUEUE,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
       secondsToTime(t: number): string {
         return secondsToTime(t);
@@ -188,6 +190,10 @@
           this.addFavoriteTrack(this.track);
           this.track.isFavorite = true;
         }
+      },
+      addTrackToQueue(track: Track) {
+        this.addToQueue(track.clone());
+        this.addMessage(new Message('info', '"' + track.title + '" をキューに追加しました'));
       }
     },
     watch: {

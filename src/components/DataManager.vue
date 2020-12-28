@@ -54,7 +54,7 @@
             この操作を行うと，このブラウザ上に保存されている<b>いいね</b>・<b>プレイリスト</b>・<b>キュー</b>が全て削除されます。
           </v-card-text>
           <v-card-actions>
-            <v-btn text color="primary" @click="cleanAll(); deleteDialog = false;">はい</v-btn>
+            <v-btn text color="primary" @click="cleanAllData" >はい</v-btn>
             <v-btn text color="red" @click="deleteDialog = false">いいえ</v-btn>
           </v-card-actions>
         </v-card>
@@ -67,6 +67,7 @@
   import Vue from 'vue';
   import {mapMutations} from 'vuex';
   import * as VuexMutation from '@/store/mutation-types';
+  import Message from '@/models/message';
 
   export default Vue.extend({
     name: 'DataManager',
@@ -78,7 +79,13 @@
     methods: {
       ...mapMutations({
         cleanAll: VuexMutation.CLEAN_ALL,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
+      cleanAllData() {
+        this.cleanAll();
+        this.deleteDialog = false;
+        this.addMessage(new Message('info', 'データを削除しました'))
+      },
     },
   });
 </script>

@@ -1,6 +1,7 @@
 import {Track} from './track';
 import {Playlist} from './playlist';
 import {PlayerRepeat} from './player';
+import Message from './message';
 
 export default interface State {
   queuedTracks: Track[];
@@ -11,4 +12,5 @@ export default interface State {
   playerRepeat: PlayerRepeat;
   playerVolume: number;
   playerMute: boolean;
+  messages: Message[];
 }

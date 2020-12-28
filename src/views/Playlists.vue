@@ -174,7 +174,7 @@
   import * as util from '@/util';
   import {Track} from '@/models/track';
   import {Playlist} from '@/models/playlist';
-  import Message from '@/models/message'
+  import Message from '@/models/message';
   import Card from '@/models/card';
 
   export default Vue.extend({
@@ -218,6 +218,7 @@
         setQueue: VuexMutation.SET_QUEUE,
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
         setPlayerRepeat: VuexMutation.SET_PLAYER_REPEAT,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
       onClick(playlistCard: Card) {
         this.selectedPlaylist = this.playlists.find(
@@ -242,11 +243,14 @@
         if (!this.selectedPlaylist) {
           throw Error("no playlist selected");
         }
-        if (this.playlists.find((playlist: Playlist) => playlist.name == this.renamedPlaylistName)) {
-          this.renamePlaylistErrorMessage = {
-            type: "error",
-            text: "プレイリストが既に存在します"
-          };
+        if (
+          this.selectedPlaylist.name !== this.renamedPlaylistName
+          && this.playlists.find((playlist: Playlist) => playlist.name === this.renamedPlaylistName)
+        ) {
+          this.renamePlaylistErrorMessage = new Message(
+            'error',
+            'プレイリストが既に存在します'
+          );
           return;
         }
         this.removePlaylist(this.selectedPlaylist);
@@ -259,6 +263,7 @@
           throw Error("no playlist selected");
         }
         this.removePlaylist(this.selectedPlaylist);
+        this.addMessage(new Message('info', 'プレイリスト "' + this.selectedPlaylist.name + '" を削除しました'));
         this.selectedPlaylist = null;
         this.deleteDialog = false;
       },
@@ -292,6 +297,11 @@
           this.setQueue(tracks);
           this.setPlayerRepeat('repeat');
         }
+      },
+    },
+    watch: {
+      renameDialog() {
+        if(!this.renameDialog) this.renamePlaylistErrorMessage = null;
       }
     }
   });

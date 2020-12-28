@@ -7,6 +7,7 @@ import {library} from '@/models/library';
 import {Track} from '@/models/track';
 import {Playlist} from '@/models/playlist';
 import {PlayerState, PlayerRepeat} from '@/models/player';
+import Message from '@/models/message';
 
 Vue.use(Vuex);
 
@@ -21,6 +22,7 @@ function getInitialState(): State {
     playerRepeat: playerState.repeat,
     playerVolume: playerState.volume,
     playerMute: playerState.mute,
+    messages: [],
   };
   return state;
 }
@@ -93,6 +95,17 @@ export default new Vuex.Store({
       state.favoriteTracks = [];
       state.playlists = [];
       library.clean();
+    },
+    [VuexMutation.ADD_MESSAGE](state: State, message: Message) {
+      state.messages.unshift(message);
+      if (message.type === 'info') {
+        window.setTimeout(() => {
+          state.messages = state.messages.filter(m => m.uuid !== message.uuid)
+        }, 5000);
+      }
+    },
+    [VuexMutation.REMOVE_MESSAGE](state: State, targetMessage: Message) {
+      state.messages = state.messages.filter(message => message.uuid !== targetMessage.uuid);
     },
   },
   actions: {

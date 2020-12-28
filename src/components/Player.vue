@@ -165,13 +165,14 @@
       },
 
       trackDuration(): number {
-        if (this.playingTrack === null) {
+        if (!this.playingTrack) {
           return 0;
         }
         return this.playingTrack.end - this.playingTrack.start;
       },
 
       videoTimeOnSeekbar(): number {
+        if (!this.playingTrack) return 0;
         const seekbarProgress = this.seekbarValue / this.seekbarMax;
         const elapsedTime= seekbarProgress * this.trackDuration;
         const time = this.playingTrack.start + elapsedTime;
@@ -212,6 +213,7 @@
           this.playerState = state.data;
         }
       );
+      await this.player.stopVideo()
     },
 
     methods: {
@@ -228,13 +230,17 @@
       }),
 
       async playing() {
+        if (!this.playingTrack) return;
         this.videoPlayed = true;
         this.videoDuration = await this.player.getDuration();
 
+        const startTime = this.playingTrack.start;
+
         this.processId = setInterval(() => {
+          if (!this.playingTrack) return;
           this.player.getCurrentTime().then(currentTime => {
             this.videoCurrentTime = currentTime;
-            const elapsedTime = currentTime - this.playingTrack.start;
+            const elapsedTime = currentTime - startTime;
             const trackProgress = elapsedTime / this.trackDuration;
 
             this.trackProgress = trackProgress < 1 ? trackProgress : 1;
@@ -302,6 +308,7 @@
       },
 
       toggleFavorite() {
+        if (!this.playingTrack) return;
         if (this.playingTrack.isFavorite) {
           this.removeFavoriteTrack(this.playingTrack)
           this.playingTrack.isFavorite = false;
@@ -319,7 +326,12 @@
 
     watch: {
       async playingTrack() {
-        if (this.playingTrack === null) {
+        if (!this.playingTrack) {
+          if (this.processId !== null) {
+            clearInterval(this.processId);
+          }
+          await this.player.stopVideo();
+          await this.player.loadVideoById('');
           return;
         }
         await this.loadTrack(this.playingTrack);
@@ -329,7 +341,7 @@
         } else {
           await this.player.unMute();
         }
-        await this.playVideo();
+        await this.player.playVideo();
       },
 
       async playerVolume() {

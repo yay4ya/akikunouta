@@ -11,6 +11,7 @@ declare module 'youtube-iframe-api' {
     loadVideoById(any): Promise<void>;
     playVideo(): Promise<void>;
     pauseVideo(): Promise<void>;
+    stopVideo(): Promise<void>;
     seekTo(number, boolean): Promise<void>;
   }
 

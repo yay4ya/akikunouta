@@ -12,3 +12,5 @@ export const SET_PLAYER_REPEAT = 'SET_PLAYER_REPEAT';
 export const SET_PLAYER_VOLUME = 'SET_PLAYER_VOLUME';
 export const SET_PLAYER_MUTE = 'SET_PLAYER_MUTE';
 export const CLEAN_ALL = 'CLEAN_ALL';
+export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
