@@ -234,13 +234,11 @@
         this.videoPlayed = true;
         this.videoDuration = await this.player.getDuration();
 
-        const startTime = this.playingTrack.start;
-
         this.processId = setInterval(() => {
           if (!this.playingTrack) return;
           this.player.getCurrentTime().then(currentTime => {
             this.videoCurrentTime = currentTime;
-            const elapsedTime = currentTime - startTime;
+            const elapsedTime = currentTime - this.playingTrack.start;
             const trackProgress = elapsedTime / this.trackDuration;
 
             this.trackProgress = trackProgress < 1 ? trackProgress : 1;
