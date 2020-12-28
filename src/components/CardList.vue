@@ -57,7 +57,6 @@
     gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     width: 100%;
-    height: 100%;
     max-height: 100%;
     padding-right: 10px;
     overflow-x: hidden;
@@ -66,5 +65,6 @@
 
   .card {
     width: 100%;
+    height: 100%;
   }
 </style>
