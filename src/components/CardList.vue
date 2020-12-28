@@ -1,20 +1,19 @@
 <template>
   <v-container>
-
-  <ul class="card-list scroll-thin">
-    <li
-      v-for="card in cards"
-      v-bind:key="card.id"
-      class="card-list-item"
-      v-bind:style = "{ display: matchQuery(card)? 'block': 'none' }"
-    >
-      <Card
-        :card="card"
-        @clicked="onClick"
-      />
-    </li>
-  </ul>
-
+    <div class="card-list scroll-thin">
+      <div
+        v-for="card in cards"
+        v-bind:key="card.id"
+        class="card-list-item"
+        v-bind:style = "{ display: matchQuery(card)? 'block': 'none' }"
+      >
+        <Card
+          :card="card"
+          @clicked="onClick"
+          class="card"
+        />
+      </div>
+    </div>
   </v-container>
 </template>
 
@@ -24,7 +23,7 @@
 
   export default Vue.extend({
     name: 'CardList',
-    props: ['cards', 'query'],
+    props: ['cards', 'query', 'cardWidth'],
     components: {
       Card: () => import ('@/components/Card.vue'),
     },
@@ -44,21 +43,27 @@
         }
         return match;
       }
-    }
+    },
   })
 </script>
 
 <style scoped lang="scss">
   .card-list{
-    padding: 0;
-    display: flex;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    width: 100%;
     max-height: 100%;
-    flex-wrap: wrap;
+    padding-right: 10px;
     overflow-x: hidden;
     overflow-y: scroll;
   }
 
   .card-list-item {
-    list-style: none;
+
+  }
+
+  .card {
+    width: 100%;
   }
 </style>

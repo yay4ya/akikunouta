@@ -42,7 +42,7 @@
 
   <div class="queue-list">
     <div class="queue-background">
-      <v-icon dark color="rgba(255, 255, 255, 0.6)" size="120">mdi-tray-plus</v-icon>
+      <v-icon dark color="rgba(255, 255, 255, 0.6)" size="100">mdi-tray-plus</v-icon>
     </div>
 
     <TrackList
@@ -195,13 +195,13 @@
     .queue-background {
       position: absolute;
       width: 100%;
-      height: 100;
-      top: 50%;
+      height: 100%;
+      overflow: hidden;
 
       .v-icon {
         top: 50%;
         left: 50%;
-        -webkit-transform : translate(-50%,-50%);
+        margin: auto;
         transform : translate(-50%,-50%);
       }
     }

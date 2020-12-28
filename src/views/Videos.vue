@@ -4,6 +4,7 @@
       <CardList
         :cards="videoCards"
         :query="searchQuery"
+        :cardWidth="220"
         class="video-list"
         @clicked="onClick"
       />
@@ -129,7 +130,7 @@
           id: video.id,
           title: video.getTitle() || '',
           subtitle: (video.getChannel() || {}).name  || '',
-          thumbnailUrl: video.getThumbnailURL('mqdefault'),
+          thumbnailUrl: video.getThumbnailURL('hqdefault'),
           metadata: [...keywords].join('  '),
         }
       });
@@ -193,7 +194,7 @@
 
   .card-list-container {
     position: relative;
-    height: calc(100% - 35px);
+    height: 100%;
   }
 
   .video-list {

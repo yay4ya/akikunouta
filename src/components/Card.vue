@@ -2,16 +2,13 @@
   <v-container>
     <v-card
       @click="onClick"
-      class="mx-auto my-12"
-      width="220"
-      height="190"
     >
-    <div class="card-thumbnail">
-      <v-img
-        :src="card.thumbnailUrl"
-        height="120"
-      ></v-img>
-    </div>
+      <div class="card-thumbnail">
+        <v-img
+          :src="card.thumbnailUrl"
+          height="120"
+        ></v-img>
+      </div>
 
       <div class="d-flex flex-no-wrap justify-space-between">
         <div>
@@ -47,6 +44,8 @@
 
 <style scoped lang="scss">
   .container {
+    width: 100%;
+    height: 100%;
     padding: 2px;
   }
 
@@ -55,6 +54,9 @@
   }
 
   .v-card {
+    width: 100%;
+    height: 100%;
+    max-height: 190px;
     position: relative;
     margin: 5px !important;
     overflow: hidden;
