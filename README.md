@@ -1,9 +1,9 @@
-Polyphony
+Akikunouta
 =========
 
-[![Actions Status](https://github.com/yay4ya/polyphony/workflows/Page%20Build/badge.svg)](https://github.com/yay4ya/polyphony/actions?query=workflow%3A%22Page+Build%22)
-[![GitHub deployments](https://img.shields.io/github/deployments/yay4ya/polyphony/github-pages)](https://yay4ya.github.io/polyphony/)
-[![GitHub](https://img.shields.io/github/license/yay4ya/polyphony)](https://github.com/yay4ya/polyphony/blob/master/LICENSE)
+[![Actions Status](https://github.com/yay4ya/akikunouta/workflows/Page%20Build/badge.svg)](https://github.com/yay4ya/akikunouta/actions?query=workflow%3A%22Page+Build%22)
+[![GitHub deployments](https://img.shields.io/github/deployments/yay4ya/akikunouta/github-pages)](https://yay4ya.github.io/akikunouta/)
+[![GitHub](https://img.shields.io/github/license/yay4ya/akikunouta)](https://github.com/yay4ya/akikunouta/blob/master/LICENSE)
 
 
 ## Project setup

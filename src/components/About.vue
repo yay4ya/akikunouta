@@ -4,7 +4,7 @@
       <h3>
         <v-icon>mdi-github</v-icon>
         <a
-          href=""
+          href="https://github.com/yay4ya/akikunouta"
           target="_blank"
         >yay4ya/akikunouta</a>
       </h3>
