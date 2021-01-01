@@ -14,3 +14,5 @@ export const SET_PLAYER_MUTE = 'SET_PLAYER_MUTE';
 export const CLEAN_ALL = 'CLEAN_ALL';
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
+export const MOVE_PREV_TRACK = 'MOVE_PREV_TRACK';
+export const MOVE_NEXT_TRACK = 'MOVE_NEXT_TRACK';

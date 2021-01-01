@@ -13,4 +13,6 @@ export default interface State {
   playerVolume: number;
   playerMute: boolean;
   messages: Message[];
+  historyTracks: Track[];
+  historyIndex: number;
 }

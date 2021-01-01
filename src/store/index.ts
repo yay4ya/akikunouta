@@ -23,6 +23,8 @@ function getInitialState(): State {
     playerVolume: playerState.volume,
     playerMute: playerState.mute,
     messages: [],
+    historyTracks: [],
+    historyIndex: 0,
   };
   return state;
 }
@@ -42,6 +44,23 @@ export default new Vuex.Store({
   mutations: {
     [VuexMutation.SET_PLAYING_TRACK](state: State, track: Track | null) {
       state.playingTrack = track;
+      library.savePlayerState(getPlayerState(state));
+      if (track) {
+        state.historyTracks = state.historyTracks.slice(state.historyIndex);
+        state.historyTracks.unshift(track)
+        state.historyIndex = 0;
+      }
+    },
+    [VuexMutation.MOVE_PREV_TRACK](state: State) {
+      if (state.historyIndex >= state.historyTracks.length - 1) return;
+      state.historyIndex += 1;
+      state.playingTrack = state.historyTracks[state.historyIndex];
+      library.savePlayerState(getPlayerState(state));
+    },
+    [VuexMutation.MOVE_NEXT_TRACK](state: State) {
+      if (state.historyIndex < 1) return;
+      state.historyIndex -= 1;
+      state.playingTrack = state.historyTracks[state.historyIndex];
       library.savePlayerState(getPlayerState(state));
     },
     [VuexMutation.SET_QUEUE](state: State, tracks: Track[]) {
@@ -110,6 +129,11 @@ export default new Vuex.Store({
   },
   actions: {
     [VuexAction.SET_NEXT_TRACK]({ commit }) {
+      if (this.state.historyIndex > 0) {
+        commit(VuexMutation.MOVE_NEXT_TRACK);
+        return;
+      }
+
       if (this.state.playingTrack === null) {
         commit(VuexMutation.SET_PLAYING_TRACK, this.state.queuedTracks[0] || null);
         return;
@@ -145,27 +169,7 @@ export default new Vuex.Store({
       commit(VuexMutation.SET_PLAYING_TRACK, nextTrack);
     },
     [VuexAction.SET_PREV_TRACK]({ commit }) {
-      if (this.state.playingTrack === null) {
-        return;
-      }
-
-      const playingTrack = this.state.playingTrack;
-      const playingTrackIndex = this.state.queuedTracks.findIndex(
-        track => track.uuid === playingTrack.uuid
-      );
-
-      if (playingTrackIndex < 0) {
-        return;
-      }
-
-      const prevTrackIndex = playingTrackIndex - 1;
-      const prevTrack = this.state.queuedTracks[prevTrackIndex];
-
-      if (!prevTrack) {
-        return;
-      }
-
-      commit(VuexMutation.SET_PLAYING_TRACK, prevTrack);
+      commit(VuexMutation.MOVE_PREV_TRACK);
     },
   },
   modules: {
