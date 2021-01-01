@@ -14,7 +14,7 @@
         <a href="https://www.youtube.com/channel/UCpnvhOIJ6BN-vPkYU9ls-Eg?sub_confirmation=1" target="_blank"><v-icon size="1.2em">mdi-youtube</v-icon></a>
         くんのお歌をより手軽に聞くためのWebアプリです。
         アキくんがこれまでに配信や歌ってみた動画で歌ったお歌を集めて1曲ずつ聞けるようにしました。
-        このアプリの<b>いいね</b>や<b>プレイリスト</b>機能をつかってお気に入りのお歌を管理できます。
+        <b>いいね</b>や<b>プレイリスト</b>機能をつかってお気に入りのお歌を管理することもできます。
         あなたの大好きなお歌を見つけよう！
       </p>
     </section>
