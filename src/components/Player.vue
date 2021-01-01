@@ -144,6 +144,7 @@
           fs: 0,
           rel: 0,
           enablejsapi: 1,
+          origin: window.location.origin,
         },
         videoDuration: 0,
         videoCurrentTime: 0,
@@ -213,7 +214,6 @@
           this.playerState = state.data;
         }
       );
-      await this.player.stopVideo()
     },
 
     methods: {
