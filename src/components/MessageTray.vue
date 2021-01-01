@@ -7,6 +7,7 @@
         v-on:click="removeMessage(message)"
       >
         <v-banner
+          elevation="20"
           rounded
         >
           <v-icon
@@ -66,9 +67,8 @@
 
   .message-list {
     .v-banner {
-      background-color: white;
-      box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.1);
-      margin-bottom: 5px;
+      margin-top: 5px;
+      background-color: #ffffff !important;
     }
   }
 </style>

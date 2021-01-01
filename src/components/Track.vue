@@ -372,6 +372,7 @@
         float: flex;
         width: 30px;
         height: 30px;
+        margin: 0 2px;
         overflow: hidden;
         background-color: rgba(0, 0, 0, 0.6);
 
