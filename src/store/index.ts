@@ -107,7 +107,7 @@ export default new Vuex.Store({
       library.savePlayerState(getPlayerState(state));
     },
     [VuexMutation.CLEAN_ALL](state: State) {
-      state.playingTrack = null;
+      // state.playingTrack = null;
       state.queuedTracks = [];
       state.playerVolume = 50;
       state.playerMute = false;
