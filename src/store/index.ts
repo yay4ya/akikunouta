@@ -23,7 +23,7 @@ function getInitialState(): State {
     playerVolume: playerState.volume,
     playerMute: playerState.mute,
     messages: [],
-    historyTracks: [],
+    historyTracks: playerState.playingTrack? [playerState.playingTrack] : [],
     historyIndex: 0,
   };
   return state;
