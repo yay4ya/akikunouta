@@ -1,12 +1,12 @@
-name: Build & Deploy
+name: build
 
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -19,10 +19,3 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
