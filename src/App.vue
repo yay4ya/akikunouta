@@ -257,18 +257,19 @@
 
     #nav {
       padding: 0;
-      height: 65px;
       margin-bottom: 5px;
       display: flex;
       justify-content: space-around;
 
       .router-link {
+        display: block;
         position: relative;
         width: 100%;
         height: 100%;
+        padding: 3px;
         text-decoration: none;
         text-align: center;
-        border-radius: 10px 10px 10px 10px;
+        border-radius: 5px 5px 5px 5px;
         overflow: hidden;
 
         &:after {
@@ -325,7 +326,7 @@
     bottom: 0;
     right: 0;
     width: 350px;
-    z-index: 3;
+    z-index: 1000;
   }
 
   #player-toggle {
@@ -353,9 +354,11 @@
       @keyframes show{
         from{
           transform: translateY(100vh);
+          height: calc(100vh - 50px);
         }
         to{
           transform: translateY(0);
+          height: calc(100vh - 50px);
         }
       }
 

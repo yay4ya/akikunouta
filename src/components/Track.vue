@@ -97,7 +97,6 @@
               </template>
               <PlaylistDialog
                 :track="track"
-                @addedTrackToPlaylist="playlistDialog = false"
               />
             </v-dialog>
 

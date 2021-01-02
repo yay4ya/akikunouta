@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-card
+      rounded
       @click="onClick"
     >
       <div class="card-thumbnail">
@@ -46,8 +47,7 @@
   .container {
     width: 100%;
     height: 100%;
-    padding: 5px;
-    overflow: hidden;
+    padding: 0;
   }
 
   .v-sheet.v-card:not(.v-sheet--outlined) {
@@ -59,7 +59,6 @@
     height: 100%;
     max-height: 190px;
     position: relative;
-    margin: 5px !important;
     overflow: hidden;
     user-select: none;
 

@@ -54,11 +54,11 @@
   }
   .card-list{
     display: grid;
-    gap: 5px;
+    gap: 8px;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     width: 100%;
     max-height: 100%;
-    padding-right: 10px;
+    padding: 5px;
     overflow-x: hidden;
     overflow-y: scroll;
   }
