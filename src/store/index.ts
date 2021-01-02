@@ -94,6 +94,24 @@ export default new Vuex.Store({
       library.removePlaylist(targetPlaylist);
       state.playlists = state.playlists.filter(playlist => playlist.name != targetPlaylist.name);
     },
+    [VuexMutation.UPDATE_PLAYLIST](state: State, targetPlaylist: Playlist) {
+      const targetPlaylistIndex = state.playlists.map(playlist => playlist.name).indexOf(targetPlaylist.name);
+      if (targetPlaylistIndex < 0) {
+        throw new Error('playlist not found: ' + targetPlaylist.name);
+      }
+      state.playlists[targetPlaylistIndex] = targetPlaylist;
+      library.savePlaylists(state.playlists);
+    },
+    [VuexMutation.RENAME_PLAYLIST](state: State, { targetPlaylist, newName }) {
+      const targetPlaylistIndex = state.playlists.map(playlist => playlist.name).indexOf(targetPlaylist.name);
+      if (targetPlaylistIndex < 0) {
+        throw new Error('playlist not found: ' + targetPlaylist.name);
+      }
+      targetPlaylist = state.playlists[targetPlaylistIndex];
+      targetPlaylist.name = newName;
+      state.playlists[targetPlaylistIndex] = targetPlaylist;
+      library.savePlaylists(state.playlists);
+    },
     [VuexMutation.SET_PLAYER_REPEAT](state: State, repeat: PlayerRepeat) {
       state.playerRepeat = repeat;
       library.savePlayerState(getPlayerState(state));

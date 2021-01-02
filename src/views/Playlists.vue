@@ -214,6 +214,8 @@
       ...mapMutations({
         addPlaylist: VuexMutation.ADD_PLAYLIST,
         removePlaylist: VuexMutation.REMOVE_PLAYLIST,
+        updatePlaylist: VuexMutation.UPDATE_PLAYLIST,
+        renamePlaylist: VuexMutation.RENAME_PLAYLIST,
         addToQueue: VuexMutation.ADD_TO_QUEUE,
         setQueue: VuexMutation.SET_QUEUE,
         setPlayingTrack: VuexMutation.SET_PLAYING_TRACK,
@@ -253,9 +255,7 @@
           );
           return;
         }
-        this.removePlaylist(this.selectedPlaylist);
-        this.selectedPlaylist.name = this.renamedPlaylistName;
-        this.addPlaylist(this.selectedPlaylist);
+        this.renamePlaylist({targetPlaylist: this.selectedPlaylist, newName: this.renamedPlaylistName});
         this.renameDialog = false;
       },
       deleteSeledtedPlaylist() {
@@ -266,10 +266,6 @@
         this.addMessage(new Message('info', 'プレイリスト "' + this.selectedPlaylist.name + '" を削除しました'));
         this.selectedPlaylist = null;
         this.deleteDialog = false;
-      },
-      updatePlaylist(playlist: Playlist) {
-        this.removePlaylist(playlist);
-        this.addPlaylist(playlist);
       },
       addTracksToQueue() {
         if (!this.selectedPlaylist) {

@@ -138,7 +138,7 @@
     methods: {
       ...mapMutations({
         addPlaylist: VuexMutation.ADD_PLAYLIST,
-        removePlaylist: VuexMutation.REMOVE_PLAYLIST,
+        updatePlaylist: VuexMutation.UPDATE_PLAYLIST,
         addMessage: VuexMutation.ADD_MESSAGE,
       }),
       createPlaylist() {
@@ -165,8 +165,7 @@
       addTrackToPlaylist(playlist: Playlist) {
         playlist.tracks.unshift(this.track.clone());
         try {
-          this.removePlaylist(playlist);
-          this.addPlaylist(playlist);
+          this.updatePlaylist(playlist);
         } catch(error) {
           this.errorMessage = new Message(
             'error',
