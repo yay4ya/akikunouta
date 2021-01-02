@@ -59,30 +59,32 @@
             </v-btn>
           </div>
           <div id="nav">
-            <router-link to="/videos" class="router-link">
-              <v-icon>mdi-youtube</v-icon>
-              <span>動画</span>
-            </router-link>
+            <div class="nav-container">
+              <router-link to="/videos" class="router-link">
+                <v-icon>mdi-youtube</v-icon>
+                <span>動画</span>
+              </router-link>
 
-            <router-link to="/tracks" class="router-link">
-              <v-icon>mdi-music-circle</v-icon>
-              <span>曲</span>
-            </router-link>
+              <router-link to="/tracks" class="router-link">
+                <v-icon>mdi-music-circle</v-icon>
+                <span>曲</span>
+              </router-link>
 
-            <router-link to="/covers" class="router-link">
-              <v-icon>mdi-record-circle</v-icon>
-              <span>歌ってみた</span>
-            </router-link>
+              <router-link to="/covers" class="router-link">
+                <v-icon>mdi-record-circle</v-icon>
+                <span>歌ってみた</span>
+              </router-link>
 
-            <router-link to="/favorites" class="router-link">
-              <v-icon>mdi-heart-circle</v-icon>
-              <span>いいね</span>
-            </router-link>
+              <router-link to="/favorites" class="router-link">
+                <v-icon>mdi-heart-circle</v-icon>
+                <span>いいね</span>
+              </router-link>
 
-            <router-link to="/playlists" class="router-link">
-              <v-icon>mdi-playlist-music</v-icon>
-              <span>プレイリスト</span>
-            </router-link>
+              <router-link to="/playlists" class="router-link">
+                <v-icon>mdi-playlist-music</v-icon>
+                <span>プレイリスト</span>
+              </router-link>
+            </div>
           </div>
 
           <keep-alive>
@@ -256,8 +258,12 @@
 
     #nav {
       padding: 0;
-      margin-bottom: 9px;
-      display: flex;
+      margin-bottom: 5px;
+      display: block;
+
+      .nav-container {
+        display: flex;
+      }
 
       .router-link {
         display: block;
