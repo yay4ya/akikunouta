@@ -254,12 +254,10 @@
       }
     }
 
-
     #nav {
       padding: 0;
-      margin-bottom: 5px;
+      margin-bottom: 9px;
       display: flex;
-      justify-content: space-around;
 
       .router-link {
         display: block;
@@ -302,8 +300,9 @@
         }
 
         span {
+          display: block;
           color: gray;
-          font-size: 0.75em;
+          font-size: 0.7em;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
