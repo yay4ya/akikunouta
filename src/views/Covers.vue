@@ -27,7 +27,7 @@
     },
     data() {
       return {
-        tracks: new Search(util.sortTracksByData(library.tracks, true)).getTracksByTag("歌ってみた"),
+        tracks: new Search(util.sortTracksByDate(library.tracks, true)).getTracksByTag("歌ってみた"),
       }
     },
     computed: {
