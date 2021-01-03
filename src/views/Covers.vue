@@ -21,7 +21,7 @@
   import * as util from '@/util';
 
   export default Vue.extend({
-    name: 'HelloWorld',
+    name: 'Covers',
     components: {
       TrackList: () => import ('@/components/TrackList.vue'),
     },
