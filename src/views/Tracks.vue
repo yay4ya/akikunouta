@@ -28,7 +28,7 @@
     },
     data() {
       return {
-        tracks: util.sortTracksByData(library.tracks as Track[], true),
+        tracks: util.sortTracksByDate(library.tracks as Track[], true),
       }
     },
     computed: {

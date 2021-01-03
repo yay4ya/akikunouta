@@ -21,13 +21,13 @@
   import * as util from '@/util';
 
   export default Vue.extend({
-    name: 'HelloWorld',
+    name: 'Covers',
     components: {
       TrackList: () => import ('@/components/TrackList.vue'),
     },
     data() {
       return {
-        tracks: new Search(util.sortTracksByData(library.tracks, true)).getTracksByTag("歌ってみた"),
+        tracks: new Search(util.sortTracksByDate(library.tracks, true)).getTracksByTag("歌ってみた"),
       }
     },
     computed: {
