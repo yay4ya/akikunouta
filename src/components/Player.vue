@@ -69,8 +69,8 @@
           @click="seekEnd"
           min="0"
           :max="seekbarMax"
-          color="#ff0000"
-          track-color="rgba(255, 0, 0, 0.2)"
+          color="accent"
+          track-color="accent lighten-1"
           class="seekbar"
         ></v-slider>
 

@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       app
-      color="#ffda6f"
+      color="main"
       height="50"
       elevation="0"
       class="header"
@@ -41,7 +41,7 @@
         <div class="right">
           <div id="search">
             <v-icon
-              color="rgb(249, 102, 102)"
+              color="accent"
               size="30"
               class="icon-search"
             >mdi-magnify</v-icon>
@@ -168,7 +168,7 @@
 
 <style lang="scss">
   .v-main__wrap {
-    background-color: #f6f6f6;
+    background-color: var(--v-background1-base);
     overflow: hidden;
   }
 
@@ -200,7 +200,7 @@
   .main-container {
     height: calc(100vh - 50px);
     max-width: 1390px;
-    background-color: #fffbe8;
+    background-color: var(--v-background2-base);
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
   }

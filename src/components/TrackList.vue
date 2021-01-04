@@ -212,7 +212,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(196, 255, 156, 0.2);
+        opacity: 0.2;
+        background-color: var(--v-sub-base);
         pointer-events: none;
       }
     }
