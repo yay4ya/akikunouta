@@ -409,7 +409,7 @@
       padding: 5px 20px;
       width: 100%;
       height: 50px;
-      background-color: #ffda6f;
+      background-color: var(--v-main-base);
       z-index: 2;
 
       .playing-track-info {
