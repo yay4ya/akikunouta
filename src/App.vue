@@ -2,7 +2,7 @@
   <v-app>
     <v-app-bar
       app
-      color="#ffda6f"
+      color="main"
       height="50"
       elevation="0"
       class="header"
@@ -41,13 +41,13 @@
         <div class="right">
           <div id="search">
             <v-icon
-              color="rgb(249, 102, 102)"
+              color="accent"
               size="30"
               class="icon-search"
             >mdi-magnify</v-icon>
             <v-text-field
               v-model="query"
-              color="#e55555"
+              color="accent"
               hint="キーワードで検索: 「歌ってみた コラボ」「歌枠 音源あり」..."
             ></v-text-field>
             <v-btn
@@ -168,7 +168,7 @@
 
 <style lang="scss">
   .v-main__wrap {
-    background-color: #f6f6f6;
+    background-color: var(--v-background1-base);
     overflow: hidden;
   }
 
@@ -200,7 +200,7 @@
   .main-container {
     height: calc(100vh - 50px);
     max-width: 1390px;
-    background-color: #fffbe8;
+    background-color: var(--v-background2-base);
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
   }
@@ -409,7 +409,7 @@
       padding: 5px 20px;
       width: 100%;
       height: 50px;
-      background-color: #ffda6f;
+      background-color: var(--v-main-base);
       z-index: 2;
 
       .playing-track-info {
