@@ -68,14 +68,14 @@ export class Video {
       this.isVideoInfoFetched = true;
       return;
     }
-    const url = "https://noembed.com/embed?url=https://www.youtube.com/watch?v=" + this.id;
+    const url = "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=" + this.id;
     const response = await axios.get(url);
     if (response.status !== 200) {
       throw new Error("failed to fetch video info: " + response);
     }
 
     if (response.data.error !== undefined) {
-      throw new Error("failed to fetch video info: " + response.data.url);
+      throw new Error("failed to fetch video info: " + response.data.url + "\n" + JSON.stringify(response.data));
     }
 
     this.url = response.data.url as string;
