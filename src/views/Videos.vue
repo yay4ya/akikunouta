@@ -285,6 +285,7 @@
 
         .video-info {
           color: #ffffff;
+          padding-right: 25px;
 
           .video-info-title {
             font-size: 20px;

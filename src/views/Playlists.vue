@@ -403,6 +403,7 @@
         .playlist-info {
           position: relative;
           color: #ffffff;
+          padding-right: 25px;
 
           .playlist-info-title {
             display: -webkit-box;
