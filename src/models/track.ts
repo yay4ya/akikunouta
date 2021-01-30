@@ -89,7 +89,7 @@ export class Track {
         channelName,
         this.tags.join('  '),
       ].join('  ').toLowerCase();
-      isMatch = isMatch && target.indexOf(keyword) >= 0;
+      isMatch = isMatch && target.indexOf(keyword.toLowerCase()) >= 0;
     }
     return isMatch;
   }
