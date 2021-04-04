@@ -1,12 +1,12 @@
-name: gh-pages
+name: CI
 
 on:
   push:
     branches:
-      - master
+      - dev
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +19,22 @@ jobs:
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: build
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
+
+  deploy:
+    runs-on: ubuntu-18.04
+    needs: build
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags')
+    steps:
+      - name: Download the artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: dist
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
