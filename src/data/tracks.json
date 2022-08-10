@@ -3718,7 +3718,7 @@
     "singer": "鈴谷アキ",
     "artist": "渡辺真知子",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3732,7 +3732,7 @@
     "singer": "鈴谷アキ",
     "artist": "岩崎宏美",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3746,7 +3746,7 @@
     "singer": "鈴谷アキ",
     "artist": "岩崎宏美",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3760,7 +3760,7 @@
     "singer": "鈴谷アキ",
     "artist": "渡辺真知子",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3774,7 +3774,7 @@
     "singer": "鈴谷アキ",
     "artist": "岩崎宏美",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3788,7 +3788,7 @@
     "singer": "鈴谷アキ",
     "artist": "...",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
@@ -3802,12 +3802,96 @@
     "singer": "鈴谷アキ",
     "artist": "渡辺真知子",
     "videoid": "4iXyFwRpLqQ",
-    "publishedAt": "2022-01-25",
+    "publishedAt": "2022-02-17",
     "tags": [
       "歌枠",
       "音源あり"
     ],
     "start": 3579,
     "end": 3781
+  },
+  {
+    "id": 259,
+    "title": "DEAR...again",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 544,
+    "end": 878
+  },
+  {
+    "id": 260,
+    "title": " ロマンスの神様",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 997,
+    "end": 1266
+  },
+  {
+    "id": 261,
+    "title": " promise",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1393,
+    "end": 1676.8
+  },
+  {
+    "id": 262,
+    "title": " ゲレンデがとけるほど恋したい",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1810,
+    "end": 2121.5
+  },
+  {
+    "id": 263,
+    "title": " White Love",
+    "singer": "鈴谷アキ",
+    "artist": "SPEED",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2485,
+    "end": 2819
+  },
+  {
+    "id": 264,
+    "title": " SEASONS",
+    "singer": "鈴谷アキ",
+    "artist": "浜崎あゆみ",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3683,
+    "end": 3946
   }
 ]
