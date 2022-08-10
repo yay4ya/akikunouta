@@ -3487,5 +3487,229 @@
     ],
     "start": 6203,
     "end": 6433
+  },
+  {
+    "id": 236,
+    "title": "夕立のりぼん",
+    "singer": "鈴谷アキ",
+    "artist": "みきとP",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 464,
+    "end": 689
+  },
+  {
+    "id": 237,
+    "title": "花に雨を、君に歌を",
+    "singer": "鈴谷アキ",
+    "artist": "THE BINARY",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 850,
+    "end":1105
+  },
+  {
+    "id": 238,
+    "title": "抜錨",
+    "singer": "鈴谷アキ",
+    "artist": "ナナホシ管弦楽団",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1331,
+    "end":1532
+  },
+  {
+    "id": 239,
+    "title": " 斯く美しき造花",
+    "singer": "鈴谷アキ",
+    "artist": "ヰ世界情緒",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1658,
+    "end":1980.5
+  },
+  {
+    "id": 240,
+    "title": " ありふれた、レプリカント",
+    "singer": "鈴谷アキ",
+    "artist": "卯花ロク",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2081,
+    "end":2282
+  },
+  {
+    "id": 241,
+    "title": " 春ひさぎ",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2451,
+    "end":2668.2
+  },
+  {
+    "id": 242,
+    "title": " 思想犯",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2785,
+    "end": 3037
+  },
+  {
+    "id": 243,
+    "title": " 怪物",
+    "singer": "鈴谷アキ",
+    "artist": "YOASOBI",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3176,
+    "end": 3382
+  },
+  {
+    "id": 244,
+    "title": " 福寿草",
+    "singer": "鈴谷アキ",
+    "artist": "ぐにょ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3633,
+    "end": 3913
+  },
+  {
+    "id": 245,
+    "title": " ロストワンの号哭",
+    "singer": "鈴谷アキ(w/ 勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4108,
+    "end": 4321
+  },
+  {
+    "id": 246,
+    "title": " シリウスの心臓(中断あり)",
+    "singer": "鈴谷アキ",
+    "artist": "ヰ世界情緒",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4460,
+    "end": 4833
+  },
+  {
+    "id": 247,
+    "title": " 女の子になりたい",
+    "singer": "鈴谷アキ",
+    "artist": "まふまふ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4917,
+    "end": 5157
+  },
+  {
+    "id": 248,
+    "title": " ジョバイロ",
+    "singer": "鈴谷アキ",
+    "artist": "ポルノグラフィティ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5753,
+    "end": 6012
+  },
+  {
+    "id": 249,
+    "title": " 秒針を噛む",
+    "singer": "鈴谷アキ",
+    "artist": "ずっと真夜中でいいのに。",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6159,
+    "end": 6416
+  },
+  {
+    "id": 250,
+    "title": " GEKKA",
+    "singer": "鈴谷アキ",
+    "artist": "オゾン",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6495,
+    "end": 6740.3
+  },
+  {
+    "id": 251,
+    "title": " 快晴",
+    "singer": "鈴谷アキ",
+    "artist": "Orangestar",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6879,
+    "end": 7141
   }
 ]
