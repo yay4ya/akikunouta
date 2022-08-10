@@ -3291,5 +3291,201 @@
     ],
     "start": 0,
     "end": 192
+  },
+  {
+    "id": 222,
+    "title": "ヘビーローテーション",
+    "singer": "鈴谷アキ・月ノ美兎・勇気ちひろ・える",
+    "artist": "AKB48",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 76,
+    "end": 357.5
+  },
+  {
+    "id": 223,
+    "title": "ハッピーシンセサイザ",
+    "singer": "える・静凛",
+    "artist": "EasyPop",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 789,
+    "end": 1021
+  },
+  {
+    "id": 224,
+    "title": "ヒプノシスマイク -Division Battle Anthem-＋",
+    "singer": "渋谷ハジメ・モイラ",
+    "artist": "HYPNOSISMIC -D.R.B- (Division All Stars)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1091,
+    "end": 1413
+  },
+  {
+    "id": 225,
+    "title": "白金ディスコ",
+    "singer": "月ノ美兎・勇気ちひろ",
+    "artist": "阿良々木月火(井口裕香)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1462,
+    "end": 1716.5
+  },
+  {
+    "id": 226,
+    "title": "ハイタッチ！",
+    "singer": "鈴谷アキ・樋口楓",
+    "artist": "サトシ(松本梨香)＆ヒカリ(豊口めぐみ)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1814,
+    "end": 2082
+  },
+  {
+    "id": 227,
+    "title": "BAKUFUって統べろう！",
+    "singer": "樋口楓・モイラ",
+    "artist": "徳川15代将軍",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2134,
+    "end": 2409
+  },
+  {
+    "id": 228,
+    "title": "夜に駆ける",
+    "singer": "鈴谷アキ・勇気ちひろ",
+    "artist": "YOASOBI",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2485,
+    "end": 2747
+  },
+  {
+    "id": 229,
+    "title": "ツギハギスタッカート",
+    "singer": "月ノ美兎・える・静凛",
+    "artist": "とあ",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2780,
+    "end": 3025.5
+  },
+  {
+    "id": 230,
+    "title": "デッド・ラインダンス、デス",
+    "singer": "月ノ美兎・樋口楓",
+    "artist": "絶望少女達",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3128,
+    "end": 3359
+  },
+  {
+    "id": 231,
+    "title": "勇気100%",
+    "singer": "勇気ちひろ・渋谷ハジメ・樋口楓",
+    "artist": "光GENJI",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3419,
+    "end": 3667.15
+  },
+  {
+    "id": 232,
+    "title": "お願いマッスル",
+    "singer": "月ノ美兎・渋谷ハジメ",
+    "artist": "紗倉ひびき（ファイルーズあい） & 街雄鳴造（石川界人）",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4846,
+    "end": 5063.5
+  },
+  {
+    "id": 233,
+    "title": "CAT'S EYE",
+    "singer": "える・モイラ",
+    "artist": "杏里",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5145,
+    "end": 5340
+  },
+  {
+    "id": 234,
+    "title": "おジャ魔女カーニバル!!",
+    "singer": "鈴谷アキ・月ノ美兎・静凛・モイラ",
+    "artist": "杏里",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5363,
+    "end": 5575
+  },
+  {
+    "id": 235,
+    "title": "1 ∞ color",
+    "singer": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6203,
+    "end": 6433
   }
 ]
