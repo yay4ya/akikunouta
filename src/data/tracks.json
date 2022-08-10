@@ -3291,5 +3291,649 @@
     ],
     "start": 0,
     "end": 192
+  },
+  {
+    "id": 222,
+    "title": "ヘビーローテーション",
+    "singer": "鈴谷アキ・月ノ美兎・勇気ちひろ・える",
+    "artist": "AKB48",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 76,
+    "end": 357.5
+  },
+  {
+    "id": 223,
+    "title": "ハッピーシンセサイザ",
+    "singer": "える・静凛",
+    "artist": "EasyPop",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 789,
+    "end": 1021
+  },
+  {
+    "id": 224,
+    "title": "ヒプノシスマイク -Division Battle Anthem-＋",
+    "singer": "渋谷ハジメ・モイラ",
+    "artist": "HYPNOSISMIC -D.R.B- (Division All Stars)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1091,
+    "end": 1413
+  },
+  {
+    "id": 225,
+    "title": "白金ディスコ",
+    "singer": "月ノ美兎・勇気ちひろ",
+    "artist": "阿良々木月火(井口裕香)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1462,
+    "end": 1716.5
+  },
+  {
+    "id": 226,
+    "title": "ハイタッチ！",
+    "singer": "鈴谷アキ・樋口楓",
+    "artist": "サトシ(松本梨香)＆ヒカリ(豊口めぐみ)",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1814,
+    "end": 2082
+  },
+  {
+    "id": 227,
+    "title": "BAKUFUって統べろう！",
+    "singer": "樋口楓・モイラ",
+    "artist": "徳川15代将軍",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2134,
+    "end": 2409
+  },
+  {
+    "id": 228,
+    "title": "夜に駆ける",
+    "singer": "鈴谷アキ・勇気ちひろ",
+    "artist": "YOASOBI",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2485,
+    "end": 2747
+  },
+  {
+    "id": 229,
+    "title": "ツギハギスタッカート",
+    "singer": "月ノ美兎・える・静凛",
+    "artist": "とあ",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2780,
+    "end": 3025.5
+  },
+  {
+    "id": 230,
+    "title": "デッド・ラインダンス、デス",
+    "singer": "月ノ美兎・樋口楓",
+    "artist": "絶望少女達",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3128,
+    "end": 3359
+  },
+  {
+    "id": 231,
+    "title": "勇気100%",
+    "singer": "勇気ちひろ・渋谷ハジメ・樋口楓",
+    "artist": "光GENJI",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3419,
+    "end": 3667.15
+  },
+  {
+    "id": 232,
+    "title": "お願いマッスル",
+    "singer": "月ノ美兎・渋谷ハジメ",
+    "artist": "紗倉ひびき（ファイルーズあい） & 街雄鳴造（石川界人）",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4846,
+    "end": 5063.5
+  },
+  {
+    "id": 233,
+    "title": "CAT'S EYE",
+    "singer": "える・モイラ",
+    "artist": "杏里",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5145,
+    "end": 5340
+  },
+  {
+    "id": 234,
+    "title": "おジャ魔女カーニバル!!",
+    "singer": "鈴谷アキ・月ノ美兎・静凛・モイラ",
+    "artist": "杏里",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5363,
+    "end": 5575
+  },
+  {
+    "id": 235,
+    "title": "1 ∞ color",
+    "singer": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "videoid": "vKed4tLePgI",
+    "publishedAt": "2021-12-24",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6203,
+    "end": 6433
+  },
+  {
+    "id": 236,
+    "title": "夕立のりぼん",
+    "singer": "鈴谷アキ",
+    "artist": "みきとP",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 464,
+    "end": 689
+  },
+  {
+    "id": 237,
+    "title": "花に雨を、君に歌を",
+    "singer": "鈴谷アキ",
+    "artist": "THE BINARY",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 850,
+    "end":1105
+  },
+  {
+    "id": 238,
+    "title": "抜錨",
+    "singer": "鈴谷アキ",
+    "artist": "ナナホシ管弦楽団",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1331,
+    "end":1532
+  },
+  {
+    "id": 239,
+    "title": " 斯く美しき造花",
+    "singer": "鈴谷アキ",
+    "artist": "ヰ世界情緒",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1658,
+    "end":1980.5
+  },
+  {
+    "id": 240,
+    "title": " ありふれた、レプリカント",
+    "singer": "鈴谷アキ",
+    "artist": "卯花ロク",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2081,
+    "end":2282
+  },
+  {
+    "id": 241,
+    "title": " 春ひさぎ",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2451,
+    "end":2668.2
+  },
+  {
+    "id": 242,
+    "title": " 思想犯",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2785,
+    "end": 3037
+  },
+  {
+    "id": 243,
+    "title": " 怪物",
+    "singer": "鈴谷アキ",
+    "artist": "YOASOBI",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3176,
+    "end": 3382
+  },
+  {
+    "id": 244,
+    "title": " 福寿草",
+    "singer": "鈴谷アキ",
+    "artist": "ぐにょ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3633,
+    "end": 3913
+  },
+  {
+    "id": 245,
+    "title": " ロストワンの号哭",
+    "singer": "鈴谷アキ(w/ 勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4108,
+    "end": 4321
+  },
+  {
+    "id": 246,
+    "title": " シリウスの心臓(中断あり)",
+    "singer": "鈴谷アキ",
+    "artist": "ヰ世界情緒",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4460,
+    "end": 4833
+  },
+  {
+    "id": 247,
+    "title": " 女の子になりたい",
+    "singer": "鈴谷アキ",
+    "artist": "まふまふ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4917,
+    "end": 5157
+  },
+  {
+    "id": 248,
+    "title": " ジョバイロ",
+    "singer": "鈴谷アキ",
+    "artist": "ポルノグラフィティ",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5753,
+    "end": 6012
+  },
+  {
+    "id": 249,
+    "title": " 秒針を噛む",
+    "singer": "鈴谷アキ",
+    "artist": "ずっと真夜中でいいのに。",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6159,
+    "end": 6416
+  },
+  {
+    "id": 250,
+    "title": " GEKKA",
+    "singer": "鈴谷アキ",
+    "artist": "オゾン",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6495,
+    "end": 6740.3
+  },
+  {
+    "id": 251,
+    "title": " 快晴",
+    "singer": "鈴谷アキ",
+    "artist": "Orangestar",
+    "videoid": "aD3gsUIVKtE",
+    "publishedAt": "2022-01-25",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 6879,
+    "end": 7141
+  },
+  {
+    "id": 252,
+    "title": " かもめが翔んだ日(1回目)",
+    "singer": "鈴谷アキ",
+    "artist": "渡辺真知子",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 546,
+    "end": 748
+  },
+  {
+    "id": 253,
+    "title": " 聖母たちのララバイ(1回目)",
+    "singer": "鈴谷アキ",
+    "artist": "岩崎宏美",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1126,
+    "end": 1369
+  },
+  {
+    "id": 254,
+    "title": " 聖母たちのララバイ(2回目)",
+    "singer": "鈴谷アキ",
+    "artist": "岩崎宏美",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2020,
+    "end": 2262
+  },
+  {
+    "id": 255,
+    "title": " かもめが翔んだ日(2回目)",
+    "singer": "鈴谷アキ",
+    "artist": "渡辺真知子",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2318,
+    "end": 2519
+  },
+  {
+    "id": 256,
+    "title": " 聖母たちのララバイ(3回目)",
+    "singer": "鈴谷アキ",
+    "artist": "岩崎宏美",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2814,
+    "end": 3057
+  },
+  {
+    "id": 257,
+    "title": "ハッピーバースデートゥーユー",
+    "singer": "鈴谷アキ",
+    "artist": "...",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3285,
+    "end": 3304.5
+  },
+  {
+    "id": 258,
+    "title": " かもめが翔んだ日(3回目)",
+    "singer": "鈴谷アキ",
+    "artist": "渡辺真知子",
+    "videoid": "4iXyFwRpLqQ",
+    "publishedAt": "2022-02-17",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3579,
+    "end": 3781
+  },
+  {
+    "id": 259,
+    "title": "DEAR...again",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 544,
+    "end": 878
+  },
+  {
+    "id": 260,
+    "title": " ロマンスの神様",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 997,
+    "end": 1266
+  },
+  {
+    "id": 261,
+    "title": " promise",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1393,
+    "end": 1676.8
+  },
+  {
+    "id": 262,
+    "title": " ゲレンデがとけるほど恋したい",
+    "singer": "鈴谷アキ",
+    "artist": "広瀬香美",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1810,
+    "end": 2121.5
+  },
+  {
+    "id": 263,
+    "title": " White Love",
+    "singer": "鈴谷アキ",
+    "artist": "SPEED",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2485,
+    "end": 2819
+  },
+  {
+    "id": 264,
+    "title": " SEASONS",
+    "singer": "鈴谷アキ",
+    "artist": "浜崎あゆみ",
+    "videoid": "3vgfyCo2Hno",
+    "publishedAt": "2022-02-23",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3683,
+    "end": 3946
+  },
+  {
+    "id": 265,
+    "title": " ファンサ",
+    "singer": "鈴谷アキ・勇気ちひろ・モイラ",
+    "artist": " mona(夏川椎菜) ",
+    "videoid": "hXqbO_4Pyvc",
+    "publishedAt": "2022-04-08",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2520,
+    "end": 2765
+  },
+  {
+    "id": 266,
+    "title": " ギラギラ",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "hXqbO_4Pyvc",
+    "publishedAt": "2022-04-08",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3662,
+    "end": 3939
+  },
+  {
+    "id": 267,
+    "title": " ギラギラ",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "CY7IGJpkdZ0",
+    "publishedAt": "2022-04-30",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 0,
+    "end": 277
   }
 ]
