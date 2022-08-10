@@ -2,6 +2,7 @@ Akikunouta
 =========
 
 [![Actions Status - CI](https://github.com/yay4ya/akikunouta/workflows/CI/badge.svg)](https://github.com/yay4ya/akikunouta/actions?query=workflow%3A%22CI)
+[![Actions Status - deploy](https://github.com/yay4ya/akikunouta/workflows/deploy/badge.svg)](https://github.com/yay4ya/akikunouta/actions?query=workflow%3A%22deploy)
 [![GitHub deployments](https://img.shields.io/github/deployments/yay4ya/akikunouta/github-pages)](https://yay4ya.github.io/akikunouta/)
 [![GitHub](https://img.shields.io/github/license/yay4ya/akikunouta)](https://github.com/yay4ya/akikunouta/blob/master/LICENSE)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/yay4ya/akikunouta)](https://github.com/yay4ya/akikunouta/)
