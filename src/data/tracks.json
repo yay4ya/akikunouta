@@ -3893,5 +3893,47 @@
     ],
     "start": 3683,
     "end": 3946
+  },
+  {
+    "id": 265,
+    "title": " ファンサ",
+    "singer": "鈴谷アキ・勇気ちひろ・モイラ",
+    "artist": " mona(夏川椎菜) ",
+    "videoid": "hXqbO_4Pyvc",
+    "publishedAt": "2022-04-08",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2520,
+    "end": 2765
+  },
+  {
+    "id": 266,
+    "title": " ギラギラ",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "hXqbO_4Pyvc",
+    "publishedAt": "2022-04-08",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3662,
+    "end": 3939
+  },
+  {
+    "id": 267,
+    "title": " ギラギラ",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "CY7IGJpkdZ0",
+    "publishedAt": "2022-04-30",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 0,
+    "end": 277
   }
 ]
