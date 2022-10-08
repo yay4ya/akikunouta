@@ -3935,5 +3935,75 @@
     ],
     "start": 0,
     "end": 277
+  },
+  {
+    "id": 268,
+    "title": " 春ひさぎ",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "01KX39FH16Y",
+    "publishedAt": "2022-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 137,
+    "end": 354
+  },
+  {
+    "id": 269,
+    "title": " 抜錨",
+    "singer": "鈴谷アキ",
+    "artist": "ナナホシ管弦楽団",
+    "videoid": "01KX39FH16Y",
+    "publishedAt": "2022-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 406,
+    "end": 607
+  },
+  {
+    "id": 270,
+    "title": " 永遠のあくる日",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "01KX39FH16Y",
+    "publishedAt": "2022-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 700,
+    "end": 945
+  },
+  {
+    "id": 271,
+    "title": " 少女レイ",
+    "singer": "鈴谷アキ",
+    "artist": "みきとP",
+    "videoid": "01KX39FH16Y",
+    "publishedAt": "2022-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 989,
+    "end": 1280
+  },
+  {
+    "id": 272,
+    "title": " 群青",
+    "singer": "鈴谷アキ",
+    "artist": "YOASOBI",
+    "videoid": "01KX39FH16Y",
+    "publishedAt": "2022-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1340,
+    "end": 1590
   }
 ]
