@@ -4017,5 +4017,105 @@
     ],
     "start": 0,
     "end": 270
+  },
+  {
+    "id": 274,
+    "title": "ベノム",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "かいりきベア",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 203,
+    "end": 400
+  },
+  {
+    "id": 275,
+    "title": "大正浪漫",
+    "singer": "鈴谷アキ",
+    "artist": "YOASOBI",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 409,
+    "end": 579
+  },
+  {
+    "id": 276,
+    "title": "夢喰い白黒バク",
+    "singer": "勇気ちひろ",
+    "artist": "Nem",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 981,
+    "end": 1196
+  },
+  {
+    "id": 277,
+    "title": "フォニイ",
+    "singer": "鈴谷アキ",
+    "artist": "ツミキ",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1204,
+    "end": 1395
+  },
+  {
+    "id": 278,
+    "title": "CH4NGE",
+    "singer": "鈴谷アキ",
+    "artist": "Giga",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1749,
+    "end": 1884
+  },
+  {
+    "id": 279,
+    "title": "群青",
+    "singer": "勇気ちひろ",
+    "artist": "YOASOBI",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1907,
+    "end": 2155
+  },
+  {
+    "id": 280,
+    "title": "ヒビカセ",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "Giga",
+    "videoid": "28N6LNlOHGE",
+    "publishedAt": "2022-11-11",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3026,
+    "end": 3286
   }
 ]
