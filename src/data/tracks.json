@@ -4117,5 +4117,170 @@
     ],
     "start": 3026,
     "end": 3286
+  },
+  {
+    "id": 281,
+    "title": "1 ∞ color",
+    "singer": "月ノ美兎,樋口楓,静凛,える,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "月ノ美兎・樋口楓・静凛・える・勇気ちひろ・鈴谷アキ・モイラ・渋谷ハジメ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 454,
+    "end": 684
+  },
+  {
+    "id": 282,
+    "title": "マツケン・マハラジャ",
+    "singer": "静凛・モイラ・渋谷ハジメ",
+    "artist": "松平健",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1413,
+    "end": 1690
+  },
+  {
+    "id": 283,
+    "title": "夜撫でるメノウ",
+    "singer": "鈴谷アキ・える",
+    "artist": "Ayase",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1775,
+    "end": 2045
+  },
+  {
+    "id": 284,
+    "title": "ナウロマンティック",
+    "singer": "月ノ美兎・モイラ",
+    "artist": "KOJI 1200",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2120,
+    "end": 2307
+  },
+  {
+    "id": 285,
+    "title": "WAN'T BE LONG",
+    "singer": "樋口楓・渋谷ハジメ",
+    "artist": "バブルガム・ブラザーズ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2442,
+    "end": 2736
+  },
+  {
+    "id": 286,
+    "title": "Catch You Catch Me",
+    "singer": "月ノ美兎・える",
+    "artist": "グミ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2826,
+    "end": 3048
+  },
+  {
+    "id": 287,
+    "title": "リモコン",
+    "singer": "鈴谷アキ・静凛",
+    "artist": "グミ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4118,
+    "end": 4426
+  },
+  {
+    "id": 288,
+    "title": "ロミオとシンデレラ",
+    "singer": "樋口楓・モイラ",
+    "artist": "doriko",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4513,
+    "end": 4795
+  },
+  {
+    "id": 289,
+    "title": "チューリングラブ",
+    "singer": "える・渋谷ハジメ",
+    "artist": "ナナヲアカリ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 4871,
+    "end": 5120
+  },
+  {
+    "id": 290,
+    "title": "ダブルラリアット",
+    "singer": "静凛・樋口楓",
+    "artist": "アゴアニキ",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5184,
+    "end": 5394
+  },
+  {
+    "id": 291,
+    "title": "かわE",
+    "singer": "鈴谷アキ・月ノ美兎・樋口楓・える",
+    "artist": "ヤバイTシャツ屋さん",
+    "videoid": "IPddztdTyO8",
+    "publishedAt": "2022-12-19",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5470,
+    "end": 5670
   }
 ]
