@@ -2,6 +2,14 @@
 node_modules
 /dist
 
+# dependencies
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+
+
 
 # local env files
 .env.local

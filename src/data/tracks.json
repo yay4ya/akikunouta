@@ -4282,5 +4282,153 @@
     ],
     "start": 5470,
     "end": 5670
+  },
+  {
+    "id": 292,
+    "title": "再教育",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "9dBaFzte_9Y",
+    "publishedAt": "2023-11-04",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 249
+  },
+  {
+    "id": 293,
+    "title": "再教育",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "F9dryIPvpok",
+    "publishedAt": "2023-11-04",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 249
+  },
+  {
+    "id": 294,
+    "title": "マツケンのAWA踊り",
+    "singer": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "松平健",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 64,
+    "end": 394
+  },
+  {
+    "id": 295,
+    "title": "マツケン・マハラジャ",
+    "singer": "勇気ちひろ,鈴谷アキ",
+    "artist": "松平健",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 716,
+    "end": 993
+  },
+  {
+    "id": 296,
+    "title": "松山の夜",
+    "singer": "える・渋谷ハジメ",
+    "artist": "松平健＆三田杏華",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1147,
+    "end": 1385
+  },
+  {
+    "id": 297,
+    "title": "マツケンEDM",
+    "singer": "樋口楓",
+    "artist": "松平健",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2629,
+    "end": 2867
+  },
+  {
+    "id": 298,
+    "title": "斬って候",
+    "singer": "月ノ美兎・モイラ",
+    "artist": "松平健",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2983,
+    "end": 3266
+  },
+  {
+    "id": 299,
+    "title": "手をつなごう ～マツケン × 仮面ライダーサンバ～",
+    "singer": "静凛・渋谷ハジメ",
+    "artist": "松平健 feat.映司(渡部秀)＆アンク(三浦涼介)" ,
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3453,
+    "end": 3688
+  },
+  {
+    "id": 300,
+    "title": "1 ∞ color",
+    "singer": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "月ノ美兎・樋口楓・静凛・える・勇気ちひろ・鈴谷アキ・モイラ・渋谷ハジメ",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3925,
+    "end": 4158
+  },
+  {
+    "id": 301,
+    "title": "マツケンサンバII",
+    "singer": "月ノ美兎,樋口楓,静凛,える,勇気ちひろ,鈴谷アキ,モイラ,渋谷ハジメ",
+    "artist": "松平健",
+    "videoid": "lNxtxsS7UCU",
+    "publishedAt": "2024-01-25",
+    "tags": [
+      "コラボ",
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 5480,
+    "end": 5778
   }
 ]
