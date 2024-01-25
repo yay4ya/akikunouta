@@ -4282,5 +4282,33 @@
     ],
     "start": 5470,
     "end": 5670
+  },
+  {
+    "id": 292,
+    "title": "再教育",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "9dBaFzte_9Y",
+    "publishedAt": "2023-11-04",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 249
+  },
+  {
+    "id": 293,
+    "title": "再教育",
+    "singer": "UnisonChouette (鈴谷アキ・勇気ちひろ)",
+    "artist": "Neru",
+    "videoid": "F9dryIPvpok",
+    "publishedAt": "2023-11-04",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 249
   }
 ]
