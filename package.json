@@ -2,6 +2,9 @@
   "name": "akikunouta",
   "version": "0.1.21",
   "private": true,
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
