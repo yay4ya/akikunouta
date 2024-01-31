@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 interface VideoInfo {
   url: string;
   title: string;
@@ -69,18 +67,32 @@ export class Video {
       return;
     }
     const url = "https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=" + this.id;
-    const response = await axios.get(url);
+    const response = await fetch(url);
     if (response.status !== 200) {
-      throw new Error("failed to fetch video info: " + response);
+      console.error("failed to fetch video info: " + response);
+      // TODO: handle error & return dummy data
+      this.url = "./"
+      this.title = "🎀💙"
+      this.channel = new Channel("./", "勇気ちひろ")
+      this.isVideoInfoFetched = true;
+      videoInfoCache.set(this.id, {
+        url: this.url,
+        title: this.title,
+        authorUrl: this.channel.url,
+        authorName: this.channel.name,
+      })
+      return;
     }
 
-    if (response.data.error !== undefined) {
-      throw new Error("failed to fetch video info: " + response.data.url + "\n" + JSON.stringify(response.data));
+    const data = await response.json();
+
+    if (data.error !== undefined) {
+      throw new Error("failed to fetch video info: " + data.url + "\n" + JSON.stringify(data));
     }
 
-    this.url = response.data.url as string;
-    this.title = response.data.title as string;
-    this.channel = new Channel(response.data.author_url, response.data.author_name);
+    this.url = data.url as string;
+    this.title = data.title as string;
+    this.channel = new Channel(data.author_url, data.author_name);
     this.isVideoInfoFetched = true;
 
     videoInfoCache.set(this.id, {
