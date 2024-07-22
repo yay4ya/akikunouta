@@ -32,3 +32,6 @@ pnpm-debug.log*
 
 # nodenv
 .node-version
+
+# direnv
+.envrc
