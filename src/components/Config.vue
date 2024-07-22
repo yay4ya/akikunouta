@@ -3,16 +3,16 @@
     <v-tabs vertical>
       <v-tab>
         <v-icon left>
-          mdi-database
+          mdi-information-outline
         </v-icon>
-        データの管理
+        このアプリについて
       </v-tab>
 
       <v-tab>
         <v-icon left>
-          mdi-information-outline
+          mdi-database
         </v-icon>
-        このアプリについて
+        データの管理
       </v-tab>
 
       <v-tab>
@@ -25,7 +25,7 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-            <DataManager/>
+            <About/>
           </v-card-text>
         </v-card>
       </v-tab-item>
@@ -33,7 +33,7 @@
       <v-tab-item>
         <v-card flat>
           <v-card-text>
-            <About/>
+            <DataManager/>
           </v-card-text>
         </v-card>
       </v-tab-item>

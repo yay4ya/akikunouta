@@ -1,35 +1,5 @@
 <template>
   <v-app>
-    <v-app-bar
-      app
-      color="main"
-      height="50"
-      elevation="0"
-      class="header"
-    >
-      <div class="d-flex align-center">
-      </div>
-
-      <v-spacer></v-spacer>
-
-      <v-dialog
-        max-width="820px"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            icon
-            v-on="on"
-            v-bind="attrs"
-          >
-            <v-icon>mdi-cog</v-icon>
-          </v-btn>
-        </template>
-          <v-card>
-            <Config/>
-          </v-card>
-      </v-dialog>
-    </v-app-bar>
-
     <v-main>
       <v-container class="d-flex main-container">
 
@@ -39,25 +9,45 @@
         </div>
 
         <div class="right">
-          <div id="search">
-            <v-icon
-              color="accent"
-              size="30"
-              class="icon-search"
-            >mdi-magnify</v-icon>
-            <v-text-field
-              v-model="query"
-              color="accent"
-              hint="キーワードで検索: 「歌ってみた コラボ」「歌枠 音源あり」..."
-            ></v-text-field>
-            <v-btn
-              icon
-              class="btn-clear-query"
-              @click="query = ''"
-            >
-              <v-icon size="20">mdi-close</v-icon>
-            </v-btn>
-          </div>
+          <div id="search-and-info">
+            <div id="search">
+              <v-icon
+                color="accent"
+                size="24"
+                class="icon-search"
+              >mdi-magnify</v-icon>
+              <v-text-field
+                v-model="query"
+                color="accent"
+                hint="キーワードで検索: 「歌ってみた コラボ」「歌枠 音源あり」..."
+              ></v-text-field>
+              <v-btn
+                icon
+                class="btn-clear-query"
+                @click="query = ''"
+              >
+                <v-icon size="20">mdi-close</v-icon>
+              </v-btn>
+            </div>
+            <div class="btn-info">
+              <v-dialog
+                max-width="820px"
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    v-on="on"
+                    v-bind="attrs"
+                  >
+                    <v-icon>mdi-cog</v-icon>
+                  </v-btn>
+                </template>
+                  <v-card>
+                    <Config/>
+                  </v-card>
+              </v-dialog>
+              </div>
+        </div>
           <div id="nav">
             <div class="nav-container">
               <router-link to="/videos" class="router-link">
@@ -198,11 +188,12 @@
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
   .main-container {
-    height: calc(100vh - 50px);
+    height: 100vh;
     max-width: 1390px;
     background-color: var(--v-background2-base);
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
+    border-radius: 10px;
   }
 
   .left {
@@ -215,6 +206,8 @@
 
     #video-player {
       margin-bottom: 15px;
+      background-color: white;
+      border-radius: 10px 10px 10px 10px;
     }
 
     #queue {
@@ -234,25 +227,41 @@
     padding-left: 15px;
     transition: all 0.2s ease;
 
-    #search {
+    #search-and-info {
       display: flex;
       position: relative;
       width: 100%;
       height: 70px;
+      justify-content: space-between;
+      align-items: center;
 
-      .icon-search {
+      #search {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .icon-search {
+          padding-bottom: 15px;
+        }
+
+        .v-input {
+          position: absolute;
+          left: 30px;
+          width: calc(100% - 50px);
+          padding: 0;
+        }
+
+        .btn-clear-query {
+          position: absolute;
+          right: 10px;
+          padding: 0;
+          margin: 0;
+        }
       }
 
-      .v-input {
-        position: absolute;
-        left: 40px;
-        width: calc(100% - 50px);
-        padding: 0;
-      }
-
-      .btn-clear-query {
-        position: absolute;
-        right: 0;
+      .btn-info {
+        padding-bottom: 15px;
       }
     }
 
@@ -270,7 +279,7 @@
         position: relative;
         width: 100%;
         height: 100%;
-        padding: 3px;
+        padding: 2px;
         text-decoration: none;
         text-align: center;
         border-radius: 5px 5px 5px 5px;
@@ -308,7 +317,7 @@
         span {
           display: block;
           color: gray;
-          font-size: 0.7em;
+          font-size: 0.6em;
           text-overflow: ellipsis;
           white-space: nowrap;
           overflow: hidden;
@@ -340,10 +349,6 @@
 
   @media screen and (max-width: 780px) {
     .main-container {
-    }
-
-    .header {
-      display: none;
     }
 
     .left {
