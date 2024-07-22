@@ -362,7 +362,7 @@
   .video-screen {
     width: 100%;
     overflow: hidden;
-    border-radius: 10px 10px 10px 10px;
+    border-radius: 10px 10px 0px 0px;
     position: relative;
 
     &:before {
@@ -412,7 +412,7 @@
         width: 120px;
         height: 30px;
         padding-right: 25px;
-        background-color: rgba(100, 100, 100, 0.8);
+        background-color: rgba(100, 100, 100, 0.6);
         border-radius: 5px 5px 5px 5px;
         display: none;
       }
@@ -457,6 +457,7 @@
   }
 
   .video-controller {
+    padding: 0 10px;
     .seekbar-container {
       display: flex;
       padding-bottom: 5px;
@@ -478,33 +479,23 @@
 
     .player-control-buttons {
       display: flex;
-      align-content: space-between;
+      justify-content: space-between;
+      align-items: center;
+      margin: auto;
+      padding: 20px 0 15px 0;
+
       height: 30px;
-      width: 100%;
+      width: 200px;
       position: relative;
       align-content: center;
+      margin-bottom: 15px;
 
       .btn-play-pause {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform : translate(-50%,-50%);
-        transform : translate(-50%,-50%);
       }
       .btn-skip-next{
-        position: absolute;
-        top: 50%;
-        left: 70%;
-        -webkit-transform : translate(-50%,-50%);
-        transform : translate(-50%,-50%);
 
       }
       .btn-skip-previous {
-        position: absolute;
-        top: 50%;
-        left: 30%;
-        -webkit-transform : translate(-50%,-50%);
-        transform : translate(-50%,-50%);
       }
     }
   }
