@@ -286,7 +286,7 @@
 
     .btn-delete-track {
       position: absolute;
-      top: 0;
+      top: -3px;
       left: 0px;
       display: none;
 
