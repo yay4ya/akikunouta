@@ -362,7 +362,7 @@
   .video-screen {
     width: 100%;
     overflow: hidden;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 20px 20px 0px 0px;
     position: relative;
 
     &:before {
@@ -413,7 +413,7 @@
         height: 30px;
         padding-right: 25px;
         background-color: rgba(100, 100, 100, 0.6);
-        border-radius: 5px 5px 5px 5px;
+        border-radius: 10px;
         display: none;
       }
 

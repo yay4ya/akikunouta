@@ -389,7 +389,7 @@
       font-size: 0.65em;
       color: white;
       background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 5px;
     }
   }
 </style>

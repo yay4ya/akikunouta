@@ -193,7 +193,7 @@
     background-color: var(--v-background2-base);
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
-    border-radius: 10px;
+    border-radius: 20px;
   }
 
   .left {
@@ -207,7 +207,7 @@
     #video-player {
       margin-bottom: 15px;
       background-color: white;
-      border-radius: 10px 10px 10px 10px;
+      border-radius: 20px;
     }
 
     #queue {
@@ -282,7 +282,7 @@
         padding: 2px;
         text-decoration: none;
         text-align: center;
-        border-radius: 5px 5px 5px 5px;
+        border-radius: 10px;
         overflow: hidden;
 
         &:after {
