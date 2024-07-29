@@ -27,7 +27,7 @@
           </v-btn>
           <div class="track-info">
             <div class="track-title">
-              {{ playingTrack?.title }} / {{ playingTrack.artist }}
+              {{ playingTrack?.title }} / {{ playingTrack?.artist }}
             </div>
             <div class="track-singer">
               {{ playingTrack?.singer }}
@@ -121,12 +121,52 @@
         >
           {{ playlistName }}
         </span>
-        <v-btn
-          icon
-          @click="savePlaylist"
+        <v-dialog
+          v-model="savePlaylistDialog"
+          max-width="450"
         >
-          <v-icon>mdi-download</v-icon>
-        </v-btn>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              icon
+              v-bind="attrs"
+              v-on="on"
+            >
+              <v-icon>mdi-download</v-icon>
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-title>プレイリストを保存</v-card-title>
+            <v-alert
+              v-if="newPlaylistErrorMessage"
+              :type="newPlaylistErrorMessage.type"
+              @click="newPlaylistErrorMessage = null"
+            >
+              {{ newPlaylistErrorMessage.text }}
+            </v-alert>
+            <v-card-text>
+              <v-text-field
+                v-model="newPlaylistName"
+                label="プレイリスト名"
+                outlined
+              ></v-text-field>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn
+                text
+                color="blue"
+                @click="savePlaylist"
+              >
+                保存
+              </v-btn>
+              <v-btn
+                text
+                @click="savePlaylistDialog = false"
+              >
+                キャンセル
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </div>
       <ul class="track-list">
         <li
@@ -159,7 +199,14 @@
   import * as VuexMutation from '@/store/mutation-types';
   import {Track} from '@/models/track';
   import {library} from '@/models/library';
+  import Message from '@/models/message';
   import {secondsToTime} from '@/util';
+
+  const emptyPlaylistNameErrorMessage = new Message(
+    'error',
+    'プレイリスト名が空欄です',
+  );
+
 
   Vue.use(VueYoutube)
 
@@ -188,6 +235,9 @@
         trackPlayed: false,
         playingTrack: null as Track | null,
         processId: null as number | null,
+        savePlaylistDialog: false,
+        newPlaylistName: '',
+        newPlaylistErrorMessage: null as string | null,
       }
     },
 
@@ -253,6 +303,7 @@
         setPlayerVolume: VuexMutation.SET_PLAYER_VOLUME,
         setPlayerMute: VuexMutation.SET_PLAYER_MUTE,
         addPlaylist: VuexMutation.ADD_PLAYLIST,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
 
 
@@ -363,23 +414,44 @@
       },
 
       savePlaylist() {
-        const name = this.playlistName;
+        if (!this.newPlaylistName) {
+          this.newPlaylistErrorMessage = emptyPlaylistNameErrorMessage.message;
+          return;
+        }
+        const name = this.newPlaylistName;
         const tracks = this.tracks;
         const playlist = { name, tracks };
-        this.addPlaylist(playlist);
+        try {
+          this.addPlaylist(playlist);
+        } catch(error) {
+          this.newPlaylistErrorMessage = new Message(
+            'error',
+            error.message,
+          );
+          return;
+        }
+        this.savePlaylistDialog = false;
+        this.addMessage(new Message(
+          'info',
+          `プレイリスト「${name}」を保存しました`,
+        ));
       }
     },
 
     async mounted() {
+      this.newPlaylistName = this.playlistName;
+
+      await this.$nextTick(() => {
+        this.player.addEventListener(
+          'onStateChange',
+          (state: YoutubePlayerState) => {
+            this.playerState = state.data;
+          }
+        );
+      });
       if (this.tracks.length > 0) {
         await this.loadTrack(this.tracks[0]);
       }
-      this.player.addEventListener(
-        'onStateChange',
-        (state: YoutubePlayerState) => {
-          this.playerState = state.data;
-        }
-      );
     },
 
     watch: {
