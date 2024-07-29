@@ -467,7 +467,7 @@
   .shared-player-overlay {
     width: 100vw;
     height: 100vh;
-    max-height: 455px;
+    max-height: 490px;
     max-width: 1100px;
 
     @media screen and (max-width: 780px) {
@@ -493,7 +493,7 @@
       border-radius: 20px;
       overflow-y: auto;
       width: 100%;
-      height: 100%;
+      height: calc(100% - 32px);
     }
 
   }
