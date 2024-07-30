@@ -93,4 +93,11 @@ export class Track {
     }
     return isMatch;
   }
+
+  public getUrl(): string {
+    const params = new URLSearchParams({
+      tracks: `${this.id}`,
+    });
+    return 'https://yay4ya.github.io/akikunouta/#/videos?' + params.toString();
+  }
 }
