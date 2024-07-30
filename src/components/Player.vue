@@ -362,7 +362,7 @@
 
       getTwitterUrl() {
         const message = encodeURIComponent(`#アキくんのおうた\n『${this.playingTrack?.title}』\n${this.getSharingUrl()}`);
-        return `https://x.com/intent/post?text=${message}`;
+        return `https://twitter.com/intent/tweet?text=${message}`;
       },
 
       copySharingUrl() {
