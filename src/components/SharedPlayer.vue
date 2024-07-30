@@ -669,7 +669,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        font-size: 1.3rem;
+        font-size: 1rem;
         color: #3f3f3f;
 
         .v-icon {
