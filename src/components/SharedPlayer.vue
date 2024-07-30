@@ -365,11 +365,25 @@
       },
 
       playNext() {
-        return
+        if (!this.playingTrack) return;
+        const index = this.tracks.findIndex(track => track.uuid === this.playingTrack.uuid);
+        if (index === -1) return;
+        const nextIndex = index + 1;
+        if (nextIndex === this.tracks.length) {
+          return;
+        }
+        this.loadTrack(this.tracks[nextIndex]);
       },
 
       playPrev() {
-        return
+        if (!this.playingTrack) return;
+        const index = this.tracks.findIndex(track => track.uuid === this.playingTrack.uuid);
+        if (index === -1) return;
+        const prevIndex = index - 1;
+        if (prevIndex < 0) {
+          return;
+        }
+        this.loadTrack(this.tracks[prevIndex]);
       },
 
       seekStart() {
