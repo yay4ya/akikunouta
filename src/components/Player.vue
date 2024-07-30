@@ -249,6 +249,9 @@
           this.playerState = state.data;
         }
       );
+      if (this.$route.query.tracks) {
+        await this.pauseVideo();
+      }
     },
 
     methods: {
