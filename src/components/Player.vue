@@ -361,7 +361,7 @@
       },
 
       getTwitterUrl() {
-        const message = encodeURIComponent(`#アキくんのおうた\n『${this.playingTrack?.title}』\n${this.getSharingUrl()}`);
+        const message = encodeURIComponent(`『${this.playingTrack?.title}』\n#アキくんのおうた\n${this.getSharingUrl()}`);
         return `https://twitter.com/intent/tweet?text=${message}`;
       },
 

@@ -337,7 +337,7 @@
       },
       getTwitterShareUrl() {
         const url = this.getSelectedPlaylistUrl();
-        const message = `#アキくんのおうた\nプレイリスト『${this.selectedPlaylist?.name}』\n${url}`;
+        const message = `プレイリスト『${this.selectedPlaylist?.name}』\n#アキくんのおうた\n${url}`;
         return 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(message);
       },
     },
