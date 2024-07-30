@@ -495,9 +495,9 @@
     gap: 10px;
     width: 100%;
     height: 100%;
-    min-height: fit-content;
-    max-width: none;
     margin: 0;
+
+    max-width: 100%;
 
     @media screen and (max-width: 780px) {
       flex-direction: column;
@@ -505,12 +505,14 @@
   }
 
   .player-container {
-    width: 50%;
+    width: 100%;
     height: 100%;
+    max-width: 50%;
     color: #3f3f3f;
 
     @media screen and (max-width: 780px) {
       width: 100%;
+      max-width: 100%;
     }
 
     .video-container {
@@ -530,12 +532,14 @@
       .track-controls {
         display: flex;
         width: 100%;
+        gap: 10px;
         justify-content: center;
         align-items: center;
         padding-left: 8px;
         padding-right: 8px;
 
         .btn-favorite {
+          flex-shrink: 0;
           color: #8f8f8f;
           &:hover {
             color: red;
@@ -545,7 +549,9 @@
         .track-info {
           color: #3f3f3f;
           width: 100%;
+          max-width: 100%;
           text-align: center;
+          overflow: hidden;
 
           .track-title {
             overflow: hidden;
@@ -561,6 +567,7 @@
 
         .volume-control {
           position: relative;
+          flex-shrink: 0;
 
           .btn-volume {
             color: #5f5f5f;
@@ -628,19 +635,25 @@
   }
 
   .tracklist-container {
+    flex-grow: 1;
     height: 100%;
-    width: 50%;
+    widht: 100%;
     min-height: 100px;
+    max-width: 50%;
     overflow: hidden;
     padding: 0;
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border-radius: 16px;
 
     @media screen and (max-width: 780px) {
       width: 100%;
+      max-width: 100%;
     }
 
     .playlist-info {
+      flex-shrink: 0;
       display: flex;
       gap: 8px;
       justify-content: center;
@@ -668,7 +681,7 @@
     .track-list {
       position: relative;
       width: 100%;
-      height: calc(100% - 43px);
+      height: 100%;
       overflow-y: auto;
       list-style: none;
       padding: 0;

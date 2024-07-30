@@ -467,7 +467,7 @@
 
   .shared-player-overlay {
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     max-height: 490px;
     max-width: 1100px;
 
