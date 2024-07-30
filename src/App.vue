@@ -193,7 +193,7 @@
   @media screen and (max-width: 780px) {
     .v-main {
       padding-top: 0 !important;
-      height: 100vh;
+      height: 100svh;
     }
   }
 
@@ -216,7 +216,7 @@
   @import url('https://fonts.googleapis.com/css?family=Noto+Sans+JP');
 
   .main-container {
-    height: 100vh;
+    height: 100svh;
     max-width: 1390px;
     background-color: var(--v-background2-base);
     font-size: 97%;
@@ -388,16 +388,16 @@
       left: 0;
       z-index: 1;
       width: 100%;
-      height: calc(100vh - 50px);
+      height: calc(100svh - 50px);
 
       @keyframes show{
         from{
-          transform: translateY(100vh);
-          height: calc(100vh - 50px);
+          transform: translateY(100svh);
+          height: calc(100svh - 50px);
         }
         to{
           transform: translateY(0);
-          height: calc(100vh - 50px);
+          height: calc(100svh - 50px);
         }
       }
 
@@ -406,13 +406,13 @@
           transform: translateY(0);
         }
         to{
-          transform: translateY(100vh);
+          transform: translateY(100svh);
         }
       }
 
       &.hide {
         animation: hide 0.2s ease;
-        transform: translateY(100vh);
+        transform: translateY(100svh);
         overflow: hidden;
         height: 0;
         margin: 0;
@@ -472,7 +472,7 @@
     max-width: 1100px;
 
     @media screen and (max-width: 780px) {
-      max-height: 100vh;
+      max-height: 100svh;
     }
 
     .shared-player-controls {
