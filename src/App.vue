@@ -102,6 +102,26 @@
 
         <MessageTray id="message-tray"/>
       </v-container>
+
+      <v-overlay
+        v-if="sharedPlayer && urlQuery.tracks"
+        opacity="0.3"
+        :dark="false"
+      >
+        <div class="shared-player-overlay">
+          <div class="shared-player-controls">
+            <v-btn
+              icon
+              color="white"
+              small
+              @click="sharedPlayer=false"
+            ><v-icon>mdi-close</v-icon></v-btn>
+          </div>
+          <div id="shared-player">
+            <SharedPlayer/>
+          </div>
+        </div>
+      </v-overlay>
     </v-main>
   </v-app>
 </template>
@@ -119,11 +139,13 @@
       Player: () => import ('@/components/Player.vue'),
       Config: () => import ('@/components/Config.vue'),
       MessageTray: () => import ('@/components/MessageTray.vue'),
+      SharedPlayer: () => import ('@/components/SharedPlayer.vue'),
      },
     data() {
       return {
         library: library,
         player: false,
+        sharedPlayer: true,
       }
     },
     computed: {
@@ -139,6 +161,9 @@
       routerPath(): string {
         return this.$route.path;
       },
+      urlQuery(): object {
+        return this.$route.query;
+      }
     },
     methods: {
       ...mapMutations({
@@ -147,6 +172,9 @@
       togglePlayer() {
         this.player = !this.player;
       },
+      toggleSharedPlayer() {
+        this.sharedPlayer = !this.sharedPlayer;
+      }
     },
     watch: {
       playingTrack() {
@@ -193,7 +221,7 @@
     background-color: var(--v-background2-base);
     font-size: 97%;
     font-family: 'Noto Sans JP', sans-serif;;
-    border-radius: 10px;
+    border-radius: 20px;
   }
 
   .left {
@@ -207,7 +235,8 @@
     #video-player {
       margin-bottom: 15px;
       background-color: white;
-      border-radius: 10px 10px 10px 10px;
+      border-radius: 20px;
+      box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.05);
     }
 
     #queue {
@@ -282,7 +311,7 @@
         padding: 2px;
         text-decoration: none;
         text-align: center;
-        border-radius: 5px 5px 5px 5px;
+        border-radius: 10px;
         overflow: hidden;
 
         &:after {
@@ -436,5 +465,37 @@
     }
   }
 
+  .shared-player-overlay {
+    width: 100vw;
+    height: 100vh;
+    max-height: 490px;
+    max-width: 1100px;
 
+    @media screen and (max-width: 780px) {
+      max-height: 100vh;
+    }
+
+    .shared-player-controls {
+      width: 100%;
+      height: 32px;
+      display: flex;
+      justify-content: flex-end;
+      .v-btn {
+        font-size: 1rem;
+        background-color: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(10px);
+        margin-bottom: 5px;
+      }
+    }
+
+    #shared-player {
+      background-color: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      overflow-y: auto;
+      width: 100%;
+      height: calc(100% - 32px);
+    }
+
+  }
 </style>

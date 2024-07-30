@@ -110,6 +110,36 @@
               >
                 <v-icon>mdi-repeat</v-icon>
               </v-btn>
+              <v-menu
+                offset-y
+                bottom
+              >
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    icon
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon>mdi-share</v-icon>
+                  </v-btn>
+                </template>
+                <v-list dense>
+                  <v-list-item
+                    dense
+                    :href="getTwitterShareUrl()"
+                    target="_blank"
+                  >
+                    <v-list-item-title>Xで共有</v-list-item-title>
+                  </v-list-item>
+                  <v-list-item
+                    dense
+                    @click="copySelectedPlaylistUrl"
+                  >
+                    <v-list-item-title>URLをコピー</v-list-item-title>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
               <v-dialog
                 max-width="300px"
                 v-model="deleteDialog"
@@ -173,7 +203,7 @@
   import * as VuexMutation from '@/store/mutation-types';
   import * as util from '@/util';
   import {Track} from '@/models/track';
-  import {Playlist} from '@/models/playlist';
+  import {Playlist, getPlaylistUrl} from '@/models/playlist';
   import Message from '@/models/message';
   import Card from '@/models/card';
 
@@ -293,6 +323,22 @@
           this.setQueue(tracks);
           this.setPlayerRepeat('repeat');
         }
+      },
+      getSelectedPlaylistUrl() {
+        if (!this.selectedPlaylist) {
+          throw Error("no playlist selected");
+        }
+        return getPlaylistUrl(this.selectedPlaylist);
+      },
+      copySelectedPlaylistUrl() {
+        const url = this.getSelectedPlaylistUrl();
+        window.navigator.clipboard.writeText(url);
+        this.addMessage(new Message('info', 'プレイリストのURLをコピーしました'));
+      },
+      getTwitterShareUrl() {
+        const url = this.getSelectedPlaylistUrl();
+        const message = `#アキくんのおうた\nプレイリスト『${this.selectedPlaylist?.name}』\n${url}`;
+        return 'https://x.com/intent/post?text=' + encodeURIComponent(message);
       },
     },
     watch: {

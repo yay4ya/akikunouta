@@ -9,7 +9,10 @@
       class="track-card"
     >
       <div class="d-flex flex-no-wrap justify-space-between track-content">
-        <div class="handle">
+        <div
+          v-if="!nohandle"
+          class="handle"
+        >
           <v-icon size="20">mdi-drag</v-icon>
         </div>
 
@@ -135,7 +138,7 @@
 
   export default Vue.extend({
     name: 'Track',
-    props: ['track', 'deletable', 'nowPlayingId', 'queueing'],
+    props: ['track', 'deletable', 'nowPlayingId', 'queueing', 'nohandle'],
     components: {
       PlaylistDialog: () => import ('@/components/PlaylistDialog.vue'),
      },
@@ -232,6 +235,7 @@
     user-select:none;
     align-items: center;
     height: 100%;
+    width: 100%;
 
     &:before {
       transition: opacity 0.3s;
@@ -282,7 +286,7 @@
 
     .btn-delete-track {
       position: absolute;
-      top: 0;
+      top: -3px;
       left: 0px;
       display: none;
 
@@ -389,7 +393,7 @@
       font-size: 0.65em;
       color: white;
       background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 5px 5px 5px 5px;
+      border-radius: 5px;
     }
   }
 </style>

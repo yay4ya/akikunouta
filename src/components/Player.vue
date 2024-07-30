@@ -24,16 +24,50 @@
       >
         <v-icon size="20">{{ (playingTrack && playingTrack.isFavorite)? 'mdi-heart' : 'mdi-heart-outline' }}</v-icon>
       </v-btn>
-      <div class="playing-track-details">
-        <div class="playing-track-title">
-          {{ playingTrack? (playingTrack.title + " / " + playingTrack.artist) : '' }}
-        </div>
-        <div
-         class="playing-track-singer"
-         target="_blank"
-        >
-          {{ playingTrack? playingTrack.singer : ''}}
-        </div>
+
+      <div class="playing-track-detail-container">
+        <v-menu offset-y right nudge-right>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs" v-on="on"
+              class="playing-track-details"
+              retain-focus-on-click
+            >
+              <div
+              >
+                <div class="playing-track-title">
+                  {{ playingTrack? (playingTrack.title + " / " + playingTrack.artist) : '' }}
+
+                </div>
+                <div
+                 class="playing-track-singer"
+                 target="_blank"
+                >
+                  {{ playingTrack? playingTrack.singer : ''}}
+                </div>
+                <div class="share-btn">
+                  <v-icon size="18" color="#8f8f8f">mdi-share</v-icon>
+                </div>
+              </div>
+            </v-btn>
+          </template>
+          <div
+            class="sharing-menu"
+            v-if="playingTrack"
+          >
+            <v-btn
+              icon
+              class="share-btn-x"
+              :href="getTwitterUrl()"
+              target="_blank"
+            ><b>𝕏</b></v-btn>
+            <v-btn
+              icon
+              class="share-btn-link"
+              @click="copySharingUrl"
+            ><v-icon>mdi-link-variant</v-icon></v-btn>
+          </div>
+        </v-menu>
       </div>
 
       <div class="volume-control">
@@ -131,6 +165,7 @@
           YoutubePlayerState} from 'youtube-iframe-api';
   import {secondsToTime} from '@/util';
   import {Track} from '@/models/track';
+  import Message from '@/models/message';
 
   Vue.use(VueYoutube)
 
@@ -222,6 +257,7 @@
         removeFavoriteTrack: VuexMutation.REMOVE_FAVORITE_TRACK,
         setPlayerVolume: VuexMutation.SET_PLAYER_VOLUME,
         setPlayerMute: VuexMutation.SET_PLAYER_MUTE,
+        addMessage: VuexMutation.ADD_MESSAGE,
       }),
 
       ...mapActions({
@@ -320,6 +356,19 @@
         this.setPlayerMute(!this.playerMute);
       },
 
+      getSharingUrl() {
+        return this.playingTrack?.getUrl();
+      },
+
+      getTwitterUrl() {
+        const message = encodeURIComponent(`#アキくんのおうた\n『${this.playingTrack?.title}』\n${this.getSharingUrl()}`);
+        return `https://x.com/intent/post?text=${message}`;
+      },
+
+      copySharingUrl() {
+        navigator.clipboard.writeText(this.getSharingUrl());
+        this.addMessage(new Message('info', 'URLをコピーしました'));
+      },
     },
 
     watch: {
@@ -362,7 +411,7 @@
   .video-screen {
     width: 100%;
     overflow: hidden;
-    border-radius: 10px 10px 0px 0px;
+    border-radius: 20px 20px 0px 0px;
     position: relative;
 
     &:before {
@@ -382,38 +431,43 @@
   .container {
     width: 100%;
     padding: 0;
+    position: relative;
   }
 
   .playing-track-info {
     width: 100%;
     display: flex;
+    gap: 5px;
     position: relative;
     padding: 5px 10px 0 10px;
 
-    .v-btn {
-      margin-top: 5px;
-    }
+    justify-content: center;
+    align-items: center;
 
     .btn-favorite {
+      flex-shrink: 0;
+      width: fit-content;
       &:hover {
         color: red;
       }
     }
 
     .volume-control {
+      flex-shrink: 0;
+
       &:hover .v-btn {
         color: white;
       }
 
       .volume-slider {
         position: absolute;
-        top: 8px;
+        top: 14px;
         right: 10px;
         width: 120px;
         height: 30px;
         padding-right: 25px;
         background-color: rgba(100, 100, 100, 0.6);
-        border-radius: 5px 5px 5px 5px;
+        border-radius: 10px;
         display: none;
       }
 
@@ -432,26 +486,54 @@
       }
     }
 
-    .playing-track-details {
-        width: calc(100% - 50px);
-        padding: 0 10px;
+    .playing-track-detail-container {
+      flex-shrink: 1;
+      position: relative;
+      width: calc(100% - 80px);
+      overflow: hidden;
+
+      .playing-track-details {
+        background-color: transparent;
+        box-shadow: none;
+        padding: 5px 30px;
+        position: relative;
+        border-radius: 10px;
+        cursor: pointer;
         overflow: hidden;
+        margin: auto;
+        height: fit-content;
+        width: 100%;
 
-      .playing-track-title, .playing-track-singer {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        text-align: center;
-        white-space: nowrap;
-      }
+        &:hover .share-btn {
+          opacity: 1;
+        }
 
-      .playing-track-title {
-        color: #3f3f3f;
-      }
+        .playing-track-title, .playing-track-singer {
+          margin: 0 0px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-align: center;
+          white-space: nowrap;
+        }
 
-      .playing-track-singer {
-        text-decoration: none;
-        font-size: 0.8em;
-        color: #8f8f8f;
+        .playing-track-title {
+          color: #3f3f3f;
+        }
+
+        .playing-track-singer {
+          text-decoration: none;
+          font-size: 0.8em;
+          color: #8f8f8f;
+        }
+
+        .share-btn {
+          position: absolute;
+          right: -24px;
+          top: 5px;
+          color: #8f8f8f;
+          opacity: 0.3;
+          overflow: revert;
+        }
       }
     }
   }
@@ -485,7 +567,7 @@
       padding: 20px 0 15px 0;
 
       height: 30px;
-      width: 200px;
+      width: 150px;
       position: relative;
       align-content: center;
       margin-bottom: 15px;
@@ -499,4 +581,31 @@
       }
     }
   }
+
+  .v-menu__content {
+    box-shadow: none;
+    overflow: visible !important;
+    contain: unset;
+    .sharing-menu {
+      width: fit-content;
+      padding: 5px;
+      background-color: white;
+      float: right;
+      border-radius: 30px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+      .share-btn-x {
+        font-size: 1.5em;
+      }
+    }
+  }
+</style>
+
+<style lang="scss">
+    .playing-track-details {
+      .v-btn__content {
+        display: block;
+        width: 100%;
+      }
+    }
 </style>
