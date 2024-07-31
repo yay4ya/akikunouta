@@ -464,11 +464,11 @@
 
       .volume-slider {
         position: absolute;
-        top: 14px;
-        right: 10px;
-        width: 120px;
+        top: 13px;
+        right: 18px;
+        width: 128px;
         height: 30px;
-        padding-right: 25px;
+        padding-right: 30px;
         background-color: rgba(100, 100, 100, 0.6);
         border-radius: 10px;
         display: none;
