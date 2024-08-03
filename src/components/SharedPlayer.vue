@@ -238,6 +238,7 @@
         savePlaylistDialog: false,
         newPlaylistName: '',
         newPlaylistErrorMessage: null as string | null,
+        videoPlayed: false,
       }
     },
 
@@ -319,6 +320,7 @@
 
       async playing() {
         if (!this.playingTrack) return;
+        this.videoPlayed = true;
         this.trackPlayed = true;
         this.trackDuration = this.playingTrack.end - this.playingTrack.start;
 
@@ -346,7 +348,7 @@
       ended() {
         if (!this.videoPlayed) return;
         this.videoPlayed = false;
-        this.setNextTrack();
+        this.playNext();
       },
 
       async playVideo() {
