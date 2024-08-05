@@ -4458,5 +4458,19 @@
     ],
     "start": 0,
     "end": 268
+  },
+  {
+    "id": 304,
+    "title": "No Logic",
+    "singer": "鈴谷アキ",
+    "artist": "ジミーサムP",
+    "videoid": "KKxUGCUwWIQ",
+    "publishedAt": "2018-05-17",
+    "tags": [
+      "音源なし",
+      "配信"
+    ],
+    "start": 3211,
+    "end": 3435
   }
 ]
