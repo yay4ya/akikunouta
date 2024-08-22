@@ -4472,5 +4472,46 @@
     ],
     "start": 3211,
     "end": 3435
+  },
+  {
+    "id": 305,
+    "title": "メルティランドナイトメア(別ver)",
+    "singer": "鈴谷アキ",
+    "artist": "はるまきごはん",
+    "videoid": "94LZDM_Ibhg",
+    "publishedAt": "2022-10-14",
+    "tags": [
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 270
+  },
+  {
+    "id": 306,
+    "title": "ギガンティックO.T.N",
+    "singer": "鈴谷アキ・鈴木勝",
+    "artist": "ギガP",
+    "videoid": "KN72tkJlOys",
+    "publishedAt": "2024-08-22",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 200
+  },
+  {
+    "id": 307,
+    "title": "聖槍爆裂ボーイ",
+    "singer": "鈴谷アキ・鈴木勝",
+    "artist": "れるりり＆もじゃ",
+    "videoid": "IgJN8q1080E",
+    "publishedAt": "2024-08-22",
+    "tags": [
+      "コラボ",
+      "歌ってみた"
+    ],
+    "start": 0,
+    "end": 209
   }
 ]
