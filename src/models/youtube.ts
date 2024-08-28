@@ -1,3 +1,5 @@
+import tracks from '@/data/tracks.json';
+
 interface VideoInfo {
   url: string;
   title: string;
@@ -6,6 +8,15 @@ interface VideoInfo {
 }
 
 const videoInfoCache = new Map<string, VideoInfo>();
+for (const track of tracks) {
+  if (!track.metadata?.video) continue;
+  videoInfoCache.set(track.videoid, {
+    url: `https://www.youtube.com/watch?v=${track.videoid}`,
+    title: track.metadata.video.title || '',
+    authorUrl: track.metadata.video.author_url || '',
+    authorName: track.metadata.video.author_name || '',
+  });
+}
 
 export type ThumbnailQuality = 'default' | 'mqdefault' | 'hqdefault';
 
@@ -115,8 +126,10 @@ export class Video {
     return this.channel;
   }
 
+  // eslint-disable-next-line
   public getThumbnailURL(quality: ThumbnailQuality): string {
-    return 'https://i.ytimg.com/vi/' + this.id + '/' + quality + '.jpg';
+    // return 'https://i.ytimg.com/vi/' + this.id + '/' + quality + '.jpg';
+    return `thumbnails/${this.id}.jpg`;
   }
 
   public hasVideoInfo(): boolean {
