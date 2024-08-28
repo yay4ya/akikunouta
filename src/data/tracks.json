@@ -4520,12 +4520,96 @@
     "singer": "鈴谷アキ・剣持刀也",
     "artist": "MIMI",
     "videoid": "D3gnV0AfO4s",
-    "publishedAt": "2024-08-22",
+    "publishedAt": "2024-08-26",
     "tags": [
       "コラボ",
       "歌ってみた"
     ],
     "start": 0,
     "end": 155
+  },
+  {
+    "id": 309,
+    "title": "世田谷ナイトサファリ",
+    "singer": "鈴谷アキ",
+    "artist": "みきとP",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 1723.8,
+    "end": 2007.2
+  },
+  {
+    "id": 310,
+    "title": "花人局",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2151,
+    "end": 2480
+  },
+  {
+    "id": 311,
+    "title": "晩餐歌",
+    "singer": "鈴谷アキ",
+    "artist": "tuki.",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2518,
+    "end": 2755
+  },
+  {
+    "id": 312,
+    "title": "斜陽",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 2836.5,
+    "end": 3038
+  },
+  {
+    "id": 313,
+    "title": "思想犯",
+    "singer": "鈴谷アキ",
+    "artist": "ヨルシカ",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3137,
+    "end": 3390
+  },
+  {
+    "id": 314,
+    "title": " 永遠のあくる日",
+    "singer": "鈴谷アキ",
+    "artist": "Ado",
+    "videoid": "EEMHscx5Hn4",
+    "publishedAt": "2024-08-28",
+    "tags": [
+      "歌枠",
+      "音源あり"
+    ],
+    "start": 3493,
+    "end": 3736.1
   }
 ]
